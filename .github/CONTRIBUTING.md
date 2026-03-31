@@ -1,3 +1,4 @@
+<!-- 🤖 Generated wholely or partially with GPT-5.4 -->
 # Contributing
 
 Thanks for your interest in contributing to Saber.
@@ -37,6 +38,14 @@ All new and existing tests must pass.
 If you cannot add tests for your change, please explain why in the PR description.
 
 Try to follow existing test patterns and conventions.
+
+Before opening a pull request, run the same checks used in CI where possible:
+
+- `flutter test --coverage --no-pub`
+- `flutter analyze --no-pub`
+- `dart format lib scripts test --output none --set-exit-if-changed`
+
+For golden tests and platform-specific setup, see [Build Saber](https://github.com/saber-notes/saber/wiki/build) on the wiki.
 
 ### 4. Document public members
 
