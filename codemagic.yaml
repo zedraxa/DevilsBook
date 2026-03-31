@@ -28,12 +28,12 @@ workflows:
     environment:
       ios_signing:
         distribution_type: app_store
-        bundle_identifier: com.adilhanney.saber
+        bundle_identifier: devilsbook
       groups:
         - appstore_credentials
         - sentry
       vars:
-        BUNDLE_ID: com.adilhanney.saber
+        BUNDLE_ID: devilsbook
         XCODE_WORKSPACE: ios/Runner.xcworkspace
         XCODE_SCHEME: Runner
       xcode: latest
@@ -101,7 +101,7 @@ workflows:
 
       - name: Rename IPA artifact
         script: |
-          BUILD_NAME=$(grep -oP "(?<=buildName = ').*(?=')" lib/data/version.dart)
+          BUILD_NAME=$(sed -n "s/.*buildName = '\(.*\)'.*/\1/p" lib/data/version.dart)
           export IPA_PATH="Saber_v${BUILD_NAME}.ipa"
           mv $(find $(pwd) -name "*.ipa") "$IPA_PATH"
           echo "IPA_PATH=$IPA_PATH" >> $CM_ENV
