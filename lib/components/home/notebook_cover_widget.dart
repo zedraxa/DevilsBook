@@ -1,4 +1,4 @@
-/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; notebook cover painters
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; Claude Sonnet 4; notebook cover painters
 library;
 
 import 'dart:math' as math;
@@ -180,7 +180,7 @@ class _CoverSurface extends StatelessWidget {
     Color fg,
   ) {
     return switch (template) {
-      NotebookCoverTemplate.plain => _PlainPainter(),
+      NotebookCoverTemplate.plain => const _PlainPainter(),
       NotebookCoverTemplate.linen => _LinenPainter(base: base, fg: fg),
       NotebookCoverTemplate.dots => _DotsPainter(fg: fg),
       NotebookCoverTemplate.stripes => _StripesPainter(fg: fg),
@@ -196,6 +196,8 @@ class _CoverSurface extends StatelessWidget {
 // ────────────────────────────────────────────────────────────────────────────
 
 class _PlainPainter extends CustomPainter {
+  const _PlainPainter();
+
   @override
   void paint(Canvas canvas, Size size) {}
   @override

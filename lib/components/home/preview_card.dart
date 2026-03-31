@@ -1,4 +1,4 @@
-/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; notebook cover system
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; Claude Sonnet 4; notebook cover system
 library;
 
 import 'dart:async';
@@ -114,6 +114,7 @@ class _PreviewCardState extends State<PreviewCard> {
   void _refreshThumbnailAfterDelay() {
     _refreshThumbnailTimer?.cancel();
     _refreshThumbnailTimer = Timer(const Duration(milliseconds: 500), () {
+      if (!mounted) return;
       thumbnail.image?.evict();
       thumbnail.markAsChanged();
     });

@@ -1,8 +1,10 @@
-/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; notebook cover picker dialog
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; Claude Sonnet 4; notebook cover picker dialog
 library;
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:saber/components/home/notebook_cover_widget.dart';
+import 'package:saber/components/theming/adaptive_alert_dialog.dart';
 import 'package:saber/data/notebook_cover.dart';
 import 'package:saber/i18n/strings.g.dart';
 
@@ -51,9 +53,8 @@ class _CoverPickerDialogState extends State<CoverPickerDialog> {
     final colorScheme = ColorScheme.of(context);
     final t = Translations.of(context);
 
-    return AlertDialog(
+    return AdaptiveAlertDialog(
       title: Text(t.home.cover.chooseCover),
-      contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 0),
       content: SizedBox(
         width: 360,
         child: SingleChildScrollView(
@@ -132,11 +133,12 @@ class _CoverPickerDialogState extends State<CoverPickerDialog> {
         ),
       ),
       actions: [
-        TextButton(
+        CupertinoDialogAction(
           onPressed: () => Navigator.of(context).pop(null),
           child: Text(t.common.cancel),
         ),
-        FilledButton(
+        CupertinoDialogAction(
+          isDefaultAction: true,
           onPressed: () => Navigator.of(context).pop(_current),
           child: Text(t.common.done),
         ),
@@ -162,39 +164,46 @@ class _ColorSwatch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        width: 36,
-        height: 36,
-        decoration: BoxDecoration(
-          color: color,
-          shape: BoxShape.circle,
-          border: selected
-              ? Border.all(
-                  color: ColorScheme.of(context).onSurface,
-                  width: 3,
-                )
-              : Border.all(color: Colors.transparent, width: 3),
-          boxShadow: [
-            BoxShadow(
-              color: color.withValues(alpha: 0.5),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
+    return Semantics(
+      button: true,
+      selected: selected,
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: onTap,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 150),
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              color: color,
+              shape: BoxShape.circle,
+              border: selected
+                  ? Border.all(
+                      color: ColorScheme.of(context).onSurface,
+                      width: 3,
+                    )
+                  : Border.all(color: Colors.transparent, width: 3),
+              boxShadow: [
+                BoxShadow(
+                  color: color.withValues(alpha: 0.5),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ],
             ),
-          ],
+            child: selected
+                ? Icon(
+                    Icons.check,
+                    size: 18,
+                    color: ThemeData.estimateBrightnessForColor(color) ==
+                            Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                  )
+                : null,
+          ),
         ),
-        child: selected
-            ? Icon(
-                Icons.check,
-                size: 18,
-                color: ThemeData.estimateBrightnessForColor(color) ==
-                        Brightness.dark
-                    ? Colors.white
-                    : Colors.black,
-              )
-            : null,
       ),
     );
   }
@@ -216,43 +225,51 @@ class _TemplateTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Translations.of(context);
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 150),
-            width: 64,
-            height: 80,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(6),
-              border: Border.all(
-                color: selected
-                    ? ColorScheme.of(context).primary
-                    : Colors.transparent,
-                width: 2.5,
-              ),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: NotebookCoverWidget(
-                cover: NotebookCover(
-                  colorValue: color.toARGB32(),
-                  template: template,
+    return Semantics(
+      button: true,
+      selected: selected,
+      label: _templateName(t, template),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: onTap,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AnimatedContainer(
+                duration: const Duration(milliseconds: 150),
+                width: 64,
+                height: 80,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  border: Border.all(
+                    color: selected
+                        ? ColorScheme.of(context).primary
+                        : Colors.transparent,
+                    width: 2.5,
+                  ),
                 ),
-                spineWidth: 8,
-                borderRadius: 4,
-                elevation: 0,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(4),
+                  child: NotebookCoverWidget(
+                    cover: NotebookCover(
+                      colorValue: color.toARGB32(),
+                      template: template,
+                    ),
+                    spineWidth: 8,
+                    borderRadius: 4,
+                    elevation: 0,
+                  ),
+                ),
               ),
-            ),
+              const SizedBox(height: 4),
+              Text(
+                _templateName(t, template),
+                style: TextTheme.of(context).labelSmall,
+              ),
+            ],
           ),
-          const SizedBox(height: 4),
-          Text(
-            _templateName(t, template),
-            style: TextTheme.of(context).labelSmall,
-          ),
-        ],
+        ),
       ),
     );
   }
