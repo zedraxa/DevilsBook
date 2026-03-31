@@ -1,4 +1,4 @@
-/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+/// 🤖 Generated wholly or partially with Claude Sonnet 4; GitHub Copilot; Claude Sonnet 4.6
 library;
 
 import 'package:flutter/material.dart';
@@ -588,6 +588,56 @@ class DevilsCatalog {
     packId: 'pack_effects_premium',
   );
 
+  static final EffectPreset effectFireV2 = EffectPreset(
+    id: 'effect_fire_v2',
+    name: 'Hellfire Reborn',
+    particleType: ParticleType.flameV2,
+    ignitionColor: Color(0xFFFFEE88),  // hot yellow
+    trailColor: Color(0xFFFF6600),     // orange body
+    secondaryColor: Color(0xFFCC1100), // deep red transition
+    fadeColor: Color(0xFF1A0A00),      // near-black charcoal
+    eraseColor: Color(0xFF333333),
+    cooldownMs: 1400,
+    trailDensity: 0.85,
+    particleScale: 1.3,
+    ignitionIntensity: 0.75,
+    character: 'Turbulent, multi-layered fire with a searing blue-white core that cools through every stage of combustion.',
+    packId: 'pack_effects_premium',
+  );
+
+  static final EffectPreset effectBlood = EffectPreset(
+    id: 'effect_blood',
+    name: 'Blood Ink',
+    particleType: ParticleType.blood,
+    ignitionColor: Color(0xFFFF1111),  // bright fresh crimson on impact
+    trailColor: Color(0xFFCC0011),     // rich blood red
+    secondaryColor: Color(0xFF880000),
+    fadeColor: Color(0xFF330000),      // dried dark maroon
+    eraseColor: Color(0xFF660000),
+    cooldownMs: 1100,
+    trailDensity: 0.65,
+    particleScale: 1.1,
+    ignitionIntensity: 0.6,
+    character: 'Crimson drips that obey gravity, stretch into streaks, and dry into the page.',
+    packId: 'pack_effects_premium',
+  );
+
+  static final EffectPreset effectSmoke = EffectPreset(
+    id: 'effect_smoke',
+    name: 'Dark Smoke',
+    particleType: ParticleType.smoke,
+    ignitionColor: Color(0xFF888888),  // medium grey billow on impact
+    trailColor: Color(0xFF555555),     // dark smoke body
+    fadeColor: Color(0xFF1A1A1A),      // near-black dissipation
+    eraseColor: Color(0xFF444444),
+    cooldownMs: 1800,
+    trailDensity: 0.45,
+    particleScale: 1.6,
+    ignitionIntensity: 0.4,
+    character: 'Billowing grey clouds that rise, expand, and vanish silently into the void.',
+    packId: 'pack_effects_premium',
+  );
+
   // LOADOUTS
   static final loadoutDevilsPen = Loadout(
     id: 'loadout_the_devils_pen',
@@ -718,6 +768,9 @@ class DevilsCatalog {
     effectDigitalGlitch.id: effectDigitalGlitch,
     effectVoidTendrils.id: effectVoidTendrils,
     effectHolyStardust.id: effectHolyStardust,
+    effectFireV2.id: effectFireV2,
+    effectBlood.id: effectBlood,
+    effectSmoke.id: effectSmoke,
   };
 
   static final loadouts = {

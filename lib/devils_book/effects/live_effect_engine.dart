@@ -1,4 +1,4 @@
-/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+/// 🤖 Generated wholly or partially with Claude Sonnet 4; GitHub Copilot; Claude Sonnet 4.6
 library;
 
 import 'dart:math';
@@ -289,7 +289,60 @@ class LiveEffectEngine extends ChangeNotifier {
           }
           nextVelocity = p.velocity * 0.85;
           break;
-        default:
+
+        case ParticleType.flameV2:
+          // FIRE V2: Multi-frequency turbulence for realistic heat shimmer.
+          // Two overlapping sine waves at different frequencies simulate natural
+          // flame flutter better than the single-frequency flame type.
+          final t = now.millisecond / 100.0;
+          final flutter1 = sin(t + p.noiseOffset) * 1.0;
+          final flutter2 = sin(t * 2.3 + p.noiseOffset * 0.7) * 0.4;
+          final turbulence = flutter1 + flutter2;
+          nextVelocity = Offset(p.velocity.dx + turbulence, p.velocity.dy - 0.35);
+          nextVelocity = Offset(nextVelocity.dx * 0.88, nextVelocity.dy * 0.93);
+
+          // Color curve: blue-white core → yellow → orange → deep red → charcoal
+          if (activePreset != null) {
+            const Color coreColor = Color(0xFFCCEEFF); // blue-white
+            if (ageRatio < 0.15) {
+              nextColor = Color.lerp(coreColor, activePreset!.ignitionColor, ageRatio / 0.15)!;
+            } else if (ageRatio < 0.35) {
+              nextColor = Color.lerp(activePreset!.ignitionColor, activePreset!.trailColor, (ageRatio - 0.15) / 0.20)!;
+            } else if (ageRatio < 0.65) {
+              nextColor = Color.lerp(activePreset!.trailColor, activePreset!.secondaryColor ?? activePreset!.fadeColor, (ageRatio - 0.35) / 0.30)!;
+            } else {
+              nextColor = Color.lerp(activePreset!.secondaryColor ?? activePreset!.fadeColor, activePreset!.fadeColor, (ageRatio - 0.65) / 0.35)!;
+            }
+          }
+          break;
+
+        case ParticleType.blood:
+          // BLOOD: Drips downward with accelerating gravity; slight horizontal spread
+          // on spawn decays quickly so the drip streaks downward.
+          nextVelocity = Offset(p.velocity.dx * 0.92, p.velocity.dy + 0.30);
+          // Colour shift from bright crimson → dark maroon as it cools/dries
+          if (activePreset != null) {
+            nextColor = Color.lerp(
+              activePreset!.trailColor,
+              activePreset!.fadeColor,
+              ageRatio,
+            )!;
+          }
+          break;
+
+        case ParticleType.smoke:
+          // SMOKE: Slowly rises, expands, drifts gently sideways.
+          final smokeHorizontal = sin((now.millisecond / 400.0) + p.noiseOffset) * 0.15;
+          nextVelocity = Offset(p.velocity.dx + smokeHorizontal, p.velocity.dy - 0.18);
+          nextVelocity = Offset(nextVelocity.dx * 0.96, nextVelocity.dy * 0.97);
+          // Smoke cools from the preset's trail colour to a neutral dark grey
+          if (activePreset != null) {
+            nextColor = Color.lerp(
+              activePreset!.trailColor,
+              activePreset!.fadeColor,
+              ageRatio,
+            )!;
+          }
           break;
       }
 

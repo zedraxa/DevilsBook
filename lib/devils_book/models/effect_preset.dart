@@ -1,3 +1,6 @@
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5
+library;
+
 import 'package:flutter/material.dart';
 
 enum ParticleType {
@@ -8,6 +11,12 @@ enum ParticleType {
   plasma,
   ash,
   voidMatter,
+  /// Turbulent, multi-frequency fire with heat shimmer and a blue-white core.
+  flameV2,
+  /// Gravity-driven blood drips with crimson splatter on impact.
+  blood,
+  /// Slow-rising smoke billows that expand and grey out as they climb.
+  smoke,
 }
 
 /// Represents ephemeral, live visual feedback during active writing gestures.
