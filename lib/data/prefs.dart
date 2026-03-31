@@ -276,6 +276,12 @@ class Stows {
         Pen.shapePenOptions,
         fromJson: _strokeOptionsFromJson,
         volatile: !_isOnMainIsolate,
+      ),
+      lastCalligraphyPenOptions = PlainStow.json(
+        'lastCalligraphyPenProperties',
+        Pen.calligraphyPenOptions,
+        fromJson: _strokeOptionsFromJson,
+        volatile: !_isOnMainIsolate,
       );
   final lastFountainPenColor = PlainStow(
         'lastFountainPenColor',
@@ -299,6 +305,11 @@ class Stows {
       ),
       lastShapePenColor = PlainStow(
         'lastShapePenColor',
+        Colors.black.toARGB32(),
+        volatile: !_isOnMainIsolate,
+      ),
+      lastCalligraphyPenColor = PlainStow(
+        'lastCalligraphyPenColor',
         Colors.black.toARGB32(),
         volatile: !_isOnMainIsolate,
       );

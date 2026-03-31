@@ -79,8 +79,9 @@ class Pen extends Tool {
     Offset position,
     EditorPage page,
     int pageIndex,
-    double? pressure,
-  ) {
+    double? pressure, [
+    double? orientation,
+  ]) {
     currentStroke = Stroke(
       color: color,
       pressureEnabled: pressureEnabled,
@@ -89,11 +90,11 @@ class Pen extends Tool {
       page: page,
       toolId: toolId,
     );
-    onDragUpdate(position, pressure);
+    onDragUpdate(position, pressure, orientation);
   }
 
-  void onDragUpdate(Offset position, double? pressure) {
-    currentStroke?.addPoint(position, pressure);
+  void onDragUpdate(Offset position, double? pressure, [double? orientation]) {
+    currentStroke?.addPoint(position, pressure, orientation);
   }
 
   Stroke? onDragEnd() {
@@ -123,5 +124,8 @@ class Pen extends Tool {
     streamline: 0.1,
     start: StrokeEndOptions.start(taperEnabled: true, customTaper: 1),
     end: StrokeEndOptions.end(taperEnabled: true, customTaper: 1),
+  );
+  static StrokeOptions get calligraphyPenOptions => defaultOptions.copyWith(
+    size: 8,
   );
 }

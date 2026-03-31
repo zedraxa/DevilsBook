@@ -1,3 +1,6 @@
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5; Claude Sonnet 4 ✨
+library;
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -40,11 +43,13 @@ import 'package:saber/data/file_manager/file_manager.dart';
 import 'package:saber/data/nextcloud/saber_syncer.dart';
 import 'package:saber/data/prefs.dart';
 import 'package:saber/data/tools/_tool.dart';
+import 'package:saber/data/tools/calligraphy_pen.dart';
 import 'package:saber/data/tools/eraser.dart';
 import 'package:saber/data/tools/highlighter.dart';
 import 'package:saber/data/tools/laser_pointer.dart';
 import 'package:saber/data/tools/pen.dart';
 import 'package:saber/data/tools/pencil.dart';
+import 'package:saber/data/tools/pencil_interaction.dart';
 import 'package:saber/data/tools/select.dart';
 import 'package:saber/data/tools/shape_pen.dart';
 import 'package:saber/i18n/strings.g.dart';
@@ -135,6 +140,11 @@ class EditorState extends State<Editor> {
           Pen.currentPen = Pen.ballpointPen();
         }
         return Pen.currentPen;
+      case .calligraphyPen:
+        if (Pen.currentPen.toolId != stows.lastTool.value) {
+          Pen.currentPen = CalligraphyPen();
+        }
+        return Pen.currentPen;
       case .shapePen:
         if (Pen.currentPen.toolId != stows.lastTool.value) {
           Pen.currentPen = ShapePen();
@@ -176,15 +186,75 @@ class EditorState extends State<Editor> {
   /// If the stylus button is pressed, or was pressed during the current draw gesture.
   var stylusButtonPressed = false;
 
+  /// Azimuth angle of the stylus in radians (0 = pointing up), sourced from
+  /// Flutter's [PointerEvent.orientation]. Used for barrel-roll simulation.
+  double currentStylusOrientation = 0;
+
+  /// Altitude angle of the stylus in radians (0 = vertical, π/2 = flat),
+  /// sourced from [PointerEvent.tilt].
+  double currentStylusTilt = 0;
+
+  StreamSubscription<PencilInteractionEvent>? _pencilInteractionSub;
+
   @override
   void initState() {
     DynamicMaterialApp.addFullscreenListener(_setState);
 
     _initAsync();
     _assignKeybindings();
+    _subscribeToPencilInteractions();
 
     super.initState();
   }
+
+  void _subscribeToPencilInteractions() {
+    _pencilInteractionSub = PencilInteractionService.events.listen(
+      _onPencilInteractionEvent,
+    );
+  }
+
+  void _onPencilInteractionEvent(PencilInteractionEvent event) {
+    switch (event.type) {
+      case PencilInteractionEventType.doubleTap:
+        _onPencilDoubleTap();
+      case PencilInteractionEventType.squeezeBegin:
+        _onPencilSqueezeBegin();
+      case PencilInteractionEventType.squeezeEnd:
+        _onPencilSqueezeEnd();
+      case PencilInteractionEventType.barrelRoll:
+        currentStylusOrientation = event.barrelRollAngle ?? 0;
+    }
+  }
+
+  /// Double-tap on Apple Pencil 2nd gen / Pro: toggle between the current
+  /// drawing tool and the eraser (mirrors the barrel-button behaviour).
+  void _onPencilDoubleTap() {
+    if (currentTool is Eraser && tmpTool != null) {
+      currentTool = tmpTool!;
+      tmpTool = null;
+    } else if (currentTool is! Eraser) {
+      tmpTool = currentTool;
+      currentTool = Eraser();
+    }
+    setState(() {});
+  }
+
+  /// Squeeze begin on Apple Pencil Pro (iOS 17.5+): undo the last action.
+  void _onPencilSqueezeBegin() => undo();
+
+  /// Squeeze end on Apple Pencil Pro (iOS 17.5+): no-op by default.
+  void _onPencilSqueezeEnd() {}
+
+  void onStylusOrientationChanged(double orientation, double tilt) {
+    currentStylusOrientation = orientation;
+    currentStylusTilt = tilt;
+  }
+
+  /// Returns [currentStylusOrientation] when the active tool is a
+  /// [CalligraphyPen], or `null` otherwise, so only calligraphy strokes
+  /// store per-point nib orientation data.
+  double? get _orientationForCurrentTool =>
+      currentTool is CalligraphyPen ? currentStylusOrientation : null;
 
   void _initAsync() async {
     final filePath = await widget.initialPath;
@@ -564,6 +634,7 @@ class EditorState extends State<Editor> {
         page,
         dragPageIndex!,
         currentPressure,
+        _orientationForCurrentTool,
       );
     } else if (currentTool is Eraser) {
       for (final stroke in (currentTool as Eraser).checkForOverlappingStrokes(
@@ -604,7 +675,11 @@ class EditorState extends State<Editor> {
     final offset = position - previousPosition;
 
     if (currentTool is Pen) {
-      (currentTool as Pen).onDragUpdate(position, currentPressure);
+      (currentTool as Pen).onDragUpdate(
+        position,
+        currentPressure,
+        _orientationForCurrentTool,
+      );
       page.redrawStrokes();
     } else if (currentTool is Eraser) {
       for (final stroke in (currentTool as Eraser).checkForOverlappingStrokes(
@@ -1374,6 +1449,7 @@ class EditorState extends State<Editor> {
       onHoveringEnd: onHoveringEnd,
       onStylusButtonChanged: onStylusButtonChanged,
       updatePointerData: updatePointerData,
+      onStylusOrientationChanged: onStylusOrientationChanged,
       undo: undo,
       redo: redo,
       pages: coreInfo.pages,
@@ -2058,6 +2134,7 @@ class EditorState extends State<Editor> {
     _delayedSaveTimer?.cancel();
     _watchServerTimer?.cancel();
     _lastSeenPointerCountTimer?.cancel();
+    _pencilInteractionSub?.cancel();
 
     _removeKeybindings();
 
@@ -2067,6 +2144,7 @@ class EditorState extends State<Editor> {
     stows.lastHighlighterOptions.notifyListeners();
     stows.lastPencilOptions.notifyListeners();
     stows.lastShapePenOptions.notifyListeners();
+    stows.lastCalligraphyPenOptions.notifyListeners();
 
     super.dispose();
   }

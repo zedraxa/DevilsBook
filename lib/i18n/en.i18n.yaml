@@ -282,6 +282,7 @@ editor:
     highlighter: Highlighter
     pencil: Pencil
     shapePen: Shape pen
+    calligraphyPen: Calligraphy pen
     laserPointer: Laser pointer
   penOptions:
     size: Size

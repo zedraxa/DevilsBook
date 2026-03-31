@@ -1096,6 +1096,9 @@ class TranslationsEditorPensEn {
 	/// en: 'Shape pen'
 	String get shapePen => 'Shape pen';
 
+	/// en: 'Calligraphy pen'
+	String get calligraphyPen => 'Calligraphy pen';
+
 	/// en: 'Laser pointer'
 	String get laserPointer => 'Laser pointer';
 }
