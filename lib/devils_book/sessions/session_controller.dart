@@ -1,9 +1,14 @@
-import 'package:flutter/material.dart';
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'dart:async';
-import 'session_models.dart';
+
+import 'package:flutter/material.dart';
+import 'package:saber/devils_book/sessions/session_models.dart';
 
 class SessionController extends ChangeNotifier {
-  static final SessionController _instance = SessionController._internal();
+  static final _instance = SessionController._internal();
   factory SessionController() => _instance;
   SessionController._internal();
 
@@ -11,7 +16,7 @@ class SessionController extends ChangeNotifier {
   ActiveSession? get activeSession => _activeSession;
 
   bool get isActive => _activeSession != null;
-  double _kineticEnergy = 0.0;
+  var _kineticEnergy = 0.0;
   Timer? _timer;
   Timer? _decayTimer;
 

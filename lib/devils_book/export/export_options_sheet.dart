@@ -1,21 +1,25 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'package:flutter/material.dart';
-import 'export_models.dart';
+import 'package:saber/devils_book/export/export_models.dart';
 
 /// A bottom sheet for choosing export formats and stylistic variants.
 class ExportOptionsSheet extends StatefulWidget {
   final ValueChanged<ExportConfig> onExport;
 
-  const ExportOptionsSheet({Key? key, required this.onExport}) : super(key: key);
+  const ExportOptionsSheet({super.key, required this.onExport});
 
   @override
   State<ExportOptionsSheet> createState() => _ExportOptionsSheetState();
 }
 
 class _ExportOptionsSheetState extends State<ExportOptionsSheet> {
-  ExportVariant _selectedVariant = ExportVariant.clean;
-  ExportFormat _selectedFormat = ExportFormat.pdf;
-  bool _includeBackground = true;
-  bool _includeGrid = true;
+  var _selectedVariant = ExportVariant.clean;
+  var _selectedFormat = ExportFormat.pdf;
+  var _includeBackground = true;
+  final _includeGrid = true;
 
   @override
   Widget build(BuildContext context) {
@@ -52,16 +56,16 @@ class _ExportOptionsSheetState extends State<ExportOptionsSheet> {
                       duration: const Duration(milliseconds: 200),
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: isSelected ? Colors.amber.withOpacity(0.1) : Colors.transparent,
+                        color: isSelected ? Colors.amber.withValues(alpha: 0.1) : Colors.transparent,
                         border: Border.all(
-                          color: isSelected ? Colors.amber : Colors.grey.withOpacity(0.2),
+                          color: isSelected ? Colors.amber : Colors.grey.withValues(alpha: 0.2),
                           width: isSelected ? 2 : 1,
                         ),
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Row(
                         children: [
-                          Icon(variant.icon, color: isAvailable ? (isSelected ? Colors.amber : Colors.grey) : Colors.grey.withOpacity(0.3), size: 28),
+                          Icon(variant.icon, color: isAvailable ? (isSelected ? Colors.amber : Colors.grey) : Colors.grey.withValues(alpha: 0.3), size: 28),
                           const SizedBox(width: 16),
                           Expanded(
                             child: Column(
@@ -74,14 +78,14 @@ class _ExportOptionsSheetState extends State<ExportOptionsSheet> {
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                                        color: isAvailable ? null : Colors.grey.withOpacity(0.4),
+                                        color: isAvailable ? null : Colors.grey.withValues(alpha: 0.4),
                                       ),
                                     ),
                                     if (!isAvailable) ...[
                                       const SizedBox(width: 8),
                                       Container(
                                         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                                        decoration: BoxDecoration(color: Colors.grey.withOpacity(0.1), borderRadius: BorderRadius.circular(4)),
+                                        decoration: BoxDecoration(color: Colors.grey.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(4)),
                                         child: const Text('COMING SOON', style: TextStyle(fontSize: 9, color: Colors.grey)),
                                       ),
                                     ],

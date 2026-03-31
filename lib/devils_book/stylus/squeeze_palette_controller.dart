@@ -1,8 +1,11 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/material.dart';
 
 class SqueezePaletteController extends ChangeNotifier {
-  bool isVisible = false;
-  Offset position = Offset.zero;
+  var isVisible = false;
+  var position = Offset.zero;
 
   void showAt(Offset newPosition) {
     position = newPosition;
@@ -17,7 +20,7 @@ class SqueezePaletteController extends ChangeNotifier {
     }
   }
 
-  static bool isDevTriggerActive = false;
+  static var isDevTriggerActive = false;
 
   void toggleDevTrigger(Size screenSize) {
     if (isVisible) {

@@ -1,16 +1,19 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/material.dart';
 import 'package:saber/data/prefs.dart';
 import 'package:saber/data/tools/pen.dart';
+import 'package:saber/devils_book/ambience/ambience_registry.dart';
+import 'package:saber/devils_book/ambience/ambient_audio_controller.dart';
+import 'package:saber/devils_book/models/effect_preset.dart';
+import 'package:saber/devils_book/models/loadout.dart';
 import 'package:saber/devils_book/models/relic_element.dart';
 import 'package:saber/devils_book/models/theme_preset.dart';
-import 'package:saber/devils_book/models/effect_preset.dart';
-import 'package:saber/devils_book/ambience/ambient_audio_controller.dart';
-import 'package:saber/devils_book/ambience/ambience_registry.dart';
-import '../registry/devils_catalog.dart';
-import 'loadout.dart';
+import 'package:saber/devils_book/registry/devils_catalog.dart';
 
 class LoadoutManager extends ChangeNotifier {
-  static final LoadoutManager _instance = LoadoutManager._internal();
+  static final _instance = LoadoutManager._internal();
   factory LoadoutManager() => _instance;
   LoadoutManager._internal() {
     _loadFromPrefs();
@@ -20,7 +23,7 @@ class LoadoutManager extends ChangeNotifier {
   EffectPreset? _customEffect;
   ThemePreset? _customTheme;
   RelicElement? _customRelic;
-  bool _isSessionOverride = false;
+  var _isSessionOverride = false;
 
   Loadout get currentLoadout => _currentLoadout;
   EffectPreset? get customEffect => _customEffect;

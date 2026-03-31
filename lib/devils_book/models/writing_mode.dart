@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -105,7 +108,7 @@ class WritingMode {
 }
 
 class WritingModeState extends ChangeNotifier {
-  WritingMode _currentMode = WritingMode.ritual;
+  var _currentMode = WritingMode.ritual;
 
   WritingMode get currentMode => _currentMode;
 

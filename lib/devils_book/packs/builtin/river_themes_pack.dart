@@ -1,7 +1,10 @@
-import '../pack_manifest.dart';
-import '../pack_category.dart';
-import '../content_pack.dart';
-import '../../registry/devils_catalog.dart';
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
+import 'package:saber/devils_book/packs/content_pack.dart';
+import 'package:saber/devils_book/packs/pack_category.dart';
+import 'package:saber/devils_book/packs/pack_manifest.dart';
+import 'package:saber/devils_book/registry/devils_catalog.dart';
 
 /// Rivers of Hades — Thematic environments for deep focus.
 class RiversOfHadesThemePack {
