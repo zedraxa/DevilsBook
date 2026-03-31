@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5 ✨
+library;
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -45,6 +48,7 @@ import 'package:saber/data/tools/highlighter.dart';
 import 'package:saber/data/tools/laser_pointer.dart';
 import 'package:saber/data/tools/pen.dart';
 import 'package:saber/data/tools/pencil.dart';
+import 'package:saber/data/tools/pencil_interaction.dart';
 import 'package:saber/data/tools/select.dart';
 import 'package:saber/data/tools/shape_pen.dart';
 import 'package:saber/i18n/strings.g.dart';
@@ -176,14 +180,68 @@ class EditorState extends State<Editor> {
   /// If the stylus button is pressed, or was pressed during the current draw gesture.
   var stylusButtonPressed = false;
 
+  /// Azimuth angle of the stylus in radians (0 = pointing up), sourced from
+  /// Flutter's [PointerEvent.orientation]. Used for barrel-roll simulation.
+  double currentStylusOrientation = 0;
+
+  /// Altitude angle of the stylus in radians (0 = vertical, π/2 = flat),
+  /// sourced from [PointerEvent.tilt].
+  double currentStylusTilt = 0;
+
+  StreamSubscription<PencilInteractionEvent>? _pencilInteractionSub;
+
   @override
   void initState() {
     DynamicMaterialApp.addFullscreenListener(_setState);
 
     _initAsync();
     _assignKeybindings();
+    _subscribeToPencilInteractions();
 
     super.initState();
+  }
+
+  void _subscribeToPencilInteractions() {
+    _pencilInteractionSub = PencilInteractionService.events.listen(
+      _onPencilInteractionEvent,
+    );
+  }
+
+  void _onPencilInteractionEvent(PencilInteractionEvent event) {
+    switch (event.type) {
+      case PencilInteractionEventType.doubleTap:
+        _onPencilDoubleTap();
+      case PencilInteractionEventType.squeezeBegin:
+        _onPencilSqueezeBegin();
+      case PencilInteractionEventType.squeezeEnd:
+        _onPencilSqueezeEnd();
+      case PencilInteractionEventType.barrelRoll:
+        currentStylusOrientation = event.barrelRollAngle ?? 0;
+    }
+  }
+
+  /// Double-tap on Apple Pencil 2nd gen / Pro: toggle between the current
+  /// drawing tool and the eraser (mirrors the barrel-button behaviour).
+  void _onPencilDoubleTap() {
+    if (currentTool is Eraser && tmpTool != null) {
+      currentTool = tmpTool!;
+      tmpTool = null;
+    } else if (currentTool is! Eraser) {
+      tmpTool = currentTool;
+      currentTool = Eraser();
+    }
+    setState(() {});
+  }
+
+  /// Squeeze begin on Apple Pencil Pro (iOS 17.5+): undo the last action.
+  void _onPencilSqueezeBegin() => undo();
+
+  /// Squeeze end on Apple Pencil Pro (iOS 17.5+): no-op by default.
+  void _onPencilSqueezeEnd() {}
+
+  void onStylusOrientationChanged(double orientation, double tilt) {
+    currentStylusOrientation = orientation;
+    currentStylusTilt = tilt;
   }
 
   void _initAsync() async {
@@ -1374,6 +1432,7 @@ class EditorState extends State<Editor> {
       onHoveringEnd: onHoveringEnd,
       onStylusButtonChanged: onStylusButtonChanged,
       updatePointerData: updatePointerData,
+      onStylusOrientationChanged: onStylusOrientationChanged,
       undo: undo,
       redo: redo,
       pages: coreInfo.pages,
@@ -2058,6 +2117,7 @@ class EditorState extends State<Editor> {
     _delayedSaveTimer?.cancel();
     _watchServerTimer?.cancel();
     _lastSeenPointerCountTimer?.cancel();
+    _pencilInteractionSub?.cancel();
 
     _removeKeybindings();
 

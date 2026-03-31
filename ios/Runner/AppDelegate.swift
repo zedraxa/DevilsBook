@@ -1,3 +1,4 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5 ✨
 import Flutter
 import UIKit
 import workmanager_apple
@@ -7,6 +8,7 @@ import workmanager_apple
   /// Registers all pubspec-referenced Flutter plugins in the given registry
   static func registerPlugins(with registry: FlutterPluginRegistry) {
     GeneratedPluginRegistrant.register(with: registry)
+    SaberPencilPlugin.register(with: registry.registrar(forPlugin: "SaberPencilPlugin")!)
   }
 
   override func application(

@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5 ✨
+library;
+
 import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
@@ -26,6 +29,7 @@ class CanvasGestureDetector extends StatefulWidget {
     required this.onDrawUpdate,
     required this.onDrawEnd,
     required this.updatePointerData,
+    this.onStylusOrientationChanged,
     required this.onHovering,
     required this.onHoveringEnd,
     required this.onStylusButtonChanged,
@@ -51,6 +55,16 @@ class CanvasGestureDetector extends StatefulWidget {
   /// Called when the pressure of the stylus changes
   final void Function(PointerDeviceKind kind, double? pressure)
   updatePointerData;
+
+  /// Called when the stylus azimuth (orientation) or tilt changes.
+  ///
+  /// [orientation] is the azimuth angle in radians (−π … π, 0 = up).
+  /// [tilt] is the angle between the stylus and the screen (0 = vertical,
+  /// π/2 = flat). Both values are sourced from Flutter's [PointerEvent],
+  /// which reads them from UITouch on iOS (available on all Apple Pencil models).
+  final void Function(double orientation, double tilt)?
+  onStylusOrientationChanged;
+
   final VoidCallback onHovering;
   final VoidCallback onHoveringEnd;
   final ValueChanged<bool> onStylusButtonChanged;
@@ -434,6 +448,13 @@ class CanvasGestureDetectorState extends State<CanvasGestureDetector> {
       pressure = null;
     }
     widget.updatePointerData(event.kind, pressure);
+
+    // Report azimuth (orientation) and altitude (tilt) for barrel-roll
+    // simulation. These are provided by Flutter via UITouch on all Apple
+    // Pencil models — no platform channel needed.
+    if (isStylus && widget.onStylusOrientationChanged != null) {
+      widget.onStylusOrientationChanged!(event.orientation, event.tilt);
+    }
 
     if (isStylus &&
         stows.autoDisableFingerDrawingWhenStylusDetected.value &&
