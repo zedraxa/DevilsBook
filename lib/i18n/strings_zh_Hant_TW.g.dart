@@ -5,6 +5,9 @@
 // ignore_for_file: type=lint, unused_import
 // dart format off
 
+/// 🤖 Generated wholely or partially with Claude Code; Google Antigravity
+library;
+
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
@@ -80,6 +83,7 @@ class _TranslationsHomeZhHantTw extends TranslationsHomeEn {
 	@override String get deleteNote => '刪除筆記';
 	@override late final _TranslationsHomeRenameFolderZhHantTw renameFolder = _TranslationsHomeRenameFolderZhHantTw._(_root);
 	@override late final _TranslationsHomeDeleteFolderZhHantTw deleteFolder = _TranslationsHomeDeleteFolderZhHantTw._(_root);
+	@override late final _TranslationsHomeCoverZhHantTw cover = _TranslationsHomeCoverZhHantTw._(_root);
 }
 
 // Path: sentry
@@ -351,6 +355,34 @@ class _TranslationsHomeDeleteFolderZhHantTw extends TranslationsHomeDeleteFolder
 	@override String deleteName({required Object f}) => '刪除 ${f}';
 	@override String get delete => '刪除';
 	@override String get alsoDeleteContents => '同時刪除該文件夾內的所有筆記';
+}
+// Path: home.cover
+class _TranslationsHomeCoverZhHantTw extends TranslationsHomeCoverEn {
+	_TranslationsHomeCoverZhHantTw._(TranslationsZhHantTw root) : this._root = root, super.internal(root);
+
+	final TranslationsZhHantTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get chooseCover => '選擇封面';
+	@override String get colour => '顏色';
+	@override String get template => '樣板';
+	@override late final _TranslationsHomeCoverTemplatesZhHantTw templates = _TranslationsHomeCoverTemplatesZhHantTw._(_root);
+}
+
+// Path: home.cover.templates
+class _TranslationsHomeCoverTemplatesZhHantTw extends TranslationsHomeCoverTemplatesEn {
+	_TranslationsHomeCoverTemplatesZhHantTw._(TranslationsZhHantTw root) : this._root = root, super.internal(root);
+
+	final TranslationsZhHantTw _root; // ignore: unused_field
+
+	// Translations
+	@override String get plain => '素色';
+	@override String get linen => '亞麻';
+	@override String get dots => '圓點';
+	@override String get stripes => '條紋';
+	@override String get leather => '皮革';
+	@override String get grid => '格紋';
+	@override String get floral => '花卉';
 }
 
 // Path: sentry.consent

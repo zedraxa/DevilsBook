@@ -62,6 +62,18 @@ home:
     delete: حذف
     alsoDeleteContents: حذف جميع الملاحظات داخل هذا المجلد أيضًا
   noPreviewAvailable(OUTDATED): لا معاينة متاحة
+  cover:
+    chooseCover: اختر غلافًا
+    colour: اللون
+    template: النمط
+    templates:
+      plain: سادة
+      linen: كتان
+      dots: نقاط
+      stripes: خطوط
+      leather: جلد
+      grid: شبكة
+      floral: زهري
 sentry:
   consent:
     description:

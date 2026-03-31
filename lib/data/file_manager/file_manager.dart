@@ -470,11 +470,14 @@ class FileManager {
       }
 
       final previewFile = getFile('$filePath.p');
+      final coverFile = getFile('$filePath.cover');
       await Future.wait([
         for (final assetNumber in assets)
           deleteFile('$filePath.$assetNumber', alsoDeleteAssets: false),
         if (previewFile.existsSync())
           deleteFile('$filePath.p', alsoDeleteAssets: false),
+        if (coverFile.existsSync())
+          deleteFile('$filePath.cover', alsoDeleteAssets: false),
       ]);
     }
   }

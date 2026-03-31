@@ -62,6 +62,18 @@ home:
     deleteName: ลบ $f
     delete: ลบ
     alsoDeleteContents: ลบบันทึกทั้งหมดที่อยู่ในโฟลเดอร์นี้ด้วย
+  cover:
+    chooseCover: เลือกปก
+    colour: สี
+    template: แม่แบบ
+    templates:
+      plain: เรียบ
+      linen: ลินิน
+      dots: จุด
+      stripes: ลายทาง
+      leather: หนัง
+      grid: ตาราง
+      floral: ลายดอกไม้
 sentry:
   consent:
     title: ช่วยปรับปรุง Saber ได้ไหม?

@@ -62,6 +62,18 @@ home:
   backFolder(OUTDATED): 前のフォルダーに戻ります
   deleteNote(OUTDATED): メモの削除
   invalidFormat(OUTDATED): 選択したファイルはサポートされていません。 .sbn、.sbn2、.sba、または .pdf ファイルを選択してください。
+  cover:
+    chooseCover: カバーを選択
+    colour: 色
+    template: テンプレート
+    templates:
+      plain: シンプル
+      linen: リネン
+      dots: ドット
+      stripes: ストライプ
+      leather: レザー
+      grid: グリッド
+      floral: フローラル
 sentry:
   consent:
     description:

@@ -1,14 +1,17 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; Claude Sonnet 4; notebook cover system
+library;
+
 import 'dart:async';
-import 'dart:math';
 
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:saber/components/canvas/inner_canvas.dart';
 import 'package:saber/components/canvas/invert_widget.dart';
+import 'package:saber/components/home/cover_picker_dialog.dart';
+import 'package:saber/components/home/notebook_cover_widget.dart';
 import 'package:saber/components/home/sync_indicator.dart';
-import 'package:saber/data/extensions/color_extensions.dart';
 import 'package:saber/data/file_manager/file_manager.dart';
 import 'package:saber/data/is_this_a_test.dart';
+import 'package:saber/data/notebook_cover.dart';
 import 'package:saber/data/prefs.dart';
 import 'package:saber/data/routes.dart';
 import 'package:saber/pages/editor/editor.dart';
@@ -35,6 +38,9 @@ class _PreviewCardState extends State<PreviewCard> {
   final expanded = ValueNotifier(false);
   final thumbnail = _ThumbnailState();
 
+  NotebookCover _cover = NotebookCover.defaultCover();
+  bool _coverLoaded = false;
+
   @override
   void initState() {
     fileWriteSubscription = FileManager.fileWriteStream.stream.listen(
@@ -42,6 +48,7 @@ class _PreviewCardState extends State<PreviewCard> {
     );
 
     expanded.value = widget.selected;
+    _loadCover();
     super.initState();
   }
 
@@ -62,6 +69,15 @@ class _PreviewCardState extends State<PreviewCard> {
     }
   }
 
+  Future<void> _loadCover() async {
+    final cover = await NotebookCoverStore.load(widget.filePath);
+    if (!mounted) return;
+    setState(() {
+      _cover = cover;
+      _coverLoaded = true;
+    });
+  }
+
   StreamSubscription? fileWriteSubscription;
   void fileWriteListener(FileOperation event) {
     if (event.filePath != widget.filePath) return;
@@ -80,14 +96,32 @@ class _PreviewCardState extends State<PreviewCard> {
     widget.toggleSelection(widget.filePath, expanded.value);
   }
 
+  Future<void> _openCoverPicker() async {
+    final noteName =
+        widget.filePath.substring(widget.filePath.lastIndexOf('/') + 1);
+    final newCover = await CoverPickerDialog.show(
+      context,
+      initialCover: _cover,
+      noteName: noteName,
+    );
+    if (newCover == null) return;
+    await NotebookCoverStore.save(widget.filePath, newCover);
+    if (!mounted) return;
+    setState(() => _cover = newCover);
+  }
+
   Timer? _refreshThumbnailTimer;
   void _refreshThumbnailAfterDelay() {
     _refreshThumbnailTimer?.cancel();
     _refreshThumbnailTimer = Timer(const Duration(milliseconds: 500), () {
+      if (!mounted) return;
       thumbnail.image?.evict();
       thumbnail.markAsChanged();
     });
   }
+
+  String get _noteName =>
+      widget.filePath.substring(widget.filePath.lastIndexOf('/') + 1);
 
   @override
   Widget build(BuildContext context) {
@@ -104,120 +138,18 @@ class _PreviewCardState extends State<PreviewCard> {
       child: GestureDetector(
         onTap: widget.isAnythingSelected ? _toggleCardSelection : null,
         onSecondaryTap: _toggleCardSelection,
-        onLongPress: _toggleCardSelection,
-        child: Column(
-          mainAxisSize: stows.simplifiedHomeLayout.value ? .max : .min,
-          children: [
-            Flexible(
-              fit: stows.simplifiedHomeLayout.value ? .tight : .loose,
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                    top: kYaruContainerRadius,
-                    left: kYaruFocusBorderWidth,
-                    right: kYaruFocusBorderWidth,
-                    child: ColoredBox(
-                      color: InnerCanvas.defaultBackgroundColor.withInversion(
-                        invert,
-                      ),
-                    ),
-                  ),
-                  ListenableBuilder(
-                    listenable: thumbnail,
-                    builder: (context, _) => AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 300),
-                      child: ConstrainedBox(
-                        key: ValueKey(thumbnail.updateCount),
-                        constraints: const BoxConstraints(
-                          minWidth: double.infinity,
-                          minHeight: 100,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            top: kYaruFocusBorderWidth,
-                            left: kYaruFocusBorderWidth,
-                            right: kYaruFocusBorderWidth,
-                          ),
-                          child: ClipRRect(
-                            borderRadius: const .only(
-                              topLeft: .circular(
-                                kYaruContainerRadius - kYaruFocusBorderWidth,
-                              ),
-                              topRight: .circular(
-                                kYaruContainerRadius - kYaruFocusBorderWidth,
-                              ),
-                            ),
-                            child: InvertWidget(
-                              invert: invert,
-                              child: thumbnail.doesImageExist
-                                  ? Image(
-                                      image: thumbnail.image!,
-                                      alignment: .topCenter,
-                                      fit: .cover,
-                                    )
-                                  : const _FallbackThumbnail(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned.fill(
-                    left: -1,
-                    top: -1,
-                    right: -1,
-                    bottom: -1,
-                    child: ValueListenableBuilder(
-                      valueListenable: expanded,
-                      builder: (context, expanded, child) => AnimatedOpacity(
-                        opacity: expanded ? 1 : 0,
-                        duration: const Duration(milliseconds: 200),
-                        child: IgnorePointer(
-                          ignoring: !expanded,
-                          child: child!,
-                        ),
-                      ),
-                      child: GestureDetector(
-                        onTap: _toggleCardSelection,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: .topCenter,
-                              end: .bottomCenter,
-                              colors: [
-                                colorScheme.surface.withValues(alpha: 0.2),
-                                colorScheme.surface.withValues(alpha: 0.8),
-                                colorScheme.surface.withValues(alpha: 1),
-                              ],
-                            ),
-                          ),
-                          child: ColoredBox(
-                            color: colorScheme.primary.withValues(alpha: 0.05),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SyncIndicator(filePath: widget.filePath),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: Text(
-                widget.filePath.substring(widget.filePath.lastIndexOf('/') + 1).toUpperCase(),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Color(0xFFD4AF37), // Gold
-                  fontSize: 10,
-                  fontWeight: FontWeight.w900,
-                  letterSpacing: 1.2,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
+        onLongPress: widget.isAnythingSelected
+            ? _toggleCardSelection
+            : _openCoverPicker,
+        child: _NotebookCardLayout(
+          noteName: _noteName,
+          cover: _coverLoaded ? _cover : NotebookCover.defaultCover(),
+          thumbnail: thumbnail,
+          invert: invert,
+          expanded: expanded,
+          colorScheme: colorScheme,
+          filePath: widget.filePath,
+          simplifiedLayout: stows.simplifiedHomeLayout.value,
         ),
       ),
     );
@@ -238,15 +170,15 @@ class _PreviewCardState extends State<PreviewCard> {
           opacity: auraOpacity,
           child: OpenContainer(
             clipBehavior: Clip.none,
-            closedColor: const Color(0xFF030303), // Absolute Void
+            closedColor: const Color(0xFF030303),
             closedShape: RoundedRectangleBorder(
               side: BorderSide(
                 color: expanded
-                    ? const Color(0xFFFF2200) // Infernal Focus
-                    : (isHot ? const Color(0xFFFF2200) : const Color(0xFFD4AF37).withOpacity(0.35)), // Etched Gold
+                    ? const Color(0xFFFF2200)
+                    : (isHot ? const Color(0xFFFF2200) : const Color(0xFFD4AF37).withValues(alpha: 0.35)),
                 width: expanded || isHot ? 2.5 : 1.0,
               ),
-              borderRadius: BorderRadius.circular(16), // Ritual radii
+              borderRadius: BorderRadius.circular(16),
             ),
             closedElevation: expanded ? 40 : 2,
             closedBuilder: (context, action) => card,
@@ -268,6 +200,173 @@ class _PreviewCardState extends State<PreviewCard> {
     _refreshThumbnailTimer?.cancel();
     fileWriteSubscription?.cancel();
     super.dispose();
+  }
+}
+
+/// The visual layout of a notebook card in the library grid.
+///
+/// Renders the note as a physical notebook: a coloured spine on the left,
+/// the cover page thumbnail in the main area, and the title at the bottom.
+class _NotebookCardLayout extends StatelessWidget {
+  const _NotebookCardLayout({
+    required this.noteName,
+    required this.cover,
+    required this.thumbnail,
+    required this.invert,
+    required this.expanded,
+    required this.colorScheme,
+    required this.filePath,
+    required this.simplifiedLayout,
+  });
+
+  final String noteName;
+  final NotebookCover cover;
+  final _ThumbnailState thumbnail;
+  final bool invert;
+  final ValueNotifier<bool> expanded;
+  final ColorScheme colorScheme;
+  final String filePath;
+  final bool simplifiedLayout;
+
+  static const _spineWidth = 14.0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        // ── Spine ──────────────────────────────────────────────────────────
+        _NotebookSpine(color: cover.color, width: _spineWidth),
+        // ── Cover + title ──────────────────────────────────────────────────
+        Expanded(
+          child: Column(
+            mainAxisSize: simplifiedLayout ? .max : .min,
+            children: [
+              Flexible(
+                fit: simplifiedLayout ? .tight : .loose,
+                child: Stack(
+                  children: [
+                    // Cover design background
+                    Positioned.fill(
+                      child: NotebookCoverWidget(
+                        cover: cover,
+                        spineWidth: 0,
+                        borderRadius: 0,
+                        elevation: 0,
+                      ),
+                    ),
+                    // Page thumbnail overlaid on top (shows written content)
+                    ListenableBuilder(
+                      listenable: thumbnail,
+                      builder: (context, _) => AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        child: ConstrainedBox(
+                          key: ValueKey(thumbnail.updateCount),
+                          constraints: const BoxConstraints(
+                            minWidth: double.infinity,
+                            minHeight: 80,
+                          ),
+                          child: thumbnail.doesImageExist
+                              ? InvertWidget(
+                                  invert: invert,
+                                  child: Image(
+                                    image: thumbnail.image!,
+                                    alignment: .topCenter,
+                                    fit: .cover,
+                                  ),
+                                )
+                              : const SizedBox.shrink(),
+                        ),
+                      ),
+                    ),
+                    // Selection overlay
+                    Positioned.fill(
+                      left: -1,
+                      top: -1,
+                      right: -1,
+                      bottom: -1,
+                      child: ValueListenableBuilder(
+                        valueListenable: expanded,
+                        builder: (context, isExpanded, child) =>
+                            AnimatedOpacity(
+                              opacity: isExpanded ? 1 : 0,
+                              duration: const Duration(milliseconds: 200),
+                              child: IgnorePointer(
+                                ignoring: !isExpanded,
+                                child: child!,
+                              ),
+                            ),
+                        child: GestureDetector(
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: .topCenter,
+                                end: .bottomCenter,
+                                colors: [
+                                  colorScheme.surface.withValues(alpha: 0.2),
+                                  colorScheme.surface.withValues(alpha: 0.8),
+                                  colorScheme.surface.withValues(alpha: 1),
+                                ],
+                              ),
+                            ),
+                            child: ColoredBox(
+                              color: colorScheme.primary.withValues(alpha: 0.05),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SyncIndicator(filePath: filePath),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const .all(8),
+                child: Text(
+                  noteName,
+                  maxLines: 2,
+                  overflow: .ellipsis,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// A thin coloured spine strip for the left edge of the notebook card.
+class _NotebookSpine extends StatelessWidget {
+  const _NotebookSpine({required this.color, required this.width});
+
+  final Color color;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    final spineColor = _darken(color, 0.15);
+    return Container(
+      width: width,
+      color: spineColor,
+      child: Center(
+        child: Container(
+          width: 1.5,
+          margin: const EdgeInsets.symmetric(vertical: 12),
+          decoration: BoxDecoration(
+            color: Colors.white.withValues(alpha: 0.25),
+            borderRadius: BorderRadius.circular(1),
+          ),
+        ),
+      ),
+    );
+  }
+
+  static Color _darken(Color color, double amount) {
+    final hsl = HSLColor.fromColor(color);
+    return hsl
+        .withLightness((hsl.lightness - amount).clamp(0.0, 1.0))
+        .toColor();
   }
 }
 
@@ -319,7 +418,7 @@ class _RitualAuraState extends State<_RitualAura> with SingleTickerProviderState
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: widget.color.withOpacity(widget.opacity * (0.3 + 0.7 * pulseOffset)),
+                color: widget.color.withValues(alpha: widget.opacity * (0.3 + 0.7 * pulseOffset)),
                 blurRadius: 10 + (10 * pulseOffset),
                 spreadRadius: 2 + (2 * pulseOffset),
               ),
@@ -329,54 +428,6 @@ class _RitualAuraState extends State<_RitualAura> with SingleTickerProviderState
         );
       },
       child: widget.child,
-    );
-  }
-}
-
-class _FallbackThumbnail extends StatelessWidget {
-  const _FallbackThumbnail();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFF0D0D0D),
-        gradient: RadialGradient(
-          colors: [const Color(0xFF1A1A1A), const Color(0xFF050505)],
-          center: Alignment.center,
-          radius: 0.8,
-        ),
-      ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.auto_stories_sharp, color: Color(0xFFD4AF37), size: 54),
-            const SizedBox(height: 16),
-            const Text(
-              'UNWRITTEN TOME',
-              style: TextStyle(
-                color: Color(0xFFD4AF37),
-                fontSize: 10,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 2.5,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'MANIFEST THE UNKNOWN',
-              style: TextStyle(
-                color: const Color(0xFFD4AF37).withOpacity(0.3),
-                fontSize: 7,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 1.0,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

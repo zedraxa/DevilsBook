@@ -5,6 +5,9 @@
 // ignore_for_file: type=lint, unused_import
 // dart format off
 
+/// 🤖 Generated wholely or partially with Claude Code; Google Antigravity
+library;
+
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
@@ -80,6 +83,7 @@ class _TranslationsHomeCs extends TranslationsHomeEn {
 	@override String get deleteNote => 'Odstranit poznámku';
 	@override late final _TranslationsHomeRenameFolderCs renameFolder = _TranslationsHomeRenameFolderCs._(_root);
 	@override late final _TranslationsHomeDeleteFolderCs deleteFolder = _TranslationsHomeDeleteFolderCs._(_root);
+	@override late final _TranslationsHomeCoverCs cover = _TranslationsHomeCoverCs._(_root);
 }
 
 // Path: sentry
@@ -351,6 +355,34 @@ class _TranslationsHomeDeleteFolderCs extends TranslationsHomeDeleteFolderEn {
 	@override String deleteName({required Object f}) => 'Odstranění složky ${f}';
 	@override String get delete => 'Odstranit';
 	@override String get alsoDeleteContents => 'Se složkou odstranit i obsažené poznámky';
+}
+// Path: home.cover
+class _TranslationsHomeCoverCs extends TranslationsHomeCoverEn {
+	_TranslationsHomeCoverCs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get chooseCover => 'Vybrat obálku';
+	@override String get colour => 'Barva';
+	@override String get template => 'Šablona';
+	@override late final _TranslationsHomeCoverTemplatesCs templates = _TranslationsHomeCoverTemplatesCs._(_root);
+}
+
+// Path: home.cover.templates
+class _TranslationsHomeCoverTemplatesCs extends TranslationsHomeCoverTemplatesEn {
+	_TranslationsHomeCoverTemplatesCs._(TranslationsCs root) : this._root = root, super.internal(root);
+
+	final TranslationsCs _root; // ignore: unused_field
+
+	// Translations
+	@override String get plain => 'Jednoduchý';
+	@override String get linen => 'Len';
+	@override String get dots => 'Tečky';
+	@override String get stripes => 'Pruhy';
+	@override String get leather => 'Kůže';
+	@override String get grid => 'Mřížka';
+	@override String get floral => 'Květinový';
 }
 
 // Path: sentry.consent

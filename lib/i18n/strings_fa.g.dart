@@ -5,6 +5,9 @@
 // ignore_for_file: type=lint, unused_import
 // dart format off
 
+/// 🤖 Generated wholely or partially with Claude Code; Google Antigravity
+library;
+
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
@@ -79,6 +82,7 @@ class _TranslationsHomeFa extends TranslationsHomeEn {
 	@override String get deleteNote => 'حذف یادداشت';
 	@override late final _TranslationsHomeRenameFolderFa renameFolder = _TranslationsHomeRenameFolderFa._(_root);
 	@override late final _TranslationsHomeDeleteFolderFa deleteFolder = _TranslationsHomeDeleteFolderFa._(_root);
+	@override late final _TranslationsHomeCoverFa cover = _TranslationsHomeCoverFa._(_root);
 	@override String get noPreviewAvailable => 'پیش نمایش موجود نیست';
 }
 
@@ -349,6 +353,34 @@ class _TranslationsHomeDeleteFolderFa extends TranslationsHomeDeleteFolderEn {
 	@override String deleteName({required Object f}) => '${f} را حذف کنید';
 	@override String get delete => 'حذف';
 	@override String get alsoDeleteContents => 'همچنین تمام یادداشت های داخل این پوشه را حذف کنید';
+}
+// Path: home.cover
+class _TranslationsHomeCoverFa extends TranslationsHomeCoverEn {
+	_TranslationsHomeCoverFa._(TranslationsFa root) : this._root = root, super.internal(root);
+
+	final TranslationsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get chooseCover => 'انتخاب جلد';
+	@override String get colour => 'رنگ';
+	@override String get template => 'الگو';
+	@override late final _TranslationsHomeCoverTemplatesFa templates = _TranslationsHomeCoverTemplatesFa._(_root);
+}
+
+// Path: home.cover.templates
+class _TranslationsHomeCoverTemplatesFa extends TranslationsHomeCoverTemplatesEn {
+	_TranslationsHomeCoverTemplatesFa._(TranslationsFa root) : this._root = root, super.internal(root);
+
+	final TranslationsFa _root; // ignore: unused_field
+
+	// Translations
+	@override String get plain => 'ساده';
+	@override String get linen => 'کتانی';
+	@override String get dots => 'نقطه‌ای';
+	@override String get stripes => 'راه‌راه';
+	@override String get leather => 'چرمی';
+	@override String get grid => 'شطرنجی';
+	@override String get floral => 'گل‌دار';
 }
 
 // Path: sentry.consent

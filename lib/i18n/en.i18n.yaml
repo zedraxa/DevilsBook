@@ -62,6 +62,18 @@ home:
     deleteName: Delete $f
     delete: Delete
     alsoDeleteContents: Also delete all notes inside this folder
+  cover:
+    chooseCover: Choose cover
+    colour: Colour
+    template: Template
+    templates:
+      plain: Plain
+      linen: Linen
+      dots: Dots
+      stripes: Stripes
+      leather: Leather
+      grid: Grid
+      floral: Floral
 sentry:
   consent:
     title: Help improve Devils Book?

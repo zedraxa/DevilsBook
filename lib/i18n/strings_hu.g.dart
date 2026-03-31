@@ -5,6 +5,9 @@
 // ignore_for_file: type=lint, unused_import
 // dart format off
 
+/// 🤖 Generated wholely or partially with Claude Code; Google Antigravity
+library;
+
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
@@ -76,6 +79,7 @@ class _TranslationsHomeHu extends TranslationsHomeEn {
 	@override late final _TranslationsHomeMoveNoteHu moveNote = _TranslationsHomeMoveNoteHu._(_root);
 	@override late final _TranslationsHomeRenameFolderHu renameFolder = _TranslationsHomeRenameFolderHu._(_root);
 	@override late final _TranslationsHomeDeleteFolderHu deleteFolder = _TranslationsHomeDeleteFolderHu._(_root);
+	@override late final _TranslationsHomeCoverHu cover = _TranslationsHomeCoverHu._(_root);
 	@override String get noPreviewAvailable => 'Nincs elérhető előnézet';
 	@override String get backFolder => 'Menjen vissza az előző mappába';
 	@override String get deleteNote => 'Jegyzet törlése';
@@ -349,6 +353,34 @@ class _TranslationsHomeDeleteFolderHu extends TranslationsHomeDeleteFolderEn {
 	@override String get alsoDeleteContents => 'Törölje az összes jegyzetet ebben a mappában';
 	@override String get deleteFolder => 'Mappa törlése';
 	@override String deleteName({required Object f}) => '${f} törlése';
+}
+// Path: home.cover
+class _TranslationsHomeCoverHu extends TranslationsHomeCoverEn {
+	_TranslationsHomeCoverHu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get chooseCover => 'Borítólap választása';
+	@override String get colour => 'Szín';
+	@override String get template => 'Sablon';
+	@override late final _TranslationsHomeCoverTemplatesHu templates = _TranslationsHomeCoverTemplatesHu._(_root);
+}
+
+// Path: home.cover.templates
+class _TranslationsHomeCoverTemplatesHu extends TranslationsHomeCoverTemplatesEn {
+	_TranslationsHomeCoverTemplatesHu._(TranslationsHu root) : this._root = root, super.internal(root);
+
+	final TranslationsHu _root; // ignore: unused_field
+
+	// Translations
+	@override String get plain => 'Egyszerű';
+	@override String get linen => 'Vászon';
+	@override String get dots => 'Pontok';
+	@override String get stripes => 'Csíkok';
+	@override String get leather => 'Bőr';
+	@override String get grid => 'Rács';
+	@override String get floral => 'Virágos';
 }
 
 // Path: sentry.consent

@@ -62,6 +62,18 @@ home:
     deleteName: Apagar $f
     delete: Apagar
     alsoDeleteContents: Apagar também todas as notas dentro desta pasta
+  cover:
+    chooseCover: Escolher capa
+    colour: Cor
+    template: Modelo
+    templates:
+      plain: Simples
+      linen: Linho
+      dots: Pontos
+      stripes: Listras
+      leather: Couro
+      grid: Grade
+      floral: Floral
 sentry:
   consent:
     title: Ajudar a melhorar Saber?

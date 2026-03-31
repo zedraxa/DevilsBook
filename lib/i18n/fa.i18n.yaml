@@ -62,6 +62,18 @@ home:
     delete: حذف
     alsoDeleteContents: همچنین تمام یادداشت های داخل این پوشه را حذف کنید
   noPreviewAvailable(OUTDATED): پیش نمایش موجود نیست
+  cover:
+    chooseCover: انتخاب جلد
+    colour: رنگ
+    template: الگو
+    templates:
+      plain: ساده
+      linen: کتانی
+      dots: نقطه‌ای
+      stripes: راه‌راه
+      leather: چرمی
+      grid: شطرنجی
+      floral: گل‌دار
 sentry:
   consent:
     description:
