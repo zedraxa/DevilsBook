@@ -1,0 +1,135 @@
+# 🤖 Generated wholely or partially with Claude Sonnet 4 ✨
+#
+# Codemagic CI/CD configuration for iOS release builds.
+# See https://docs.codemagic.io/yaml-basic-structure/yaml-getting-started/
+#
+# Required environment variable groups (configure in Codemagic UI):
+#   appstore_credentials:
+#     - APP_STORE_CONNECT_ISSUER_ID
+#     - APP_STORE_CONNECT_KEY_IDENTIFIER
+#     - APP_STORE_CONNECT_PRIVATE_KEY  (App Store Connect API key .p8 contents)
+#     - APP_STORE_CERTIFICATE_KEY      (RSA private key for code signing cert)
+#   sentry:
+#     - SENTRY_AUTH_TOKEN
+#
+# To safely modify this configuration in the future:
+# 1. Mirror any build-step changes from .github/workflows/ios.yml
+# 2. Keep the pre/post patch scripts in sync with the GitHub Actions workflow
+# 3. Verify bundle ID and team ID match ios/Runner.xcodeproj/project.pbxproj
+# 4. Test with a manual Codemagic build before merging
+
+workflows:
+  ios-release:
+    name: iOS Release Build
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    integrations:
+      app_store_connect: Saber App Store Connect
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.adilhanney.saber
+      groups:
+        - appstore_credentials
+        - sentry
+      vars:
+        BUNDLE_ID: com.adilhanney.saber
+        XCODE_WORKSPACE: ios/Runner.xcworkspace
+        XCODE_SCHEME: Runner
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - tag
+      tag_patterns:
+        - pattern: "v*"
+          include: true
+    scripts:
+      - name: Initialize Flutter from submodule
+        script: |
+          git submodule update --init --recursive
+          FLUTTER_ROOT="$CM_BUILD_DIR/submodules/flutter"
+          echo "FLUTTER_ROOT=$FLUTTER_ROOT" >> $CM_ENV
+          echo "PATH=$FLUTTER_ROOT/bin:$PATH" >> $CM_ENV
+
+      - name: Verify Flutter installation
+        script: |
+          flutter --version
+          flutter doctor -v
+
+      - name: Set up code signing
+        script: |
+          keychain initialize
+
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --platform IOS \
+            --type IOS_APP_STORE \
+            --create
+
+          keychain add-certificates
+
+          xcode-project use-profiles --project ios/*.xcodeproj
+
+      - name: Run pre-build patches
+        script: |
+          chmod +x ./patches/pre/*.sh
+          ./patches/pre/remove_dev_dependencies.sh
+          ./patches/pre/remove_linux_dependencies.sh
+
+      - name: Install dependencies
+        script: |
+          flutter pub get
+
+      - name: Run post-build patches
+        script: |
+          chmod +x ./patches/post/*.sh
+          ./patches/post/patch_rust_versions.sh
+          ./patches/post/remove_wasm_libs.sh
+
+      - name: Install CocoaPods
+        script: |
+          cd ios && pod install
+
+      - name: Build iOS IPA
+        script: |
+          flutter build ipa \
+            --release \
+            --dart-define=FLAVOR="App Store" \
+            --dart-define=APP_STORE="App Store" \
+            --dart-define=UPDATE_CHECK="false" \
+            --export-options-plist=/Users/builder/export_options.plist
+
+      - name: Rename IPA artifact
+        script: |
+          BUILD_NAME=$(grep -oP "(?<=buildName = ').*(?=')" lib/data/version.dart)
+          export IPA_PATH="Saber_v${BUILD_NAME}.ipa"
+          mv $(find $(pwd) -name "*.ipa") "$IPA_PATH"
+          echo "IPA_PATH=$IPA_PATH" >> $CM_ENV
+
+      - name: Upload debug symbols to Sentry
+        script: |
+          if [ -n "$SENTRY_AUTH_TOKEN" ]; then
+            brew install getsentry/tools/sentry-cli
+            export SENTRY_ORG=saber-yf
+            export SENTRY_PROJECT=saber
+            sentry-cli debug-files upload --include-sources build/ios/
+          else
+            echo "Skipping Sentry upload: SENTRY_AUTH_TOKEN not set"
+          fi
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - build/ios/**/*.dSYM
+
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        submit_to_app_store: false
+      email:
+        recipients:
+          - adilhanney@gmail.com
+        notify:
+          success: true
+          failure: true
