@@ -1,11 +1,12 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
-import 'stylus_capabilities.dart';
+import 'package:saber/devils_book/stylus/stylus_capabilities.dart';
 
 /// Method channel bridge to native implementations for premium hardware
 /// that Flutter does not yet natively wrap (e.g. raw Apple Pencil Pro squeeze force).
 class StylusBridge {
-  static const MethodChannel _channel = MethodChannel('devilsbook.stylus/premium');
 
   /// Fetches the hardware capabilities from the host OS.
   /// STUB: To be fully implemented with native iOS/Android code in a later stage.

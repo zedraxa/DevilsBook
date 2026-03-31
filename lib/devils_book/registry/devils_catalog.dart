@@ -1,16 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:saber/devils_book/models/relic_element.dart';
-import 'package:sbn/canvas_background_pattern.dart';
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
 
-import '../models/theme_preset.dart';
-import '../models/ink_preset.dart';
-import '../models/effect_preset.dart';
-import '../models/writing_mode.dart';
-import '../models/loadout.dart';
+import 'package:flutter/material.dart';
+import 'package:saber/devils_book/models/effect_preset.dart';
+import 'package:saber/devils_book/models/ink_preset.dart';
+import 'package:saber/devils_book/models/loadout.dart';
+import 'package:saber/devils_book/models/relic_element.dart';
+import 'package:saber/devils_book/models/theme_preset.dart';
+import 'package:saber/devils_book/models/writing_mode.dart';
+import 'package:sbn/canvas_background_pattern.dart';
 
 class DevilsCatalog {
   // THEMES
-  static final ThemePreset themeDarkPremium = ThemePreset(
+  static final themeDarkPremium = ThemePreset(
     id: 'theme_dark_premium',
     name: 'Dark Premium',
     backgroundColor: Color(0xFF141414),
@@ -23,7 +25,7 @@ class DevilsCatalog {
     packId: 'pack_notebooks_mystic',
   );
 
-  static final ThemePreset themeAntiqueSoul = ThemePreset(
+  static final themeAntiqueSoul = ThemePreset(
     id: 'theme_antique_soul',
     name: 'Antique Soul',
     backgroundColor: Color(0xFFE8E0D2),
@@ -37,7 +39,7 @@ class DevilsCatalog {
     packId: 'pack_notebooks_mystic',
   );
 
-  static final ThemePreset themeInfernalAltar = ThemePreset(
+  static final themeInfernalAltar = ThemePreset(
     id: 'theme_infernal_altar',
     name: 'Infernal Altar',
     backgroundColor: Color(0xFF2C0B0B),
@@ -53,7 +55,7 @@ class DevilsCatalog {
     packId: 'pack_notebooks_mystic',
   );
 
-  static final ThemePreset themeGamerMatrix = ThemePreset(
+  static final themeGamerMatrix = ThemePreset(
     id: 'theme_gamer_matrix',
     name: 'Cyber Core',
     backgroundColor: Color(0xFF0D1B2A),
@@ -67,7 +69,7 @@ class DevilsCatalog {
     packId: 'pack_notebooks_mystic',
   );
 
-  static final ThemePreset themeHighContrast = ThemePreset(
+  static final themeHighContrast = ThemePreset(
     id: 'theme_high_contrast',
     name: 'Focus Contrast',
     backgroundColor: Color(0xFFFFFFFF),
@@ -77,7 +79,7 @@ class DevilsCatalog {
     packId: 'pack_notebooks_mystic',
   );
 
-  static final ThemePreset themeObsidianSanctum = ThemePreset(
+  static final themeObsidianSanctum = ThemePreset(
     id: 'theme_obsidian_sanctum',
     name: 'Obsidian Sanctum',
     backgroundColor: Color(0xFF050505),
@@ -92,7 +94,7 @@ class DevilsCatalog {
     packId: 'pack_notebooks_mystic',
   );
   
-  static final ThemePreset themeAncientVellum = ThemePreset(
+  static final themeAncientVellum = ThemePreset(
     id: 'theme_ancient_vellum',
     name: 'Ancient Vellum',
     backgroundColor: Color(0xFFF2EBDC),
@@ -104,7 +106,7 @@ class DevilsCatalog {
     packId: 'pack_notebooks_mystic',
   );
 
-  static final ThemePreset themeObsidianDeep = ThemePreset(
+  static final themeObsidianDeep = ThemePreset(
     id: 'theme_obsidian_deep',
     name: 'Obsidian Deep',
     backgroundColor: Color(0xFF121212),
@@ -116,7 +118,7 @@ class DevilsCatalog {
     packId: 'pack_notebooks_mystic',
   );
 
-  static final ThemePreset themeGitTerminal = ThemePreset(
+  static final themeGitTerminal = ThemePreset(
     id: 'theme_git_terminal',
     name: 'Git Console',
     backgroundColor: Color(0xFF0A0A0A),
@@ -128,7 +130,7 @@ class DevilsCatalog {
     packId: 'pack_notebooks_mystic',
   );
 
-  static final ThemePreset themeRiverStyx = ThemePreset(
+  static final themeRiverStyx = ThemePreset(
     id: 'theme_river_styx',
     name: 'Styx: The Oath',
     backgroundColor: const Color(0xFF000011),
@@ -145,7 +147,7 @@ class DevilsCatalog {
     packId: 'pack_themes_rivers_of_hades',
   );
 
-  static final ThemePreset themeRiverAcheron = ThemePreset(
+  static final themeRiverAcheron = ThemePreset(
     id: 'theme_river_acheron',
     name: 'Acheron: Woe',
     backgroundColor: const Color(0xFF121212),
@@ -162,7 +164,7 @@ class DevilsCatalog {
     packId: 'pack_themes_rivers_of_hades',
   );
 
-  static final ThemePreset themeRiverPhlegethon = ThemePreset(
+  static final themeRiverPhlegethon = ThemePreset(
     id: 'theme_river_phlegethon',
     name: 'Phlegethon: Fire',
     backgroundColor: const Color(0xFF050505),
@@ -181,7 +183,7 @@ class DevilsCatalog {
     packId: 'pack_themes_rivers_of_hades',
   );
 
-  static final ThemePreset themeRiverCocytus = ThemePreset(
+  static final themeRiverCocytus = ThemePreset(
     id: 'theme_river_cocytus',
     name: 'Cocytus: Lament',
     backgroundColor: const Color(0xFF0A1F1F),
@@ -199,7 +201,7 @@ class DevilsCatalog {
     packId: 'pack_themes_rivers_of_hades',
   );
   
-  static final ThemePreset themeCircleLimbo = ThemePreset(
+  static final themeCircleLimbo = ThemePreset(
     id: 'theme_circle_limbo',
     name: 'Limbo: The Waiting',
     backgroundColor: const Color(0xFF1B1B1B),
@@ -216,7 +218,7 @@ class DevilsCatalog {
     packId: 'pack_themes_circles_of_hell',
   );
 
-  static final ThemePreset themeCircleLust = ThemePreset(
+  static final themeCircleLust = ThemePreset(
     id: 'theme_circle_lust',
     name: 'Lust: The Storm',
     backgroundColor: const Color(0xFF1A001A),
@@ -234,7 +236,7 @@ class DevilsCatalog {
     packId: 'pack_themes_circles_of_hell',
   );
 
-  static final ThemePreset themeCircleGluttony = ThemePreset(
+  static final themeCircleGluttony = ThemePreset(
     id: 'theme_circle_gluttony',
     name: 'Gluttony: The Rain',
     backgroundColor: const Color(0xFF0A1A0A),
@@ -251,7 +253,7 @@ class DevilsCatalog {
     packId: 'pack_themes_circles_of_hell',
   );
 
-  static final ThemePreset themeCircleGreed = ThemePreset(
+  static final themeCircleGreed = ThemePreset(
     id: 'theme_circle_greed',
     name: 'Greed: The Weight',
     backgroundColor: const Color(0xFF1A1500),
@@ -269,7 +271,7 @@ class DevilsCatalog {
     packId: 'pack_themes_circles_of_hell',
   );
 
-  static final ThemePreset themeCircleAnger = ThemePreset(
+  static final themeCircleAnger = ThemePreset(
     id: 'theme_circle_anger',
     name: 'Anger: The Styx',
     backgroundColor: const Color(0xFF2A0000),
@@ -288,7 +290,7 @@ class DevilsCatalog {
   );
 
   // INKS
-  static final InkPreset inkObsidian = InkPreset(
+  static final inkObsidian = InkPreset(
     id: 'ink_obsidian',
     name: 'Ritual Obsidian',
     baseColor: Color(0xFF0A0A0A),
@@ -299,7 +301,7 @@ class DevilsCatalog {
     character: 'A dense, ritualistic black that pools and shades with pressure.',
   );
 
-  static final InkPreset inkCopperOxide = InkPreset(
+  static final inkCopperOxide = InkPreset(
     id: 'ink_copper_oxide',
     name: 'Oxidized Copper',
     baseColor: Color(0xFFB87333),
@@ -311,7 +313,7 @@ class DevilsCatalog {
     character: 'A metallic core that sheens into teal oxidation at the edges.',
   );
 
-  static final InkPreset inkMidnightSheen = InkPreset(
+  static final inkMidnightSheen = InkPreset(
     id: 'ink_midnight_sheen',
     name: 'Midnight Sheen',
     baseColor: Color(0xFF1A1A40),
@@ -319,7 +321,7 @@ class DevilsCatalog {
     sheenIntensity: 0.5,
   );
 
-  static final InkPreset inkAshBlack = InkPreset(
+  static final inkAshBlack = InkPreset(
     id: 'ink_ash_black',
     name: 'Ash Dry',
     baseColor: Color(0xFF4A4A4A),
@@ -327,7 +329,7 @@ class DevilsCatalog {
     dryness: 0.8,
   );
 
-  static final InkPreset inkBloodResin = InkPreset(
+  static final inkBloodResin = InkPreset(
     id: 'ink_blood_resin',
     name: 'Fresh Blood Resin',
     baseColor: Color(0xFF990000),
@@ -338,7 +340,7 @@ class DevilsCatalog {
     character: 'Thick, viscous ink that pools into deep maroons.',
   );
 
-  static final InkPreset inkInfernalGold = InkPreset(
+  static final inkInfernalGold = InkPreset(
     id: 'ink_infernal_gold',
     name: 'Hellfire Gold',
     baseColor: Color(0xFFFFD700),
@@ -350,7 +352,7 @@ class DevilsCatalog {
     character: 'Blindingly metallic gold that glitters with infernal energy.',
   );
 
-  static final InkPreset inkNeonCyber = InkPreset(
+  static final inkNeonCyber = InkPreset(
     id: 'ink_neon_cyber',
     name: 'Grid Runner Cyan',
     baseColor: Color(0xFF00FFFF),
@@ -361,7 +363,7 @@ class DevilsCatalog {
     character: 'A synthetic, high-frequency glow from the cyber-void.',
   );
 
-  static final InkPreset inkSheenMachine = InkPreset(
+  static final inkSheenMachine = InkPreset(
     id: 'ink_sheen_machine',
     name: 'KWZ Sheen Machine',
     baseColor: Color(0xFF004B57), // Deep Teal
@@ -372,7 +374,7 @@ class DevilsCatalog {
     packId: 'pack_inks_premium_vault',
   );
 
-  static final InkPreset inkEmeraldChivor = InkPreset(
+  static final inkEmeraldChivor = InkPreset(
     id: 'ink_emerald_chivor',
     name: 'Émeraude de Chivor',
     baseColor: Color(0xFF006D6F), // Dark Teal
@@ -385,7 +387,7 @@ class DevilsCatalog {
     packId: 'pack_inks_premium_vault',
   );
 
-  static final InkPreset inkOsNitrogen = InkPreset(
+  static final inkOsNitrogen = InkPreset(
     id: 'ink_os_nitrogen',
     name: 'O.S. Nitrogen',
     baseColor: Color(0xFF0047AB), // Royal Blue
@@ -396,7 +398,7 @@ class DevilsCatalog {
     packId: 'pack_inks_premium_vault',
   );
 
-  static final InkPreset inkYamaBudo = InkPreset(
+  static final inkYamaBudo = InkPreset(
     id: 'ink_yama_budo',
     name: 'Iroshizuku Yama-Budo',
     baseColor: Color(0xFF800040), // Deep Magenta/Purple
@@ -408,7 +410,7 @@ class DevilsCatalog {
     packId: 'pack_inks_premium_vault',
   );
 
-  static final InkPreset inkApacheSunset = InkPreset(
+  static final inkApacheSunset = InkPreset(
     id: 'ink_apache_sunset',
     name: 'Apache Sunset',
     baseColor: Color(0xFFFFB300), // Yellow-Orange
@@ -420,7 +422,7 @@ class DevilsCatalog {
     packId: 'pack_inks_premium_vault',
   );
 
-  static final InkPreset inkBlueLightning = InkPreset(
+  static final inkBlueLightning = InkPreset(
     id: 'ink_blue_lightning',
     name: 'Blue Lightning',
     baseColor: Color(0xFF00BFFF), // Light Blue
@@ -431,7 +433,7 @@ class DevilsCatalog {
     packId: 'pack_inks_premium_vault',
   );
 
-  static final InkPreset inkOxblood = InkPreset(
+  static final inkOxblood = InkPreset(
     id: 'ink_oxblood',
     name: 'Diamine Oxblood',
     baseColor: Color(0xFF4A0404), // Dried Blood Red
@@ -442,7 +444,7 @@ class DevilsCatalog {
     packId: 'pack_inks_premium_vault',
   );
 
-  static final InkPreset inkManyoHaha = InkPreset(
+  static final inkManyoHaha = InkPreset(
     id: 'ink_manyo_haha',
     name: 'Sailor Manyo Haha',
     baseColor: Color(0xFFADD8E6), // Pale Blue
@@ -454,7 +456,7 @@ class DevilsCatalog {
     packId: 'pack_inks_premium_vault',
   );
 
-  static final InkPreset inkFireIce = InkPreset(
+  static final inkFireIce = InkPreset(
     id: 'ink_fire_ice',
     name: 'Robert Oster Fire & Ice',
     baseColor: Color(0xFF008B8B), // Turquoise
@@ -465,7 +467,7 @@ class DevilsCatalog {
     packId: 'pack_inks_premium_vault',
   );
 
-  static final InkPreset inkJackFrost = InkPreset(
+  static final inkJackFrost = InkPreset(
     id: 'ink_jack_frost',
     name: 'Diamine Jack Frost',
     baseColor: Color(0xFF1E90FF), // Bright Blue
@@ -478,7 +480,7 @@ class DevilsCatalog {
     packId: 'pack_inks_premium_vault',
   );
 
-  static final InkPreset inkStardustSilver = InkPreset(
+  static final inkStardustSilver = InkPreset(
     id: 'ink_stardust_silver',
     name: 'Celestial Stardust',
     baseColor: Color(0xFFC0C0C0), // Silver
@@ -490,7 +492,7 @@ class DevilsCatalog {
   );
 
   // RELICS (SEALS / SIGNATURES)
-  static final RelicElement relicPentagram = RelicElement(
+  static final relicPentagram = RelicElement(
     id: 'relic_pentagram',
     name: 'Pentagram of Focus',
     type: RelicType.pentagram,
@@ -500,7 +502,7 @@ class DevilsCatalog {
     modifier: RitualModifier.hellfire,
   );
 
-  static final RelicElement relicRuneClarity = RelicElement(
+  static final relicRuneClarity = RelicElement(
     id: 'relic_rune_clarity',
     name: 'Rune of Clarity',
     type: RelicType.rune,
@@ -510,7 +512,7 @@ class DevilsCatalog {
     modifier: RitualModifier.cleric,
   );
 
-  static final RelicElement relicSealAbyss = RelicElement(
+  static final relicSealAbyss = RelicElement(
     id: 'relic_seal_abyss',
     name: 'Seal of the Abyss',
     type: RelicType.seal,
@@ -521,7 +523,7 @@ class DevilsCatalog {
   );
 
   // EFFECTS
-  static final EffectPreset effectDyingEmber = EffectPreset(
+  static final effectDyingEmber = EffectPreset(
     id: 'effect_ember',
     name: 'Dying Ember',
     shaderId: 'shaders/pencil.frag',
@@ -529,7 +531,7 @@ class DevilsCatalog {
     packId: 'pack_effects_subtle',
   );
 
-  static final EffectPreset effectTrueFlame = EffectPreset(
+  static final effectTrueFlame = EffectPreset(
     id: 'effect_true_flame',
     name: 'True Inferno',
     particleType: ParticleType.flame,
@@ -544,7 +546,7 @@ class DevilsCatalog {
     packId: 'pack_effects_premium',
   );
 
-  static final EffectPreset effectDigitalGlitch = EffectPreset(
+  static final effectDigitalGlitch = EffectPreset(
     id: 'effect_digital_glitch',
     name: 'Cyber Glitch',
     particleType: ParticleType.pixel,
@@ -558,7 +560,7 @@ class DevilsCatalog {
     packId: 'pack_effects_premium',
   );
 
-  static final EffectPreset effectVoidTendrils = EffectPreset(
+  static final effectVoidTendrils = EffectPreset(
     id: 'effect_void_tendrils',
     name: 'Void Tendrils',
     particleType: ParticleType.plasma,
@@ -572,7 +574,7 @@ class DevilsCatalog {
     packId: 'pack_effects_premium',
   );
 
-  static final EffectPreset effectHolyStardust = EffectPreset(
+  static final effectHolyStardust = EffectPreset(
     id: 'effect_holy_stardust',
     name: 'Holy Stardust',
     particleType: ParticleType.spark,
@@ -587,7 +589,7 @@ class DevilsCatalog {
   );
 
   // LOADOUTS
-  static final Loadout loadoutDevilsPen = Loadout(
+  static final loadoutDevilsPen = Loadout(
     id: 'loadout_the_devils_pen',
     name: 'The Devil\'s Pen',
     theme: themeDarkPremium,
@@ -596,7 +598,7 @@ class DevilsCatalog {
     preferredMode: WritingMode.ritual,
   );
 
-  static final Loadout loadoutBloodRitual = Loadout(
+  static final loadoutBloodRitual = Loadout(
     id: 'loadout_blood_ritual',
     name: 'Blood Ritual',
     theme: themeInfernalAltar,
@@ -605,7 +607,7 @@ class DevilsCatalog {
     preferredMode: WritingMode.infernal,
   );
 
-  static final Loadout loadoutAntiqueScholar = Loadout(
+  static final loadoutAntiqueScholar = Loadout(
     id: 'loadout_antique_scholar',
     name: 'Antique Scholar',
     theme: themeAntiqueSoul,
@@ -614,7 +616,7 @@ class DevilsCatalog {
     preferredMode: WritingMode.clean,
   );
 
-  static final Loadout loadoutCyberPunk = Loadout(
+  static final loadoutCyberPunk = Loadout(
     id: 'loadout_cyber_punk',
     name: 'Cyber Deck',
     theme: themeGamerMatrix,
@@ -623,7 +625,7 @@ class DevilsCatalog {
     preferredMode: WritingMode.ritual,
   );
 
-  static final Loadout loadoutEmeraldRitual = Loadout(
+  static final loadoutEmeraldRitual = Loadout(
     id: 'loadout_emerald_ritual',
     name: 'Emerald Ritual',
     theme: themeObsidianSanctum,
@@ -632,7 +634,7 @@ class DevilsCatalog {
     preferredMode: WritingMode.ritual,
   );
 
-  static final Loadout loadoutIndigoMachine = Loadout(
+  static final loadoutIndigoMachine = Loadout(
     id: 'loadout_indigo_machine',
     name: 'Indigo Machine',
     theme: themeDarkPremium,
@@ -641,7 +643,7 @@ class DevilsCatalog {
     preferredMode: WritingMode.ritual,
   );
 
-  static final Loadout loadoutUnderworld = Loadout(
+  static final loadoutUnderworld = Loadout(
     id: 'loadout_king_underworld',
     name: 'King of the Underworld',
     theme: themeRiverStyx,
@@ -650,7 +652,7 @@ class DevilsCatalog {
     preferredMode: WritingMode.infernal,
   );
 
-  static final Loadout loadoutAstralResonance = Loadout(
+  static final loadoutAstralResonance = Loadout(
     id: 'loadout_astral_resonance',
     name: 'Astral Resonance',
     theme: themeRiverCocytus, // Using Cocytus as base for celestial theme for now
@@ -659,10 +661,10 @@ class DevilsCatalog {
     preferredMode: WritingMode.ritual,
   );
 
-  static final Loadout defaultLoadout = loadoutDevilsPen;
+  static final defaultLoadout = loadoutDevilsPen;
 
   // REGISTRIES
-  static final Map<String, ThemePreset> themes = {
+  static final themes = {
     themeDarkPremium.id: themeDarkPremium,
     themeAntiqueSoul.id: themeAntiqueSoul,
     themeInfernalAltar.id: themeInfernalAltar,
@@ -683,7 +685,7 @@ class DevilsCatalog {
     themeGitTerminal.id: themeGitTerminal,
   };
 
-  static final Map<String, InkPreset> inks = {
+  static final inks = {
     inkObsidian.id: inkObsidian,
     inkCopperOxide.id: inkCopperOxide,
     inkMidnightSheen.id: inkMidnightSheen,
@@ -704,13 +706,13 @@ class DevilsCatalog {
     inkStardustSilver.id: inkStardustSilver,
   };
 
-  static final Map<String, RelicElement> relics = {
+  static final relics = {
     relicPentagram.id: relicPentagram,
     relicRuneClarity.id: relicRuneClarity,
     relicSealAbyss.id: relicSealAbyss,
   };
 
-  static final Map<String, EffectPreset> effects = {
+  static final effects = {
     effectDyingEmber.id: effectDyingEmber,
     effectTrueFlame.id: effectTrueFlame,
     effectDigitalGlitch.id: effectDigitalGlitch,
@@ -718,7 +720,7 @@ class DevilsCatalog {
     effectHolyStardust.id: effectHolyStardust,
   };
 
-  static final Map<String, Loadout> loadouts = {
+  static final loadouts = {
     loadoutDevilsPen.id: loadoutDevilsPen,
     loadoutBloodRitual.id: loadoutBloodRitual,
     loadoutAntiqueScholar.id: loadoutAntiqueScholar,

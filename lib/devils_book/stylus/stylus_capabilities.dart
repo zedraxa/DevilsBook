@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 /// Represents the hardware characteristics of the currently connected writing instrument.
 class StylusCapabilities {
   final bool supportsPressure;

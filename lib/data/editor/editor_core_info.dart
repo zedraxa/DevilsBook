@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -200,7 +203,7 @@ class EditorCoreInfo {
           assetCache: assetCache,
           fallbackStyle: PageStyle(
             backgroundColor: backgroundColor,
-            pattern: CanvasBackgroundPattern.fromName(json['p'] as String?) ?? stows.lastBackgroundPattern.value,
+            pattern: CanvasBackgroundPattern.fromName(json['p'] as String?),
             lineHeight: json['l'] as int? ?? stows.lastLineHeight.value,
             lineThickness: json['lt'] as int? ?? stows.lastLineThickness.value,
           ),

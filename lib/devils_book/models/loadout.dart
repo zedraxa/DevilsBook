@@ -1,7 +1,11 @@
-import 'theme_preset.dart';
-import 'ink_preset.dart';
-import 'effect_preset.dart';
-import 'writing_mode.dart';
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
+import 'package:saber/devils_book/models/effect_preset.dart';
+import 'package:saber/devils_book/models/ink_preset.dart';
+import 'package:saber/devils_book/models/loadout.dart';
+import 'package:saber/devils_book/models/theme_preset.dart';
+import 'package:saber/devils_book/models/writing_mode.dart';
 
 /// A combined configuration bridging Theme, Ink, Effect, and WritingMode.
 /// Used to represent a specialized "Writing Instrument" or mood setting.

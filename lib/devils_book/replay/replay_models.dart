@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
 
 /// The type of action that occurred in the timeline.
 enum ReplayEventType {

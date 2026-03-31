@@ -1,8 +1,11 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/material.dart';
-import '../../models/effect_preset.dart';
-import '../pack_manifest.dart';
-import '../pack_category.dart';
-import '../content_pack.dart';
+import 'package:saber/devils_book/models/effect_preset.dart';
+import 'package:saber/devils_book/packs/content_pack.dart';
+import 'package:saber/devils_book/packs/pack_category.dart';
+import 'package:saber/devils_book/packs/pack_manifest.dart';
 
 /// Elite, high-performance visual ritual components for premium users.
 class PremiumEffectPack {

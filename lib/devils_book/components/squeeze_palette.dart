@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'package:flutter/material.dart';
 import 'package:saber/devils_book/sessions/session_controller.dart';
 import 'package:saber/devils_book/stylus/squeeze_palette_controller.dart';

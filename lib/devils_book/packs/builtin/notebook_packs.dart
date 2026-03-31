@@ -1,7 +1,9 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/material.dart';
+import 'package:saber/devils_book/models/notebook_template.dart';
 import 'package:sbn/canvas_background_pattern.dart';
-import '../../models/notebook_template.dart';
-import '../content_pack.dart';
 
 /// Professional and minimalist notebook families.
 class ProfessionalNotebookPack {

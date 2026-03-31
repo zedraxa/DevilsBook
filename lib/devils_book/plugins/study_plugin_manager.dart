@@ -1,9 +1,12 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/foundation.dart';
-import 'study_plugin.dart';
+import 'package:saber/devils_book/plugins/study_plugin.dart';
 
 /// Central registry managing all registered AI/Study plugins.
 class StudyPluginManager extends ChangeNotifier {
-  static final StudyPluginManager _instance = StudyPluginManager._internal();
+  static final _instance = StudyPluginManager._internal();
   factory StudyPluginManager() => _instance;
   StudyPluginManager._internal();
 

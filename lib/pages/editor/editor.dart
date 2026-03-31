@@ -39,7 +39,11 @@ import 'package:saber/devils_book/sessions/session_controller.dart';
 import 'package:saber/devils_book/sessions/session_models.dart';
 import 'package:saber/devils_book/models/theme_preset.dart';
 import 'package:saber/devils_book/components/effect_selector_sheet.dart';
+import 'package:saber/devils_book/components/notebook_template_selector_sheet.dart';
 import 'package:saber/devils_book/components/theme_selector_sheet.dart';
+import 'package:saber/devils_book/export/export_options_sheet.dart';
+import 'package:saber/devils_book/sessions/session_start_sheet.dart';
+import 'package:saber/components/toolbar/pen_modal.dart';
 import 'package:sbn/tool_id.dart';
 import 'package:saber/data/editor/editor_history.dart';
 import 'package:saber/data/editor/page.dart';
@@ -130,10 +134,10 @@ class EditorState extends State<Editor> {
   void _startIntensityHaptics() {
     SessionController().addListener(() {
       final intensity = SessionController().getSessionIntensity();
-      if (intensity > 0.8) {
-        HapticFeedback.lightImpact();
-      } else if (intensity > 0.95) {
+      if (intensity > 0.95) {
         HapticFeedback.heavyImpact();
+      } else if (intensity > 0.8) {
+        HapticFeedback.lightImpact();
       }
     });
   }
@@ -318,6 +322,7 @@ class EditorState extends State<Editor> {
         }
         createPage(ns.pageIndex); page.insertStroke(ns);
         history.recordChange(EditorHistoryItem(type: EditorHistoryItemType.draw, pageIndex: dragPageIndex!, strokes: [ns], images: []));
+        SessionController().recordStroke();
       }
     });
     autosaveAfterDelay();
@@ -452,7 +457,57 @@ class EditorState extends State<Editor> {
                       },
                       onSelectEffect: () => showModalBottomSheet(context: context, backgroundColor: Colors.transparent, builder: (c) => EffectSelectorSheet(currentEffect: fxEngine.activePreset!, onSelect: (effect) => loadoutManager.setCustomEffect(effect))),
                       onSelectTheme: () => showModalBottomSheet(context: context, backgroundColor: Colors.transparent, builder: (c) => ThemeSelectorSheet(currentTheme: loadoutManager.customTheme ?? loadoutManager.currentLoadout.theme, onSelect: (theme) => loadoutManager.setCustomTheme(theme))),
-                      onSelectTemplate: () {}, onLongPressPen: () {}, onSelectEraser: () {}, onToggleZoomWindow: () {}, onStartSession: () {}, onTriggerReplay: () {}, onTriggerExport: () {},
+                      onSelectTemplate: () => showModalBottomSheet(
+                        context: context,
+                        backgroundColor: Colors.transparent,
+                        builder: (c) => NotebookTemplateSelectorSheet(
+                          onSelect: (template) {
+                            setState(() {
+                              for (final p in coreInfo.pages) {
+                                p.style = p.style.copyWith(
+                                  backgroundColor: template.defaultPage.backgroundColor,
+                                  lineColor: template.defaultPage.lineColor,
+                                  pattern: template.defaultPage.pattern,
+                                );
+                                p.redrawStrokes();
+                              }
+                            });
+                            autosaveAfterDelay();
+                          },
+                        ),
+                      ),
+                      onLongPressPen: () => showModalBottomSheet(
+                        context: context,
+                        backgroundColor: Colors.transparent,
+                        builder: (c) => PenModal(
+                          getTool: () => currentTool,
+                          setTool: (pen) => setState(() => currentTool = pen),
+                        ),
+                      ),
+                      onSelectEraser: () => setState(() => currentTool = Eraser()),
+                      onToggleZoomWindow: () => zoomController.toggleVisibility(),
+                      onStartSession: () => showModalBottomSheet(
+                        context: context,
+                        backgroundColor: Colors.transparent,
+                        isScrollControlled: true,
+                        builder: (c) => SessionStartSheet(
+                          onStart: (config) => SessionController().startSession(config),
+                        ),
+                      ),
+                      onTriggerReplay: () => ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          backgroundColor: Color(0xFF0A0A0A),
+                          content: Text('MEMORY REPLAY: Coming Soon', style: TextStyle(color: Color(0xFFD4AF37), letterSpacing: 1.5)),
+                        ),
+                      ),
+                      onTriggerExport: () => showModalBottomSheet(
+                        context: context,
+                        backgroundColor: Colors.transparent,
+                        isScrollControlled: true,
+                        builder: (c) => ExportOptionsSheet(
+                          onExport: (_) {},
+                        ),
+                      ),
                     ),
                   ),
                   const SessionOverlay(),
