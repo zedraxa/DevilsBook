@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; build fix
+library;
+
 import 'ambience_models.dart';
 
 class AmbienceRegistry {

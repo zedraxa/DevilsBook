@@ -1,4 +1,5 @@
 /// 🤖 Generated wholly or partially with Claude Code (claude-sonnet-4-5-20250929)
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; build fix
 library;
 
 import 'package:flutter/material.dart';

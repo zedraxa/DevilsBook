@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; build fix
+library;
+
 import 'dart:async';
 
 import 'package:collapsible/collapsible.dart';
