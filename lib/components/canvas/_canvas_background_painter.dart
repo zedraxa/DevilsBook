@@ -1,8 +1,12 @@
+/// 🤖 Generated wholely or partially with Claude Code
+library;
+
 import 'dart:math';
 import 'dart:ui' as ui;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:saber/data/extensions/color_extensions.dart';
+import 'package:saber/devils_book/models/paper_type.dart';
 import 'package:sbn/canvas_background_pattern.dart';
 
 class CanvasBackgroundPainter extends CustomPainter {
@@ -23,6 +27,7 @@ class CanvasBackgroundPainter extends CustomPainter {
     this.backgroundGradient,
     this.vignetteIntensity = 0.0,
     this.grainIntensity = 0.0,
+    this.paperType,
   });
 
   final bool invert;
@@ -48,6 +53,9 @@ class CanvasBackgroundPainter extends CustomPainter {
   final List<Color>? backgroundGradient;
   final double vignetteIntensity;
   final double grainIntensity;
+
+  /// Paper surface type — drives glossy sheen, grain, and absorption effects.
+  final PaperType? paperType;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -118,6 +126,9 @@ class CanvasBackgroundPainter extends CustomPainter {
       }
     }
 
+    // 4. Paper Surface Effects
+    _paintPaperSurface(canvas, size, canvasRect);
+
     paint.strokeWidth = lineThickness.toDouble();
 
     if (backgroundPattern.requiresClipping) {
@@ -152,6 +163,143 @@ class CanvasBackgroundPainter extends CustomPainter {
     }
   }
 
+  /// Paints paper-surface-specific visual effects.
+  void _paintPaperSurface(Canvas canvas, Size size, Rect canvasRect) {
+    if (paperType == null) return;
+    final paper = paperType!;
+
+    // Glossy sheen — a diagonal linear gradient highlight
+    if (paper.glossiness > 0.05) {
+      final sheenPaint = Paint()
+        ..shader = LinearGradient(
+          begin: const Alignment(-0.6, -0.8),
+          end: const Alignment(0.6, 0.8),
+          colors: [
+            Colors.white.withValues(alpha: 0.0),
+            Colors.white.withValues(alpha: paper.glossiness * 0.12),
+            Colors.white.withValues(alpha: paper.glossiness * 0.25),
+            Colors.white.withValues(alpha: paper.glossiness * 0.12),
+            Colors.white.withValues(alpha: 0.0),
+          ],
+          stops: const [0.0, 0.35, 0.5, 0.65, 1.0],
+        ).createShader(canvasRect)
+        ..blendMode = BlendMode.screen;
+      canvas.drawRect(canvasRect, sheenPaint);
+    }
+
+    // Paper grain — deterministic speckle based on surface
+    if (paper.grainAmount > 0.02) {
+      final grainPaint = Paint()..style = PaintingStyle.fill;
+      final rng = Random(paper.id.hashCode);
+      final count = (paper.grainAmount * 5000).toInt().clamp(200, 8000);
+      for (int i = 0; i < count; i++) {
+        final x = rng.nextDouble() * size.width;
+        final y = rng.nextDouble() * size.height;
+        final r = rng.nextDouble() * 1.0 + 0.3;
+        final alpha = paper.grainAmount * (0.05 + rng.nextDouble() * 0.08);
+        grainPaint.color = (rng.nextBool()
+                ? Colors.black
+                : Colors.white)
+            .withValues(alpha: alpha);
+        canvas.drawCircle(Offset(x, y), r, grainPaint);
+      }
+    }
+
+    // Absorbent paper — subtle edge darkening to simulate blotter-stock
+    if (paper.surface == PaperSurface.absorbent) {
+      final blotterPaint = Paint()
+        ..shader = RadialGradient(
+          colors: [
+            Colors.transparent,
+            Colors.brown.withValues(alpha: 0.02),
+          ],
+          stops: const [0.7, 1.0],
+        ).createShader(canvasRect)
+        ..blendMode = BlendMode.multiply;
+      canvas.drawRect(canvasRect, blotterPaint);
+    }
+
+    // Watercolor tooth — cross-hatch grain to simulate cold press
+    if (paper.surface == PaperSurface.watercolor) {
+      final toothPaint = Paint()
+        ..color = Colors.black.withValues(alpha: 0.015)
+        ..strokeWidth = 0.5
+        ..style = PaintingStyle.stroke;
+      final rng = Random(paper.id.hashCode + 7);
+      for (double y = 0; y < size.height; y += 4 + rng.nextDouble() * 3) {
+        final x1 = rng.nextDouble() * size.width * 0.1;
+        final x2 = size.width - rng.nextDouble() * size.width * 0.1;
+        canvas.drawLine(
+          Offset(x1, y + rng.nextDouble() * 1.5),
+          Offset(x2, y + rng.nextDouble() * 1.5),
+          toothPaint,
+        );
+      }
+    }
+
+    // Recycled speckle — larger, irregular fibre marks
+    if (paper.surface == PaperSurface.recycled) {
+      final specklePaint = Paint()..style = PaintingStyle.fill;
+      final rng = Random(paper.id.hashCode + 13);
+      for (int i = 0; i < 300; i++) {
+        final x = rng.nextDouble() * size.width;
+        final y = rng.nextDouble() * size.height;
+        final r = 0.5 + rng.nextDouble() * 1.8;
+        specklePaint.color = Color.lerp(
+          Colors.brown,
+          Colors.grey,
+          rng.nextDouble(),
+        )!.withValues(alpha: 0.04 + rng.nextDouble() * 0.04);
+        canvas.drawCircle(Offset(x, y), r, specklePaint);
+      }
+    }
+
+    // Vellum translucency — faint radial transparency glow
+    if (paper.surface == PaperSurface.vellum) {
+      final vellumPaint = Paint()
+        ..shader = RadialGradient(
+          colors: [
+            Colors.white.withValues(alpha: 0.08),
+            Colors.transparent,
+          ],
+          stops: const [0.0, 0.8],
+        ).createShader(canvasRect)
+        ..blendMode = BlendMode.softLight;
+      canvas.drawRect(canvasRect, vellumPaint);
+    }
+
+    // Textured linen — subtle woven cross pattern
+    if (paper.surface == PaperSurface.textured) {
+      final linenPaint = Paint()
+        ..color = Colors.black.withValues(alpha: 0.012)
+        ..strokeWidth = 0.4
+        ..style = PaintingStyle.stroke;
+      for (double y = 0; y < size.height; y += 6) {
+        canvas.drawLine(Offset(0, y), Offset(size.width, y), linenPaint);
+      }
+      for (double x = 0; x < size.width; x += 6) {
+        canvas.drawLine(Offset(x, 0), Offset(x, size.height), linenPaint);
+      }
+    }
+
+    // Satin sheen — softer, wider gradient than glossy
+    if (paper.surface == PaperSurface.satin) {
+      final satinPaint = Paint()
+        ..shader = LinearGradient(
+          begin: const Alignment(-1.0, -0.4),
+          end: const Alignment(1.0, 0.4),
+          colors: [
+            Colors.white.withValues(alpha: 0.0),
+            Colors.white.withValues(alpha: paper.glossiness * 0.08),
+            Colors.white.withValues(alpha: 0.0),
+          ],
+          stops: const [0.0, 0.5, 1.0],
+        ).createShader(canvasRect)
+        ..blendMode = BlendMode.screen;
+      canvas.drawRect(canvasRect, satinPaint);
+    }
+  }
+
   @override
   bool shouldRepaint(CanvasBackgroundPainter oldDelegate) =>
       kDebugMode ||
@@ -165,7 +313,8 @@ class CanvasBackgroundPainter extends CustomPainter {
       oldDelegate.intensity != intensity ||
       oldDelegate.textureImage != textureImage ||
       oldDelegate.textureOpacity != textureOpacity ||
-      oldDelegate.textureBlendMode != textureBlendMode;
+      oldDelegate.textureBlendMode != textureBlendMode ||
+      oldDelegate.paperType?.id != paperType?.id;
 
   static Iterable<PatternElement> getPatternElements({
     required CanvasBackgroundPattern pattern,

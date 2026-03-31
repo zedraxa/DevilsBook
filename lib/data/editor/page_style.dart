@@ -1,5 +1,9 @@
+/// 🤖 Generated wholely or partially with Claude Code
+library;
+
 import 'package:flutter/material.dart';
 import 'package:saber/data/extensions/color_extensions.dart';
+import 'package:saber/devils_book/models/paper_type.dart';
 import 'package:sbn/canvas_background_pattern.dart';
 
 class PageStyle {
@@ -10,6 +14,10 @@ class PageStyle {
   final Color? lineColor;
   final String? templateRef;
 
+  /// The paper surface type for this page. When non-null the canvas
+  /// background painter applies surface-specific visual effects.
+  final PaperType? paperType;
+
   const PageStyle({
     required this.pattern,
     this.backgroundColor,
@@ -17,6 +25,7 @@ class PageStyle {
     required this.lineHeight,
     required this.lineThickness,
     this.templateRef,
+    this.paperType,
   });
 
   factory PageStyle.fromJson(Map<String, dynamic> json, {required PageStyle fallback}) {
@@ -38,6 +47,7 @@ class PageStyle {
       lineHeight: json['l'] as int? ?? fallback.lineHeight,
       lineThickness: json['lt'] as int? ?? fallback.lineThickness,
       templateRef: json['tr'] as String?,
+      paperType: PaperType.fromId(json['pt'] as String?) ?? fallback.paperType,
     );
   }
 
@@ -49,6 +59,7 @@ class PageStyle {
       if (lineHeight != notebookDefault.lineHeight) 'l': lineHeight,
       if (lineThickness != notebookDefault.lineThickness) 'lt': lineThickness,
       if (templateRef != null) 'tr': templateRef,
+      if (paperType?.id != notebookDefault.paperType?.id) 'pt': paperType?.id,
     };
   }
 
@@ -59,6 +70,7 @@ class PageStyle {
     int? lineHeight,
     int? lineThickness,
     String? templateRef,
+    PaperType? paperType,
   }) {
     return PageStyle(
       pattern: pattern ?? this.pattern,
@@ -67,6 +79,7 @@ class PageStyle {
       lineHeight: lineHeight ?? this.lineHeight,
       lineThickness: lineThickness ?? this.lineThickness,
       templateRef: templateRef ?? this.templateRef,
+      paperType: paperType ?? this.paperType,
     );
   }
 }

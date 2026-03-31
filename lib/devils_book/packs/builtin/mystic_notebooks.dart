@@ -1,5 +1,9 @@
+/// 🤖 Generated wholely or partially with Claude Code
+library;
+
 import 'package:flutter/material.dart';
 import 'package:sbn/canvas_background_pattern.dart';
+import 'package:saber/devils_book/models/paper_type.dart';
 import '../../models/notebook_template.dart';
 import '../pack_manifest.dart';
 import '../pack_category.dart';
@@ -20,6 +24,7 @@ class MysticNotebookPack {
     backgroundColor: Color(0xFFF2EBDC),
     texturePath: 'assets/textures/ancient_vellum_texture.png',
     description: 'Aged, translucent parchment for timeless notes.',
+    paperType: PaperCatalog.velvetVellum,
   );
 
   static final _obsidianSlate = PageTemplate(
@@ -30,6 +35,7 @@ class MysticNotebookPack {
     lineColor: Color(0x11FFFFFF),
     texturePath: 'assets/textures/obsidian_slate_texture.png',
     description: 'Dark stone surface for high-contrast white or metallic ink.',
+    paperType: PaperCatalog.midnightBlack,
   );
 
   static final _gitTerminal = PageTemplate(
@@ -40,6 +46,7 @@ class MysticNotebookPack {
     lineColor: Color(0x3300FF44),
     texturePath: 'assets/textures/git_log_texture.png',
     description: 'Technical green phosphor lines on deep black.',
+    paperType: PaperCatalog.midnightBlack,
   );
 
   static final List<NotebookTemplate> templates = [

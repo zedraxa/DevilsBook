@@ -29,7 +29,7 @@ class SessionOverlay extends StatelessWidget {
                   gradient: RadialGradient(
                     colors: [
                       Colors.transparent,
-                      const Color(0xFF050505).withOpacity(0.5 + (intensity * 0.45)), // Increases with intensity
+                      const Color(0xFF050505).withValues(alpha: 0.5 + (intensity * 0.45)), // Increases with intensity
                     ],
                     stops: [0.6 - (intensity * 0.2), 1.0], // Vignette shrinks inwards with intensity
                   ),
@@ -52,12 +52,12 @@ class SessionOverlay extends StatelessWidget {
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                             decoration: BoxDecoration(
-                              color: const Color(0xFF050505).withOpacity(0.9),
+                              color: const Color(0xFF050505).withValues(alpha: 0.9),
                               borderRadius: BorderRadius.circular(4),
                               border: Border.all(color: const Color(0xFFD4AF37), width: 1.5),
                               boxShadow: [
                                 BoxShadow(
-                                  color: const Color(0xFFFF2200).withOpacity(0.3 + (intensity * 0.4)),
+                                  color: const Color(0xFFFF2200).withValues(alpha: 0.3 + (intensity * 0.4)),
                                   blurRadius: (15 + (intensity * 20)) * pulse,
                                   spreadRadius: (2 + (intensity * 5)) * pulse,
                                 ),

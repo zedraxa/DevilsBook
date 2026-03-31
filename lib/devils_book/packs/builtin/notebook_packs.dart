@@ -1,5 +1,9 @@
+/// 🤖 Generated wholely or partially with Claude Code
+library;
+
 import 'package:flutter/material.dart';
 import 'package:sbn/canvas_background_pattern.dart';
+import 'package:saber/devils_book/models/paper_type.dart';
 import '../../models/notebook_template.dart';
 import '../content_pack.dart';
 
@@ -9,6 +13,7 @@ class ProfessionalNotebookPack {
     id: 'page_blank_white', name: 'Blank White',
     backgroundColor: Color(0xFFFFFFFF),
     description: 'Pure empty canvas.',
+    paperType: PaperCatalog.classicWhite,
   );
   static final _ruledPage = PageTemplate(
     id: 'page_ruled_classic', name: 'Classic Ruled',
@@ -16,6 +21,7 @@ class ProfessionalNotebookPack {
     pattern: CanvasBackgroundPattern.lined,
     lineColor: Color(0x22AABBCC),
     description: 'Traditional lined paper.',
+    paperType: PaperCatalog.classicWhite,
   );
   static final _dottedPage = PageTemplate(
     id: 'page_dotted_grey', name: 'Dot Grid',
@@ -23,6 +29,7 @@ class ProfessionalNotebookPack {
     pattern: CanvasBackgroundPattern.dots,
     lineColor: Color(0x22888888),
     description: 'Subtle dot grid for flexible layouts.',
+    paperType: PaperCatalog.ivorySmooth,
   );
   static final _gridPage = PageTemplate(
     id: 'page_grid_light', name: 'Light Grid',
@@ -30,6 +37,7 @@ class ProfessionalNotebookPack {
     pattern: CanvasBackgroundPattern.grid,
     lineColor: Color(0x15888888),
     description: 'Fine engineering grid.',
+    paperType: PaperCatalog.classicWhite,
   );
 
   static final List<NotebookTemplate> templates = [
@@ -66,6 +74,7 @@ class HeritageNotebookPack {
     id: 'page_parchment', name: 'Parchment',
     backgroundColor: Color(0xFFE8E0D2),
     description: 'Warm aged parchment.',
+    paperType: PaperCatalog.antiqueCream,
   );
   static final _parchmentRuled = PageTemplate(
     id: 'page_parchment_ruled', name: 'Parchment Ruled',
@@ -73,6 +82,7 @@ class HeritageNotebookPack {
     pattern: CanvasBackgroundPattern.lined,
     lineColor: Color(0x33A09070),
     description: 'Ruled lines on warm parchment.',
+    paperType: PaperCatalog.antiqueCream,
   );
   static final _vellumDotted = PageTemplate(
     id: 'page_vellum_dotted', name: 'Vellum Dotted',
@@ -80,6 +90,7 @@ class HeritageNotebookPack {
     pattern: CanvasBackgroundPattern.dots,
     lineColor: Color(0x22C0A880),
     description: 'Cream vellum with faint dot grid.',
+    paperType: PaperCatalog.velvetVellum,
   );
 
   static final List<NotebookTemplate> templates = [
@@ -108,6 +119,7 @@ class InfernalNotebookPack {
     id: 'page_dark_void', name: 'Dark Void',
     backgroundColor: Color(0xFF141414),
     description: 'Pure black canvas.',
+    paperType: PaperCatalog.midnightBlack,
   );
   static final _altarGrid = PageTemplate(
     id: 'page_altar_grid', name: 'Altar Grid',
@@ -115,6 +127,7 @@ class InfernalNotebookPack {
     pattern: CanvasBackgroundPattern.grid,
     lineColor: Color(0x33FF2222),
     description: 'Blood-red grid on dark crimson.',
+    paperType: PaperCatalog.crimsonVoid,
   );
   static final _emberDots = PageTemplate(
     id: 'page_ember_dots', name: 'Ember Dots',
@@ -122,6 +135,7 @@ class InfernalNotebookPack {
     pattern: CanvasBackgroundPattern.dots,
     lineColor: Color(0x22FF6600),
     description: 'Smoldering orange dots in darkness.',
+    paperType: PaperCatalog.midnightBlack,
   );
 
   static final List<NotebookTemplate> templates = [
@@ -150,6 +164,7 @@ class CyberNotebookPack {
     id: 'page_cyber_blank', name: 'Cyber Blank',
     backgroundColor: Color(0xFF0D1B2A),
     description: 'Deep navy digital canvas.',
+    paperType: PaperCatalog.deepNavy,
   );
   static final _neonGrid = PageTemplate(
     id: 'page_neon_grid', name: 'Neon Grid',
@@ -157,6 +172,7 @@ class CyberNotebookPack {
     pattern: CanvasBackgroundPattern.grid,
     lineColor: Color(0x22FF00FF),
     description: 'Magenta grid on dark purple.',
+    paperType: PaperCatalog.glossyPhoto,
   );
   static final _terminalRuled = PageTemplate(
     id: 'page_terminal_ruled', name: 'Terminal Lines',
@@ -164,6 +180,7 @@ class CyberNotebookPack {
     pattern: CanvasBackgroundPattern.lined,
     lineColor: Color(0x2200FF00),
     description: 'Green phosphor lines on black.',
+    paperType: PaperCatalog.midnightBlack,
   );
 
   static final List<NotebookTemplate> templates = [
@@ -192,16 +209,19 @@ class EtherealNotebookPack {
     id: 'page_vellum_ethereal', name: 'Cloud Vellum',
     backgroundColor: Color(0xFFF0F8FF),
     description: 'Semi-translucent, ethereal white with a bluish tint.',
+    paperType: PaperCatalog.velvetVellum,
   );
   static final _cottonPage = PageTemplate(
     id: 'page_cotton_artisanal', name: 'Cotton Rag',
     backgroundColor: Color(0xFFFFFDD0),
     description: 'Soft, textured ivory for artisanal writing.',
+    paperType: PaperCatalog.texturedLinen,
   );
   static final _silkPage = PageTemplate(
     id: 'page_silk_coated', name: 'Silk Coated',
     backgroundColor: Color(0xFFF5F5F5),
     description: 'Ultra-smooth, pale grey digital silk.',
+    paperType: PaperCatalog.satinPremium,
   );
 
   static final List<NotebookTemplate> templates = [
@@ -240,16 +260,19 @@ class ElementalNotebookPack {
     id: 'page_stone_silky', name: 'Silky Stone',
     backgroundColor: Color(0xFFE0E0E0),
     description: 'Dense, ultra-smooth grey-white mineral paper.',
+    paperType: PaperCatalog.satinPremium,
   );
   static final _obsidianPage = PageTemplate(
     id: 'page_obsidian_void', name: 'Obsidian Glass',
     backgroundColor: Color(0xFF050505),
     description: 'Deep, mirror-like black reflective canvas.',
+    paperType: PaperCatalog.glossyPhoto,
   );
   static final _titaniumPage = PageTemplate(
     id: 'page_titanium_industrial', name: 'Titanium Sheet',
     backgroundColor: Color(0xFFB0C4DE),
     description: 'Metallic grey with a subtle vertical sheen.',
+    paperType: PaperCatalog.satinPremium,
   );
 
   static final List<NotebookTemplate> templates = [

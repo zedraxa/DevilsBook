@@ -86,11 +86,11 @@ class InkSelectorSheet extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? ink.baseColor.withOpacity(0.15)
+                      ? ink.baseColor.withValues(alpha: 0.15)
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: isSelected ? ink.baseColor : Colors.grey.withOpacity(0.2),
+                    color: isSelected ? ink.baseColor : Colors.grey.withValues(alpha: 0.2),
                     width: isSelected ? 2 : 1,
                   ),
                 ),
@@ -107,7 +107,7 @@ class InkSelectorSheet extends StatelessWidget {
                           stops: const [0.0, 0.5, 1.0],
                         ),
                         boxShadow: isSelected
-                            ? [BoxShadow(color: ink.baseColor.withOpacity(0.4), blurRadius: 6)]
+                            ? [BoxShadow(color: ink.baseColor.withValues(alpha: 0.4), blurRadius: 6)]
                             : null,
                       ),
                     ),
