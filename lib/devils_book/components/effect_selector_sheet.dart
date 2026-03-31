@@ -1,3 +1,6 @@
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5
+library;
+
 import 'package:flutter/material.dart';
 import 'package:saber/devils_book/models/effect_preset.dart';
 import 'package:saber/devils_book/registry/devils_catalog.dart';
@@ -144,24 +147,30 @@ class EffectSelectorSheet extends StatelessWidget {
   IconData _getIconForType(ParticleType type) {
     switch (type) {
       case ParticleType.flame: return Icons.local_fire_department_outlined;
+      case ParticleType.flameV2: return Icons.whatshot;
       case ParticleType.pixel: return Icons.grid_view_outlined;
       case ParticleType.plasma: return Icons.waves_outlined;
       case ParticleType.ash: return Icons.grain_outlined;
       case ParticleType.ember: return Icons.auto_awesome_sharp;
       case ParticleType.spark: return Icons.bolt_outlined;
       case ParticleType.voidMatter: return Icons.blur_on;
+      case ParticleType.blood: return Icons.water_drop_outlined;
+      case ParticleType.smoke: return Icons.cloud_outlined;
     }
   }
 
   String _getDescriptionForType(ParticleType type) {
     switch (type) {
       case ParticleType.flame: return 'Infernal heat that consumes and purifies.';
+      case ParticleType.flameV2: return 'Turbulent, multi-layered fire with a searing blue-white core.';
       case ParticleType.pixel: return 'Synthetic void leakage from the cyber-plane.';
       case ParticleType.plasma: return 'High-frequency Abyssal energy emission.';
       case ParticleType.ash: return 'Ephemeral decay of thought into static.';
       case ParticleType.ember: return 'The glowing remains of a fading memory.';
       case ParticleType.spark: return 'Electric manifestation of sudden insight.';
       case ParticleType.voidMatter: return 'Non-existence condensed into absolute ink.';
+      case ParticleType.blood: return 'Crimson drips that fall and dry into the page.';
+      case ParticleType.smoke: return 'Billowing grey clouds that rise and vanish into nothing.';
     }
   }
 }

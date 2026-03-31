@@ -1,3 +1,6 @@
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5
+library;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import '../models/writing_mode.dart';
@@ -193,6 +196,67 @@ class _EffectPainter extends CustomPainter {
             ..strokeWidth = 2.0 * lifeRatio
             ..maskFilter = MaskFilter.blur(BlurStyle.normal, 3.0);
           canvas.drawCircle(p.position, currentSize * 2.5, ripplePaint);
+          break;
+
+        case ParticleType.flameV2:
+          // FIRE V2: Three-layer rendering — outer heat haze, main body, blue-white core.
+          // Uses additive (screen) blending throughout for realistic light emission.
+
+          // Outer heat-haze glow (widest, softest)
+          final hazePaint = Paint()
+            ..color = p.color.withValues(alpha: lifeRatio * 0.25)
+            ..maskFilter = MaskFilter.blur(BlurStyle.normal, 14.0 * lifeRatio)
+            ..blendMode = BlendMode.screen;
+          canvas.drawCircle(p.position, currentSize * 2.2, hazePaint);
+
+          // Main flame body
+          paint.maskFilter = MaskFilter.blur(BlurStyle.normal, 7.0 * lifeRatio);
+          paint.blendMode = BlendMode.screen;
+          canvas.drawCircle(p.position, currentSize * 1.4, paint);
+
+          // Blue-white super-hot core (visible only in the first 25 % of life)
+          if (lifeRatio > 0.75) {
+            final v2CorePaint = Paint()
+              ..color = const Color(0xFFDDEEFF).withValues(alpha: (lifeRatio - 0.75) * 4.0 * 0.9)
+              ..maskFilter = MaskFilter.blur(BlurStyle.normal, 2.5 * lifeRatio)
+              ..blendMode = BlendMode.screen;
+            canvas.drawCircle(p.position, currentSize * 0.35, v2CorePaint);
+          }
+          break;
+
+        case ParticleType.blood:
+          // BLOOD: Oval drip shape that elongates downward over its lifetime.
+          final drip = 1.0 + (1.0 - lifeRatio) * 1.5; // stretches as it falls
+          paint.maskFilter = MaskFilter.blur(BlurStyle.normal, 3.0 * lifeRatio);
+          canvas.drawOval(
+            Rect.fromCenter(
+              center: p.position,
+              width: currentSize * 0.85,
+              height: currentSize * drip,
+            ),
+            paint,
+          );
+
+          // Specular highlight on fresh blood
+          if (lifeRatio > 0.6) {
+            final highlightPaint = Paint()
+              ..color = const Color(0xFFFF6666).withValues(alpha: (lifeRatio - 0.6) * 0.6)
+              ..maskFilter = MaskFilter.blur(BlurStyle.normal, 1.5);
+            canvas.drawCircle(
+              p.position - Offset(currentSize * 0.2, currentSize * 0.2),
+              currentSize * 0.25,
+              highlightPaint,
+            );
+          }
+          break;
+
+        case ParticleType.smoke:
+          // SMOKE: Expanding soft circle that grows as it rises and becomes more transparent.
+          // Age-driven expansion: particle grows to 3× its spawn size by end of life.
+          final expansion = 1.0 + (1.0 - lifeRatio) * 2.0;
+          paint.color = p.color.withValues(alpha: lifeRatio * 0.45);
+          paint.maskFilter = MaskFilter.blur(BlurStyle.normal, 18.0 * (1.0 - lifeRatio + 0.2));
+          canvas.drawCircle(p.position, currentSize * expansion, paint);
           break;
       }
     }
