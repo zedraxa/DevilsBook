@@ -39,7 +39,7 @@ workflows:
             echo "Error: Could not extract a numeric build number from pubspec.yaml (got '$BASE_BUILD')"
             exit 1
           fi
-          CM_BUILD=${PROJECT_BUILD_NUMBER:-1}
+          CM_BUILD=${PROJECT_BUILD_NUMBER:-0}
           BUILD_NUMBER=$(($BASE_BUILD + $CM_BUILD))
           VERSION_NAME=$(grep 'version: ' pubspec.yaml | cut -d ' ' -f 2 | cut -d '+' -f 1)
           sed -i '' "s/version: .*/version: ${VERSION_NAME}+${BUILD_NUMBER}/" pubspec.yaml
