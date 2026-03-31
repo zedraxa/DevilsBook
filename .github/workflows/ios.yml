@@ -76,9 +76,20 @@ jobs:
       - run: ./patches/post/patch_rust_versions.sh
       - run: ./patches/post/remove_wasm_libs.sh
 
+      - name: Compute build number
+        id: version
+        run: |
+          BASE_BUILD=$(grep 'version: ' pubspec.yaml | cut -d '+' -f 2)
+          # Add github.run_number to the base so each CI run produces a unique,
+          # monotonically increasing build number for App Store Connect.
+          BUILD_NUMBER=$(($BASE_BUILD + ${{ github.run_number }}))
+          echo "build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
+          echo "Using build number: $BUILD_NUMBER (base $BASE_BUILD + run ${{ github.run_number }})"
+
       - name: Build for iOS
         run: |
           flutter build ipa \
+            --build-number=${{ steps.version.outputs.build_number }} \
             --dart-define=FLAVOR="App Store" \
             --dart-define=APP_STORE="App Store" \
             --dart-define=UPDATE_CHECK="false" \

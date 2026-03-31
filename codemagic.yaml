@@ -31,7 +31,7 @@ workflows:
           flutter pub get
       - name: "Synchronize versioning and build numbers"
         script: |
-          # Reads the base build number from pubspec.yaml (e.g. 132000 from "version: 1.32.0+132000")
+          # Reads the base build number from pubspec.yaml (e.g. 132001 from "version: 1.32.0+132001")
           # and adds Codemagic's PROJECT_BUILD_NUMBER to guarantee the result always
           # exceeds the previously uploaded version on App Store Connect.
           BASE_BUILD=$(grep 'version: ' pubspec.yaml | cut -d '+' -f 2)
@@ -39,6 +39,8 @@ workflows:
             echo "Error: Could not extract a numeric build number from pubspec.yaml (got '$BASE_BUILD')"
             exit 1
           fi
+          # Default PROJECT_BUILD_NUMBER to 0 if unset, so the base alone is still valid
+          PROJECT_BUILD_NUMBER=${PROJECT_BUILD_NUMBER:-0}
           BUILD_NUMBER=$(($BASE_BUILD + $PROJECT_BUILD_NUMBER))
           VERSION_NAME=$(grep 'version: ' pubspec.yaml | cut -d ' ' -f 2 | cut -d '+' -f 1)
           sed -i '' "s/version: .*/version: ${VERSION_NAME}+${BUILD_NUMBER}/" pubspec.yaml
