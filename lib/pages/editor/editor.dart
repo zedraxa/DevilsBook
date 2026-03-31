@@ -1,4 +1,4 @@
-/// 🤖 Generated wholely or partially with Claude Sonnet 4.5 ✨
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5; Claude Sonnet 4 ✨
 library;
 
 import 'dart:async';
@@ -43,6 +43,7 @@ import 'package:saber/data/file_manager/file_manager.dart';
 import 'package:saber/data/nextcloud/saber_syncer.dart';
 import 'package:saber/data/prefs.dart';
 import 'package:saber/data/tools/_tool.dart';
+import 'package:saber/data/tools/calligraphy_pen.dart';
 import 'package:saber/data/tools/eraser.dart';
 import 'package:saber/data/tools/highlighter.dart';
 import 'package:saber/data/tools/laser_pointer.dart';
@@ -137,6 +138,11 @@ class EditorState extends State<Editor> {
       case .ballpointPen:
         if (Pen.currentPen.toolId != stows.lastTool.value) {
           Pen.currentPen = Pen.ballpointPen();
+        }
+        return Pen.currentPen;
+      case .calligraphyPen:
+        if (Pen.currentPen.toolId != stows.lastTool.value) {
+          Pen.currentPen = CalligraphyPen();
         }
         return Pen.currentPen;
       case .shapePen:
@@ -243,6 +249,12 @@ class EditorState extends State<Editor> {
     currentStylusOrientation = orientation;
     currentStylusTilt = tilt;
   }
+
+  /// Returns [currentStylusOrientation] when the active tool is a
+  /// [CalligraphyPen], or `null` otherwise, so only calligraphy strokes
+  /// store per-point nib orientation data.
+  double? get _orientationForCurrentTool =>
+      currentTool is CalligraphyPen ? currentStylusOrientation : null;
 
   void _initAsync() async {
     final filePath = await widget.initialPath;
@@ -622,6 +634,7 @@ class EditorState extends State<Editor> {
         page,
         dragPageIndex!,
         currentPressure,
+        _orientationForCurrentTool,
       );
     } else if (currentTool is Eraser) {
       for (final stroke in (currentTool as Eraser).checkForOverlappingStrokes(
@@ -662,7 +675,11 @@ class EditorState extends State<Editor> {
     final offset = position - previousPosition;
 
     if (currentTool is Pen) {
-      (currentTool as Pen).onDragUpdate(position, currentPressure);
+      (currentTool as Pen).onDragUpdate(
+        position,
+        currentPressure,
+        _orientationForCurrentTool,
+      );
       page.redrawStrokes();
     } else if (currentTool is Eraser) {
       for (final stroke in (currentTool as Eraser).checkForOverlappingStrokes(
@@ -2127,6 +2144,7 @@ class EditorState extends State<Editor> {
     stows.lastHighlighterOptions.notifyListeners();
     stows.lastPencilOptions.notifyListeners();
     stows.lastShapePenOptions.notifyListeners();
+    stows.lastCalligraphyPenOptions.notifyListeners();
 
     super.dispose();
   }

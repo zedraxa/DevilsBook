@@ -9,6 +9,7 @@ enum ToolId {
   highlighter('Highlighter'),
   fountainPen('fountainPen'),
   ballpointPen('ballpointPen'),
+  calligraphyPen('calligraphyPen'),
   pencil('Pencil'),
   shapePen('ShapePen'),
   eraser('Eraser'),

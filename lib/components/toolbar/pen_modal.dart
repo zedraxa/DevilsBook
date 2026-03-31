@@ -5,6 +5,7 @@ import 'package:saber/components/toolbar/size_picker.dart';
 import 'package:saber/data/extensions/axis_extensions.dart';
 import 'package:saber/data/prefs.dart';
 import 'package:saber/data/tools/_tool.dart';
+import 'package:saber/data/tools/calligraphy_pen.dart';
 import 'package:saber/data/tools/highlighter.dart';
 import 'package:saber/data/tools/pen.dart';
 import 'package:saber/data/tools/pencil.dart';
@@ -93,6 +94,33 @@ class _PenModalState extends State<PenModal> {
                     ? ColorScheme.of(context).secondary
                     : ColorScheme.of(context).onSurface,
               ),
+            ),
+          ),
+          const SizedBox.square(dimension: 8),
+          IconButton(
+            onPressed: () => setState(() {
+              widget.setTool(CalligraphyPen());
+            }),
+            style: TextButton.styleFrom(
+              foregroundColor:
+                  Pen.currentPen.icon == CalligraphyPen.calligraphyPenIcon
+                      ? ColorScheme.of(context).secondary
+                      : ColorScheme.of(context).onSurface,
+              backgroundColor:
+                  Pen.currentPen.icon == CalligraphyPen.calligraphyPenIcon
+                      ? Theme.of(
+                          context,
+                        ).colorScheme.secondary.withValues(alpha: 0.1)
+                      : Colors.transparent,
+              shape: const CircleBorder(),
+            ),
+            tooltip: t.editor.pens.calligraphyPen,
+            icon: FaIcon(
+              CalligraphyPen.calligraphyPenIcon,
+              color:
+                  Pen.currentPen.icon == CalligraphyPen.calligraphyPenIcon
+                      ? ColorScheme.of(context).secondary
+                      : ColorScheme.of(context).onSurface,
             ),
           ),
           const SizedBox.square(dimension: 8),

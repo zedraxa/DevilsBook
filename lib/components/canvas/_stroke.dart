@@ -1,3 +1,5 @@
+/// 🤖 Generated wholly or partially with Claude Sonnet 4 ✨
+
 import 'dart:math';
 
 import 'package:collection/collection.dart';
@@ -19,6 +21,15 @@ class Stroke {
   @visibleForTesting
   @protected
   final List<PointVector> points = [];
+
+  /// Per-point nib orientation angles in radians (−π … π, 0 = default).
+  ///
+  /// Parallel to [points]; only populated for calligraphy strokes.
+  /// Used by [_getCalligraphicPolygon] to vary stroke width based on the
+  /// angle between the stroke direction and the physical nib orientation.
+  @visibleForTesting
+  @protected
+  final List<double> orientations = [];
 
   bool get isEmpty => points.isEmpty;
   int get length => points.length;
@@ -141,7 +152,7 @@ class Stroke {
       );
     }
 
-    return Stroke(
+    final stroke = Stroke(
       color: color,
       pressureEnabled: pressureEnabled,
       options: options,
@@ -149,10 +160,19 @@ class Stroke {
       page: page,
       toolId: toolId,
     )..points.addAll(points);
+
+    final orientationsJson = json['or'] as List<dynamic>?;
+    if (orientationsJson != null) {
+      stroke.orientations.addAll(
+        orientationsJson.map((e) => (e as num).toDouble()),
+      );
+    }
+
+    return stroke;
   }
   Map<String, dynamic> toJson() {
     // these json keys should not be the same as the ones in [StrokeOptions.toJson]
-    return {
+    final json = {
       'shape': null,
       'p': points
           .where((point) => point.isFinite)
@@ -163,9 +183,13 @@ class Stroke {
       'pe': pressureEnabled,
       'c': color.toARGB32(),
     }..addAll(options.toJson());
+    if (orientations.isNotEmpty) {
+      json['or'] = orientations;
+    }
+    return json;
   }
 
-  void addPoint(Offset point, [double? pressure]) {
+  void addPoint(Offset point, [double? pressure, double? orientation]) {
     if (!pressureEnabled) {
       pressure = null;
     } else if (pressure != null) {
@@ -173,6 +197,9 @@ class Stroke {
     }
 
     points.add(PointVector(point.dx, point.dy, pressure));
+    if (orientation != null || orientations.isNotEmpty) {
+      orientations.add(orientation ?? 0);
+    }
     markPolygonNeedsUpdating();
   }
 
@@ -221,6 +248,10 @@ class Stroke {
 
   @protected
   List<Offset> getPolygon({required StrokeQuality quality}) {
+    if (toolId == .calligraphyPen && orientations.isNotEmpty) {
+      return _getCalligraphicPolygon(quality: quality);
+    }
+
     if (!pressureEnabled) {
       options.simulatePressure = false;
     }
@@ -248,6 +279,64 @@ class Stroke {
     }
 
     return polygon;
+  }
+
+  /// Minimum width factor when the stroke direction is parallel to the nib.
+  static const _nibThinning = 0.15;
+
+  /// Generates a polygon that simulates a calligraphic flat nib.
+  ///
+  /// The width at each point varies with `sin(strokeDirection − nibAngle)`:
+  /// perpendicular strokes are thick, parallel strokes are thin.
+  /// Pressure is also factored in when available.
+  @visibleForTesting
+  List<Offset> getCalligraphicPolygon({required StrokeQuality quality}) =>
+      _getCalligraphicPolygon(quality: quality);
+
+  List<Offset> _getCalligraphicPolygon({required StrokeQuality quality}) {
+    final pts = skipPoints(points, quality.N);
+    if (pts.length < 2) return [];
+
+    final leftSide = <Offset>[];
+    final rightSide = <Offset>[];
+
+    for (int i = 0; i < pts.length; i++) {
+      final point = Offset(pts[i].x, pts[i].y);
+
+      // Map to the original index to look up the matching orientation.
+      final oriIdx = (i * quality.N).clamp(0, orientations.length - 1);
+      final nibAngle = orientations[oriIdx];
+
+      // Compute stroke direction from the previous point (or next for first).
+      final double strokeDir;
+      if (i == 0 && pts.length > 1) {
+        strokeDir = atan2(pts[1].y - pts[0].y, pts[1].x - pts[0].x);
+      } else {
+        strokeDir = atan2(
+          pts[i].y - pts[i - 1].y,
+          pts[i].x - pts[i - 1].x,
+        );
+      }
+
+      // Width modulated by the angle between nib orientation and stroke.
+      final angleDiff = strokeDir - nibAngle;
+      final widthFactor =
+          _nibThinning + (1 - _nibThinning) * sin(angleDiff).abs();
+
+      // Incorporate pressure (default 0.5 when absent).
+      final pressure = pts[i].pressure ?? 0.5;
+      final halfWidth = options.size * widthFactor * pressure / 2;
+
+      // Offset perpendicular to the stroke direction.
+      final perpDir = strokeDir + pi / 2;
+      final dx = cos(perpDir) * halfWidth;
+      final dy = sin(perpDir) * halfWidth;
+
+      leftSide.add(Offset(point.dx + dx, point.dy + dy));
+      rightSide.add(Offset(point.dx - dx, point.dy - dy));
+    }
+
+    return [...leftSide, ...rightSide.reversed];
   }
 
   /// Returns a [Path] that represents the stroke.
@@ -408,7 +497,9 @@ class Stroke {
     pageIndex: pageIndex,
     page: page,
     toolId: toolId,
-  )..points.addAll(points);
+  )
+    ..points.addAll(points)
+    ..orientations.addAll(orientations);
 }
 
 enum StrokeQuality {
