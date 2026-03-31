@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber/devils_book/models/theme_preset.dart';
 import 'package:saber/devils_book/registry/devils_catalog.dart';
-import 'package:saber/data/editor/canvas_background_pattern.dart';
+import 'package:sbn/canvas_background_pattern.dart';
 
 void main() {
   group('DevilsCatalog themes registration', () {
