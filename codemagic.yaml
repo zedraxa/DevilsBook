@@ -49,7 +49,7 @@ workflows:
         - tag
         - push
       branch_patterns:
-        - pattern: main
+        - pattern: c
           include: true
           source: true
       tag_patterns:
