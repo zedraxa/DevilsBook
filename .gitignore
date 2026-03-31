@@ -68,3 +68,4 @@ analysis_stage*.txt
 analyze_output*.txt
 analyzer_output.txt
 devils_book_files.txt
+test/failures/

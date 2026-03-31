@@ -1,11 +1,12 @@
 /// 🤖 Generated wholly or partially with Claude Code (claude-sonnet-4-5-20250929)
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; build fix
 library;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:saber/devils_book/models/theme_preset.dart';
 import 'package:saber/devils_book/registry/devils_catalog.dart';
-import 'package:saber/data/editor/canvas_background_pattern.dart';
+import 'package:sbn/canvas_background_pattern.dart';
 
 void main() {
   group('DevilsCatalog themes registration', () {

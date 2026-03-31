@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; build fix
+library;
+
 import 'dart:async';
 
 import 'package:collapsible/collapsible.dart';
@@ -36,6 +39,9 @@ class BrowsePage extends StatefulWidget {
 }
 
 class _BrowsePageState extends State<BrowsePage> {
+  static const ritualGold = Color(0xFFD4AF37);
+  static const ritualObsidian = Color(0xFF070707);
+
   DirectoryChildren? children;
 
   String? path;
@@ -115,11 +121,7 @@ class _BrowsePageState extends State<BrowsePage> {
   }
 
   PreferredSizeWidget appBar() {
-    const ritualGold = Color(0xFFD4AF37);
-    const ritualObsidian = Color(0xFF070707);
-
     return AppBar(
-      collapsedHeight: kToolbarHeight,
       toolbarHeight: 180,
       backgroundColor: ritualObsidian,
       shape: const Border(bottom: BorderSide(color: ritualGold, width: 1.0)),

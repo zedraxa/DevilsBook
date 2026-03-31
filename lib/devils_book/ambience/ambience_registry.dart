@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; build fix
+library;
+
 import 'ambience_models.dart';
 
 class AmbienceRegistry {
@@ -31,7 +34,7 @@ class AmbienceRegistry {
     hasInteractiveSounds: true,
   );
 
-  static const Map<String, AmbiencePreset> all = {
+  static final Map<String, AmbiencePreset> all = {
     libraryQuiet.id: libraryQuiet,
     bloodRitual.id: bloodRitual,
     digitalHum.id: digitalHum,
