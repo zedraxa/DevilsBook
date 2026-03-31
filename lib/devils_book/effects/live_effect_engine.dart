@@ -301,7 +301,7 @@ class LiveEffectEngine extends ChangeNotifier {
           nextVelocity = Offset(p.velocity.dx + turbulence, p.velocity.dy - 0.35);
           nextVelocity = Offset(nextVelocity.dx * 0.88, nextVelocity.dy * 0.93);
 
-          // Colour curve: blue-white core → yellow → orange → deep red → charcoal
+          // Color curve: blue-white core → yellow → orange → deep red → charcoal
           if (activePreset != null) {
             const Color coreColor = Color(0xFFCCEEFF); // blue-white
             if (ageRatio < 0.15) {
