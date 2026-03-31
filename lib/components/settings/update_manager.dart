@@ -1,3 +1,6 @@
+/// 🤖 Generated wholly or partially with Claude Code; Anthropic Claude Sonnet 4.5
+library;
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -16,10 +19,10 @@ abstract class UpdateManager {
   static final log = Logger('UpdateManager');
 
   static final Uri versionUrl = Uri.parse(
-    'https://raw.githubusercontent.com/saber-notes/saber/main/lib/data/version.dart',
+    'https://raw.githubusercontent.com/zedraxa/DevilsBook/main/lib/data/version.dart',
   );
   static final Uri apiUrl = Uri.parse(
-    'https://api.github.com/repos/saber-notes/saber/releases/latest',
+    'https://api.github.com/repos/zedraxa/DevilsBook/releases/latest',
   );
 
   /// The availability of an update.
@@ -213,7 +216,7 @@ abstract class UpdateManager {
     assert(newestVersion != null);
 
     final url =
-        'https://raw.githubusercontent.com/saber-notes/saber/main/'
+        'https://raw.githubusercontent.com/zedraxa/DevilsBook/main/'
         'metadata/$localeCode/changelogs/$newestVersion.txt';
     log.info('Downloading changelog from $url');
 

@@ -2,13 +2,13 @@
 Version=1.0
 Type=Application
 
-Name=Saber
-Comment=The notes app built for handwriting.
+Name=DevilsBook
+Comment=The dark notes app — the Devil's own grimoire.
 Comment[cs]=Aplikace pro psaní poznámek uzpůsobená pro ruční psaní.
 Categories=Office;WordProcessor;
 
-Icon=com.adilhanney.saber
-Exec=saber
+Icon=com.adilhanney.devilsbook
+Exec=devilsbook
 MimeType=application/sbn;application/sbn2;application/sba
 Terminal=false
-StartupWMClass=saber
+StartupWMClass=devilsbook

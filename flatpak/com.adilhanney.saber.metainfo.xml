@@ -4,23 +4,23 @@
     https://www.freedesktop.org/software/appstream/metainfocreator/#/
 -->
 <component type="desktop-application">
-    <id>com.adilhanney.saber</id>
+    <id>com.adilhanney.devilsbook</id>
 
-    <name>Saber</name>
-    <summary>The notes app built for handwriting</summary>
-    <url type="homepage">https://github.com/saber-notes/saber</url>
-    <url type="bugtracker">https://github.com/saber-notes/saber/issues</url>
+    <name>DevilsBook</name>
+    <summary>The dark notes app — the Devil's own grimoire</summary>
+    <url type="homepage">https://github.com/zedraxa/DevilsBook</url>
+    <url type="bugtracker">https://github.com/zedraxa/DevilsBook/issues</url>
     <url type="donation">https://github.com/sponsors/adil192</url>
-    <url type="translate">https://github.com/saber-notes/saber/wiki/Translating</url>
-    <url type="vcs-browser">https://github.com/saber-notes/saber</url>
+    <url type="translate">https://github.com/zedraxa/DevilsBook/wiki/Translating</url>
+    <url type="vcs-browser">https://github.com/zedraxa/DevilsBook</url>
 
     <developer id="com.adilhanney">
         <name>Adil Hanney</name>
     </developer>
 
     <branding>
-        <color type="primary" scheme_preference="light">#fff6da</color>
-        <color type="primary" scheme_preference="dark">#705600</color>
+        <color type="primary" scheme_preference="light">#ffb3c0</color>
+        <color type="primary" scheme_preference="dark">#4a0012</color>
     </branding>
 
     <metadata_license>MIT</metadata_license>
