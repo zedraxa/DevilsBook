@@ -1,16 +1,16 @@
 /// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
 library;
 
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:saber/devils_book/models/writing_mode.dart';
-import 'package:saber/devils_book/models/effect_preset.dart';
 import 'package:saber/devils_book/effects/live_effect_engine.dart';
-
-import 'package:saber/devils_book/sessions/session_controller.dart';
+import 'package:saber/devils_book/models/effect_preset.dart';
 import 'package:saber/devils_book/models/loadout_manager.dart';
 import 'package:saber/devils_book/models/relic_element.dart';
-import 'dart:ui';
+import 'package:saber/devils_book/models/writing_mode.dart';
+import 'package:saber/devils_book/sessions/session_controller.dart';
 
 class LiveEffectOverlay extends StatefulWidget {
   final LiveEffectEngine engine;

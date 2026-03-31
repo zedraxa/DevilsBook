@@ -1,12 +1,13 @@
 /// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
 library;
 
-import 'package:flutter/material.dart';
 import 'dart:math';
+
+import 'package:flutter/material.dart';
+import 'package:saber/devils_book/models/loadout_manager.dart';
+import 'package:saber/devils_book/models/writing_mode.dart';
 import 'package:saber/devils_book/sessions/session_controller.dart';
 import 'package:saber/devils_book/stylus/stylus_state.dart';
-import 'package:saber/devils_book/models/writing_mode.dart';
-import 'package:saber/devils_book/models/loadout_manager.dart';
 
 class GhostNib extends StatelessWidget {
   final StylusState stylusState;
