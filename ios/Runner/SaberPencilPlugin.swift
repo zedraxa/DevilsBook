@@ -1,4 +1,4 @@
-/// 🤖 Generated wholely or partially with Claude Sonnet 4.5 ✨
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5; Claude Sonnet 4 ✨
 ///
 /// iOS plugin that bridges Apple Pencil advanced interactions
 /// (double-tap, squeeze, barrel roll) to Flutter via an EventChannel.
@@ -46,7 +46,7 @@ import UIKit
   // MARK: - Setup
 
   private func attachToPencilInteraction() {
-    guard let rootVC = UIApplication.shared.windows.first?.rootViewController else { return }
+    guard let rootVC = Self.rootViewController else { return }
 
     // Double-tap (Apple Pencil 2nd gen +, iOS 12.1+)
     if #available(iOS 12.1, *) {
@@ -67,7 +67,7 @@ import UIKit
   }
 
   private func detachFromPencilInteraction() {
-    guard let rootVC = UIApplication.shared.windows.first?.rootViewController else { return }
+    guard let rootVC = Self.rootViewController else { return }
 
     if let interaction = pencilInteraction {
       rootVC.view.removeInteraction(interaction)
@@ -77,6 +77,20 @@ import UIKit
     if let recognizer = rollRecognizer {
       rootVC.view.removeGestureRecognizer(recognizer)
       rollRecognizer = nil
+    }
+  }
+
+  /// Returns the root view controller using the modern `connectedScenes` API
+  /// (iOS 13+) with a fallback to the deprecated `windows` property.
+  private static var rootViewController: UIViewController? {
+    if #available(iOS 13.0, *) {
+      return UIApplication.shared.connectedScenes
+        .compactMap { $0 as? UIWindowScene }
+        .flatMap { $0.windows }
+        .first { $0.isKeyWindow }?
+        .rootViewController
+    } else {
+      return UIApplication.shared.windows.first?.rootViewController
     }
   }
 }

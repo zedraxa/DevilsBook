@@ -1,4 +1,4 @@
-/// 🤖 Generated wholely or partially with Claude Sonnet 4.5 ✨
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5; Claude Sonnet 4 ✨
 library;
 
 import 'package:flutter/foundation.dart';
@@ -52,14 +52,15 @@ abstract class PencilInteractionService {
 
     _stream ??= _eventChannel
         .receiveBroadcastStream()
-        .map(_parseEvent)
+        .map(parseEvent)
         .where((event) => event != null)
         .cast<PencilInteractionEvent>();
 
     return _stream!;
   }
 
-  static PencilInteractionEvent? _parseEvent(dynamic raw) {
+  @visibleForTesting
+  static PencilInteractionEvent? parseEvent(dynamic raw) {
     if (raw is! Map) return null;
 
     final type = raw['type'] as String?;
