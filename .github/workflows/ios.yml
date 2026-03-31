@@ -80,6 +80,10 @@ jobs:
         id: version
         run: |
           BASE_BUILD=$(grep 'version: ' pubspec.yaml | cut -d '+' -f 2)
+          if ! [[ "$BASE_BUILD" =~ ^[0-9]+$ ]]; then
+            echo "Error: Could not extract a numeric build number from pubspec.yaml (got '$BASE_BUILD')"
+            exit 1
+          fi
           # Add github.run_number to the base so each CI run produces a unique,
           # monotonically increasing build number for App Store Connect.
           BUILD_NUMBER=$(($BASE_BUILD + ${{ github.run_number }}))
