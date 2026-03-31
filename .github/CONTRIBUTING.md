@@ -1,7 +1,7 @@
 <!-- 🤖 Generated wholly or partially with GPT-5.4 -->
 # Contributing
 
-Thanks for your interest in contributing to Saber.
+Thanks for your interest in contributing to DevilsBook.
 I maintain this project in limited spare time, so the contribution rules below are strict by necessity.
 
 ## Requirements
@@ -10,15 +10,15 @@ I maintain this project in limited spare time, so the contribution rules below a
 
 I am currently only accepting tiny focused pull requests, for example:
 - A specific bug fix
-- Completing one of the ["help wanted" issues](https://github.com/saber-notes/saber/issues?q=state%3Aopen%20label%3A%22help%20wanted%22)
+- Completing one of the ["help wanted" issues](https://github.com/zedraxa/DevilsBook/issues?q=state%3Aopen%20label%3A%22help%20wanted%22)
 - Translations
 
     Note: Translations are exempt from the majority of these guidelines.
-    See [Translating](https://github.com/saber-notes/saber/wiki/Translating) on the wiki for more information.
+    See [Translating](https://github.com/zedraxa/DevilsBook/wiki/Translating) on the wiki for more information.
 
 If your pull request makes multiple changes, try to split it into multiple separate pull requests. I'd much prefer ten 10-line PRs over one 100-line PR.
 
-I appreciate that some may wish to contribute non-tiny PRs and new features, but reviewing pull requests is tiring work. There isn't a team behind Saber, just one hobbyist with limited energy.
+I appreciate that some may wish to contribute non-tiny PRs and new features, but reviewing pull requests is tiring work. There isn't a team behind DevilsBook, just one hobbyist with limited energy.
 
 As a rule of thumb, if you would feel disappointed that all your work went to waste if the PR is rejected, it's too big of a PR.
 
@@ -45,7 +45,7 @@ Before opening a pull request, run the same checks used in CI where possible:
 - `flutter analyze --no-pub`
 - `dart format lib scripts test --output none --set-exit-if-changed`
 
-For golden tests and platform-specific setup, see [Build Saber](https://github.com/saber-notes/saber/wiki/build) on the wiki.
+For golden tests and platform-specific setup, see [Build DevilsBook](https://github.com/zedraxa/DevilsBook/wiki/build) on the wiki.
 
 ### 4. Document public members
 
