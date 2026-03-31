@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot Agent ✨
+library;
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -47,8 +50,8 @@ class ShapePen extends Pen {
   }
 
   @override
-  void onDragUpdate(Offset position, double? pressure) {
-    super.onDragUpdate(position, pressure);
+  void onDragUpdate(Offset position, double? pressure, [double? orientation]) {
+    super.onDragUpdate(position, pressure, orientation);
 
     final isPreviewEnabled = debounceDuration < const Duration(hours: 1);
     final isTimerActive = _detectShapeDebouncer?.isActive ?? false;

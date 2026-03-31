@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot Agent ✨
+library;
+
 import 'package:fixnum/fixnum.dart';
 import 'package:flutter/material.dart';
 import 'package:one_dollar_unistroke_recognizer/one_dollar_unistroke_recognizer.dart';
@@ -102,7 +105,7 @@ class RectangleStroke extends Stroke {
 
   @override
   @Deprecated('Cannot add points to a rectangle stroke.')
-  void addPoint(Offset point, [double? pressure]) {
+  void addPoint(Offset point, [double? pressure, double? orientation]) {
     throw UnsupportedError('Cannot add points to a rectangle stroke.');
   }
 
