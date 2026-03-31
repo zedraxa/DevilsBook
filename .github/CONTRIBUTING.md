@@ -1,4 +1,4 @@
-<!-- 🤖 Generated wholely or partially with GPT-5.4 -->
+<!-- 🤖 Generated wholly or partially with GPT-5.4 -->
 # Contributing
 
 Thanks for your interest in contributing to Saber.
