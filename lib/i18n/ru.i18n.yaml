@@ -62,6 +62,18 @@ home:
     deleteName: Удалить $f
     delete: Удалить
     alsoDeleteContents: Также, удалить все заметки в этой папке
+  cover:
+    chooseCover: Выбрать обложку
+    colour: Цвет
+    template: Шаблон
+    templates:
+      plain: Простой
+      linen: Лён
+      dots: Точки
+      stripes: Полосы
+      leather: Кожа
+      grid: Сетка
+      floral: Цветочный
 sentry:
   consent:
     title: Поможете улучшить Saber?

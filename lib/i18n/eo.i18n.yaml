@@ -62,6 +62,18 @@ home:
     deleteName: Forigu $f
     delete: Forigu
     alsoDeleteContents: Ankaŭ forigu ĉiujn notojn en ĉi tiu dosierujo
+  cover:
+    chooseCover: Elekti kovrilon
+    colour: Koloro
+    template: Ŝablono
+    templates:
+      plain: Simpla
+      linen: Lino
+      dots: Punktoj
+      stripes: Strioj
+      leather: Ledo
+      grid: Krado
+      floral: Flora
 sentry:
   consent:
     title: Helpu plibonigi Saber

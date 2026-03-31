@@ -5,6 +5,9 @@
 // ignore_for_file: type=lint, unused_import
 // dart format off
 
+/// 🤖 Generated wholely or partially with Claude Code; Google Antigravity
+library;
+
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
@@ -80,6 +83,7 @@ class _TranslationsHomeRu extends TranslationsHomeEn {
 	@override String get deleteNote => 'Удалить заметку';
 	@override late final _TranslationsHomeRenameFolderRu renameFolder = _TranslationsHomeRenameFolderRu._(_root);
 	@override late final _TranslationsHomeDeleteFolderRu deleteFolder = _TranslationsHomeDeleteFolderRu._(_root);
+	@override late final _TranslationsHomeCoverRu cover = _TranslationsHomeCoverRu._(_root);
 }
 
 // Path: sentry
@@ -351,6 +355,34 @@ class _TranslationsHomeDeleteFolderRu extends TranslationsHomeDeleteFolderEn {
 	@override String deleteName({required Object f}) => 'Удалить ${f}';
 	@override String get delete => 'Удалить';
 	@override String get alsoDeleteContents => 'Также, удалить все заметки в этой папке';
+}
+// Path: home.cover
+class _TranslationsHomeCoverRu extends TranslationsHomeCoverEn {
+	_TranslationsHomeCoverRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get chooseCover => 'Выбрать обложку';
+	@override String get colour => 'Цвет';
+	@override String get template => 'Шаблон';
+	@override late final _TranslationsHomeCoverTemplatesRu templates = _TranslationsHomeCoverTemplatesRu._(_root);
+}
+
+// Path: home.cover.templates
+class _TranslationsHomeCoverTemplatesRu extends TranslationsHomeCoverTemplatesEn {
+	_TranslationsHomeCoverTemplatesRu._(TranslationsRu root) : this._root = root, super.internal(root);
+
+	final TranslationsRu _root; // ignore: unused_field
+
+	// Translations
+	@override String get plain => 'Простой';
+	@override String get linen => 'Лён';
+	@override String get dots => 'Точки';
+	@override String get stripes => 'Полосы';
+	@override String get leather => 'Кожа';
+	@override String get grid => 'Сетка';
+	@override String get floral => 'Цветочный';
 }
 
 // Path: sentry.consent

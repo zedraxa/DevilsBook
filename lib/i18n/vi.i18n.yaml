@@ -62,6 +62,18 @@ home:
     deleteName: Xóa $f
     delete: Xóa
     alsoDeleteContents: Các ghi chú bên trong thư mục này cũng sẽ bị xóa
+  cover:
+    chooseCover: Chọn bìa
+    colour: Màu sắc
+    template: Mẫu
+    templates:
+      plain: Trơn
+      linen: Vải lanh
+      dots: Chấm bi
+      stripes: Sọc
+      leather: Da
+      grid: Lưới
+      floral: Hoa văn
 sentry:
   consent:
     title: Đóng góp cho Saber?

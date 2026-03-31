@@ -62,6 +62,18 @@ home:
     deleteName: מחיקת $f
     delete: מחיקה
     alsoDeleteContents: מחיקה גם של כל הפתקים בתיקייה זו
+  cover:
+    chooseCover: בחר עטיפה
+    colour: צבע
+    template: תבנית
+    templates:
+      plain: פשוט
+      linen: פשתן
+      dots: נקודות
+      stripes: פסים
+      leather: עור
+      grid: רשת
+      floral: פרחוני
 sentry:
   consent:
     title: האם לעזור בשיפור Saber?

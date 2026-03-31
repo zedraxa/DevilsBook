@@ -62,6 +62,18 @@ home:
     deleteName: Izbriši $f
     delete: Izbriši
     alsoDeleteContents: Izbriši tudi vse zapiske v tej mapi
+  cover:
+    chooseCover: Izberi naslovnico
+    colour: Barva
+    template: Predloga
+    templates:
+      plain: Enostavna
+      linen: Platno
+      dots: Pike
+      stripes: Črte
+      leather: Usnje
+      grid: Mreža
+      floral: Cvetlična
 sentry:
   consent:
     title: Ali želiš pomagati izboljšati Saber?

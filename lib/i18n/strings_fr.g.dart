@@ -5,6 +5,9 @@
 // ignore_for_file: type=lint, unused_import
 // dart format off
 
+/// 🤖 Generated wholely or partially with Claude Code; Google Antigravity
+library;
+
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
@@ -79,6 +82,7 @@ class _TranslationsHomeFr extends TranslationsHomeEn {
 	@override String get deleteNote => 'Effacer la note';
 	@override late final _TranslationsHomeRenameFolderFr renameFolder = _TranslationsHomeRenameFolderFr._(_root);
 	@override late final _TranslationsHomeDeleteFolderFr deleteFolder = _TranslationsHomeDeleteFolderFr._(_root);
+	@override late final _TranslationsHomeCoverFr cover = _TranslationsHomeCoverFr._(_root);
 	@override String get noPreviewAvailable => 'Aucun aperçu disponible';
 }
 
@@ -349,6 +353,34 @@ class _TranslationsHomeDeleteFolderFr extends TranslationsHomeDeleteFolderEn {
 	@override String deleteName({required Object f}) => 'Supprimer ${f}';
 	@override String get delete => 'Supprimer';
 	@override String get alsoDeleteContents => 'Supprimer aussi toutes les notes rangées dans ce dossier';
+}
+// Path: home.cover
+class _TranslationsHomeCoverFr extends TranslationsHomeCoverEn {
+	_TranslationsHomeCoverFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get chooseCover => 'Choisir une couverture';
+	@override String get colour => 'Couleur';
+	@override String get template => 'Modèle';
+	@override late final _TranslationsHomeCoverTemplatesFr templates = _TranslationsHomeCoverTemplatesFr._(_root);
+}
+
+// Path: home.cover.templates
+class _TranslationsHomeCoverTemplatesFr extends TranslationsHomeCoverTemplatesEn {
+	_TranslationsHomeCoverTemplatesFr._(TranslationsFr root) : this._root = root, super.internal(root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get plain => 'Uni';
+	@override String get linen => 'Lin';
+	@override String get dots => 'Points';
+	@override String get stripes => 'Rayures';
+	@override String get leather => 'Cuir';
+	@override String get grid => 'Grille';
+	@override String get floral => 'Floral';
 }
 
 // Path: sentry.consent
