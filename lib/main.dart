@@ -14,6 +14,7 @@ import 'package:path/path.dart' as p;
 import 'package:path_to_regexp/path_to_regexp.dart';
 import 'package:pdfrx/pdfrx.dart';
 import 'package:printing/printing.dart';
+import 'package:saber/components/canvas/crayon_shader.dart';
 import 'package:saber/components/canvas/pencil_shader.dart';
 import 'package:saber/components/theming/dynamic_material_app.dart';
 import 'package:saber/data/file_manager/file_manager.dart';
@@ -116,6 +117,7 @@ Future<void> appRunner(List<String> args) async {
     stows.url.waitUntilRead(),
     stows.allowInsecureConnections.waitUntilRead(),
     PencilShader.init(),
+    CrayonShader.init(),
     Printing.info().then((info) {
       Editor.canRasterPdf = info.canRaster;
     }),

@@ -264,6 +264,7 @@ flutter:
 
   shaders:
     - shaders/pencil.frag
+    - shaders/crayon.frag
 
 
 # ./scripts/generate_icons.sh

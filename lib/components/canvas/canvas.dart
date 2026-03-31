@@ -1,3 +1,6 @@
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5; added new pen tool Onyx mappings
+library;
+
 import 'package:flutter/material.dart';
 import 'package:one_dollar_unistroke_recognizer/one_dollar_unistroke_recognizer.dart';
 import 'package:onyxsdk_pen/onyxsdk_pen.dart';
@@ -54,6 +57,12 @@ class Canvas extends StatelessWidget {
         return OnyxStrokeStyle.brush;
       case ToolId.ballpointPen:
         return OnyxStrokeStyle.pen;
+      case ToolId.flatNibPen:
+        return OnyxStrokeStyle.brush;
+      case ToolId.markerPen:
+        return OnyxStrokeStyle.marker;
+      case ToolId.crayonPen:
+        return OnyxStrokeStyle.pencil;
       case ToolId.highlighter:
         return OnyxStrokeStyle.marker;
       case ToolId.pencil:
