@@ -104,6 +104,7 @@ class TranslationsHomeEn {
 
 	late final TranslationsHomeRenameFolderEn renameFolder = TranslationsHomeRenameFolderEn.internal(_root);
 	late final TranslationsHomeDeleteFolderEn deleteFolder = TranslationsHomeDeleteFolderEn.internal(_root);
+	late final TranslationsHomeCoverEn cover = TranslationsHomeCoverEn.internal(_root);
 }
 
 // Path: sentry
@@ -527,6 +528,56 @@ class TranslationsHomeDeleteFolderEn {
 
 	/// en: 'Also delete all notes inside this folder'
 	String get alsoDeleteContents => 'Also delete all notes inside this folder';
+}
+
+// Path: home.cover
+class TranslationsHomeCoverEn {
+	TranslationsHomeCoverEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Choose cover'
+	String get chooseCover => 'Choose cover';
+
+	/// en: 'Colour'
+	String get colour => 'Colour';
+
+	/// en: 'Template'
+	String get template => 'Template';
+
+	late final TranslationsHomeCoverTemplatesEn templates = TranslationsHomeCoverTemplatesEn.internal(_root);
+}
+
+// Path: home.cover.templates
+class TranslationsHomeCoverTemplatesEn {
+	TranslationsHomeCoverTemplatesEn.internal(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+
+	/// en: 'Plain'
+	String get plain => 'Plain';
+
+	/// en: 'Linen'
+	String get linen => 'Linen';
+
+	/// en: 'Dots'
+	String get dots => 'Dots';
+
+	/// en: 'Stripes'
+	String get stripes => 'Stripes';
+
+	/// en: 'Leather'
+	String get leather => 'Leather';
+
+	/// en: 'Grid'
+	String get grid => 'Grid';
+
+	/// en: 'Floral'
+	String get floral => 'Floral';
 }
 
 // Path: sentry.consent

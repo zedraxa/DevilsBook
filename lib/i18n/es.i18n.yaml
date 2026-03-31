@@ -62,6 +62,18 @@ home:
     deleteName: Eliminar $f
     delete: Eliminar
     alsoDeleteContents: Eliminar también las notas guardadas dentro de la carpeta
+  cover:
+    chooseCover: Elegir portada
+    colour: Color
+    template: Plantilla
+    templates:
+      plain: Liso
+      linen: Lino
+      dots: Puntos
+      stripes: Rayas
+      leather: Cuero
+      grid: Cuadrícula
+      floral: Floral
 sentry:
   consent:
     title: ¿Quieres mejorar Saber?

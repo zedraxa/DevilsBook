@@ -62,6 +62,18 @@ home:
     deleteName: Elimina $f
     delete: Elimina
     alsoDeleteContents: Elimina anche tutte le note all'interno di questa cartella
+  cover:
+    chooseCover: Scegli copertina
+    colour: Colore
+    template: Modello
+    templates:
+      plain: Semplice
+      linen: Lino
+      dots: Punti
+      stripes: Strisce
+      leather: Cuoio
+      grid: Griglia
+      floral: Floreale
 sentry:
   consent:
     title: Vuoi aiutarci a migliorare Saber?

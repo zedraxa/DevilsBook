@@ -62,6 +62,18 @@ home:
     deleteName: Odstranění složky $f
     delete: Odstranit
     alsoDeleteContents: Se složkou odstranit i obsažené poznámky
+  cover:
+    chooseCover: Vybrat obálku
+    colour: Barva
+    template: Šablona
+    templates:
+      plain: Jednoduchý
+      linen: Len
+      dots: Tečky
+      stripes: Pruhy
+      leather: Kůže
+      grid: Mřížka
+      floral: Květinový
 sentry:
   consent:
     title: Chcete pomoct vylepšit aplikaci Saber?

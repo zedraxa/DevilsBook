@@ -5,6 +5,9 @@
 // ignore_for_file: type=lint, unused_import
 // dart format off
 
+/// 🤖 Generated wholely or partially with Claude Code; Google Antigravity
+library;
+
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
@@ -80,6 +83,7 @@ class _TranslationsHomePtBr extends TranslationsHomeEn {
 	@override String get deleteNote => 'Apagar nota';
 	@override late final _TranslationsHomeRenameFolderPtBr renameFolder = _TranslationsHomeRenameFolderPtBr._(_root);
 	@override late final _TranslationsHomeDeleteFolderPtBr deleteFolder = _TranslationsHomeDeleteFolderPtBr._(_root);
+	@override late final _TranslationsHomeCoverPtBr cover = _TranslationsHomeCoverPtBr._(_root);
 }
 
 // Path: sentry
@@ -349,6 +353,34 @@ class _TranslationsHomeDeleteFolderPtBr extends TranslationsHomeDeleteFolderEn {
 	@override String deleteName({required Object f}) => 'Apagar ${f}';
 	@override String get delete => 'Apagar';
 	@override String get alsoDeleteContents => 'Apagar também todas as notas dentro desta pasta';
+}
+// Path: home.cover
+class _TranslationsHomeCoverPtBr extends TranslationsHomeCoverEn {
+	_TranslationsHomeCoverPtBr._(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+	final TranslationsPtBr _root; // ignore: unused_field
+
+	// Translations
+	@override String get chooseCover => 'Escolher capa';
+	@override String get colour => 'Cor';
+	@override String get template => 'Modelo';
+	@override late final _TranslationsHomeCoverTemplatesPtBr templates = _TranslationsHomeCoverTemplatesPtBr._(_root);
+}
+
+// Path: home.cover.templates
+class _TranslationsHomeCoverTemplatesPtBr extends TranslationsHomeCoverTemplatesEn {
+	_TranslationsHomeCoverTemplatesPtBr._(TranslationsPtBr root) : this._root = root, super.internal(root);
+
+	final TranslationsPtBr _root; // ignore: unused_field
+
+	// Translations
+	@override String get plain => 'Simples';
+	@override String get linen => 'Linho';
+	@override String get dots => 'Pontos';
+	@override String get stripes => 'Listras';
+	@override String get leather => 'Couro';
+	@override String get grid => 'Grade';
+	@override String get floral => 'Floral';
 }
 
 // Path: sentry.consent

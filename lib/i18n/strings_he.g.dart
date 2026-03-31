@@ -5,6 +5,9 @@
 // ignore_for_file: type=lint, unused_import
 // dart format off
 
+/// 🤖 Generated wholely or partially with Claude Code; Google Antigravity
+library;
+
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
@@ -80,6 +83,7 @@ class _TranslationsHomeHe extends TranslationsHomeEn {
 	@override String get deleteNote => 'מחיקת פתק';
 	@override late final _TranslationsHomeRenameFolderHe renameFolder = _TranslationsHomeRenameFolderHe._(_root);
 	@override late final _TranslationsHomeDeleteFolderHe deleteFolder = _TranslationsHomeDeleteFolderHe._(_root);
+	@override late final _TranslationsHomeCoverHe cover = _TranslationsHomeCoverHe._(_root);
 }
 
 // Path: sentry
@@ -351,6 +355,34 @@ class _TranslationsHomeDeleteFolderHe extends TranslationsHomeDeleteFolderEn {
 	@override String deleteName({required Object f}) => 'מחיקת ${f}';
 	@override String get delete => 'מחיקה';
 	@override String get alsoDeleteContents => 'מחיקה גם של כל הפתקים בתיקייה זו';
+}
+// Path: home.cover
+class _TranslationsHomeCoverHe extends TranslationsHomeCoverEn {
+	_TranslationsHomeCoverHe._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get chooseCover => 'בחר עטיפה';
+	@override String get colour => 'צבע';
+	@override String get template => 'תבנית';
+	@override late final _TranslationsHomeCoverTemplatesHe templates = _TranslationsHomeCoverTemplatesHe._(_root);
+}
+
+// Path: home.cover.templates
+class _TranslationsHomeCoverTemplatesHe extends TranslationsHomeCoverTemplatesEn {
+	_TranslationsHomeCoverTemplatesHe._(TranslationsHe root) : this._root = root, super.internal(root);
+
+	final TranslationsHe _root; // ignore: unused_field
+
+	// Translations
+	@override String get plain => 'פשוט';
+	@override String get linen => 'פשתן';
+	@override String get dots => 'נקודות';
+	@override String get stripes => 'פסים';
+	@override String get leather => 'עור';
+	@override String get grid => 'רשת';
+	@override String get floral => 'פרחוני';
 }
 
 // Path: sentry.consent

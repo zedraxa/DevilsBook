@@ -62,6 +62,18 @@ home:
     delete: Supprimer
     alsoDeleteContents: Supprimer aussi toutes les notes rangées dans ce dossier
   noPreviewAvailable(OUTDATED): Aucun aperçu disponible
+  cover:
+    chooseCover: Choisir une couverture
+    colour: Couleur
+    template: Modèle
+    templates:
+      plain: Uni
+      linen: Lin
+      dots: Points
+      stripes: Rayures
+      leather: Cuir
+      grid: Grille
+      floral: Floral
 sentry:
   consent:
     description:

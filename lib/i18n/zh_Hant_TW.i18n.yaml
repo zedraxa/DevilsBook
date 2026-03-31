@@ -62,6 +62,18 @@ home:
     deleteName: 刪除 $f
     delete: 刪除
     alsoDeleteContents: 同時刪除該文件夾內的所有筆記
+  cover:
+    chooseCover: 選擇封面
+    colour: 顏色
+    template: 樣板
+    templates:
+      plain: 素色
+      linen: 亞麻
+      dots: 圓點
+      stripes: 條紋
+      leather: 皮革
+      grid: 格紋
+      floral: 花卉
 sentry:
   consent:
     title: 幫助改善 Saber？

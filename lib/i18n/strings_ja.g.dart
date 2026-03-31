@@ -5,6 +5,9 @@
 // ignore_for_file: type=lint, unused_import
 // dart format off
 
+/// 🤖 Generated wholely or partially with Claude Code; Google Antigravity
+library;
+
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
@@ -76,6 +79,7 @@ class _TranslationsHomeJa extends TranslationsHomeEn {
 	@override late final _TranslationsHomeMoveNoteJa moveNote = _TranslationsHomeMoveNoteJa._(_root);
 	@override late final _TranslationsHomeRenameFolderJa renameFolder = _TranslationsHomeRenameFolderJa._(_root);
 	@override late final _TranslationsHomeDeleteFolderJa deleteFolder = _TranslationsHomeDeleteFolderJa._(_root);
+	@override late final _TranslationsHomeCoverJa cover = _TranslationsHomeCoverJa._(_root);
 	@override String get noPreviewAvailable => 'プレビューは利用できません';
 	@override String get backFolder => '前のフォルダーに戻ります';
 	@override String get deleteNote => 'メモの削除';
@@ -349,6 +353,34 @@ class _TranslationsHomeDeleteFolderJa extends TranslationsHomeDeleteFolderEn {
 	@override String deleteName({required Object f}) => '${f}を削除';
 	@override String get delete => '消去';
 	@override String get alsoDeleteContents => 'このフォルダー内のすべてのメモも削除します';
+}
+// Path: home.cover
+class _TranslationsHomeCoverJa extends TranslationsHomeCoverEn {
+	_TranslationsHomeCoverJa._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get chooseCover => 'カバーを選択';
+	@override String get colour => '色';
+	@override String get template => 'テンプレート';
+	@override late final _TranslationsHomeCoverTemplatesJa templates = _TranslationsHomeCoverTemplatesJa._(_root);
+}
+
+// Path: home.cover.templates
+class _TranslationsHomeCoverTemplatesJa extends TranslationsHomeCoverTemplatesEn {
+	_TranslationsHomeCoverTemplatesJa._(TranslationsJa root) : this._root = root, super.internal(root);
+
+	final TranslationsJa _root; // ignore: unused_field
+
+	// Translations
+	@override String get plain => 'シンプル';
+	@override String get linen => 'リネン';
+	@override String get dots => 'ドット';
+	@override String get stripes => 'ストライプ';
+	@override String get leather => 'レザー';
+	@override String get grid => 'グリッド';
+	@override String get floral => 'フローラル';
 }
 
 // Path: sentry.consent

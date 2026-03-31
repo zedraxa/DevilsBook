@@ -62,6 +62,18 @@ home:
     delete: Sil
     alsoDeleteContents: Bu klasördeki tüm notları da sil
   noPreviewAvailable(OUTDATED): Önizleme yok
+  cover:
+    chooseCover: Kapak seç
+    colour: Renk
+    template: Şablon
+    templates:
+      plain: Düz
+      linen: Keten
+      dots: Noktalar
+      stripes: Çizgiler
+      leather: Deri
+      grid: Izgara
+      floral: Çiçekli
 sentry:
   consent:
     description:

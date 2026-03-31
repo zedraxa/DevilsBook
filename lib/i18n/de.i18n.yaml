@@ -62,6 +62,18 @@ home:
     deleteName: $f löschen
     delete: Löschen
     alsoDeleteContents: Alle weiteren Notizen in diesem Ordner löschen
+  cover:
+    chooseCover: Umschlag wählen
+    colour: Farbe
+    template: Vorlage
+    templates:
+      plain: Einfarbig
+      linen: Leinen
+      dots: Punkte
+      stripes: Streifen
+      leather: Leder
+      grid: Raster
+      floral: Floral
 sentry:
   consent:
     title: Helfen, Saber zu verbessern?

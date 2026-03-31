@@ -5,6 +5,9 @@
 // ignore_for_file: type=lint, unused_import
 // dart format off
 
+/// 🤖 Generated wholely or partially with Claude Code; Google Antigravity
+library;
+
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:slang/generated.dart';
@@ -80,6 +83,7 @@ class _TranslationsHomeVi extends TranslationsHomeEn {
 	@override String get deleteNote => 'Xóa ghi chú';
 	@override late final _TranslationsHomeRenameFolderVi renameFolder = _TranslationsHomeRenameFolderVi._(_root);
 	@override late final _TranslationsHomeDeleteFolderVi deleteFolder = _TranslationsHomeDeleteFolderVi._(_root);
+	@override late final _TranslationsHomeCoverVi cover = _TranslationsHomeCoverVi._(_root);
 }
 
 // Path: sentry
@@ -351,6 +355,34 @@ class _TranslationsHomeDeleteFolderVi extends TranslationsHomeDeleteFolderEn {
 	@override String deleteName({required Object f}) => 'Xóa ${f}';
 	@override String get delete => 'Xóa';
 	@override String get alsoDeleteContents => 'Các ghi chú bên trong thư mục này cũng sẽ bị xóa';
+}
+// Path: home.cover
+class _TranslationsHomeCoverVi extends TranslationsHomeCoverEn {
+	_TranslationsHomeCoverVi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get chooseCover => 'Chọn bìa';
+	@override String get colour => 'Màu sắc';
+	@override String get template => 'Mẫu';
+	@override late final _TranslationsHomeCoverTemplatesVi templates = _TranslationsHomeCoverTemplatesVi._(_root);
+}
+
+// Path: home.cover.templates
+class _TranslationsHomeCoverTemplatesVi extends TranslationsHomeCoverTemplatesEn {
+	_TranslationsHomeCoverTemplatesVi._(TranslationsVi root) : this._root = root, super.internal(root);
+
+	final TranslationsVi _root; // ignore: unused_field
+
+	// Translations
+	@override String get plain => 'Trơn';
+	@override String get linen => 'Vải lanh';
+	@override String get dots => 'Chấm bi';
+	@override String get stripes => 'Sọc';
+	@override String get leather => 'Da';
+	@override String get grid => 'Lưới';
+	@override String get floral => 'Hoa văn';
 }
 
 // Path: sentry.consent
