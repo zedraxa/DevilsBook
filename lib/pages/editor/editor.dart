@@ -16,6 +16,7 @@ import 'package:saber/components/theming/dynamic_material_app.dart';
 import 'package:saber/components/toolbar/toolbar.dart';
 import 'package:saber/data/editor/editor_core_info.dart';
 import 'package:saber/devils_book/stylus/squeeze_palette_controller.dart';
+import 'package:saber/devils_book/stylus/stylus_bridge.dart';
 import 'package:saber/devils_book/stylus/stylus_state.dart';
 import 'package:saber/devils_book/stylus/devils_stylus_event.dart';
 import 'package:saber/devils_book/effects/live_effect_engine.dart';
@@ -113,6 +114,8 @@ class EditorState extends State<Editor> {
   Tool? tmpTool;
   var stylusButtonPressed = false;
 
+  final StylusBridge _stylusBridge = StylusBridge();
+
   @override
   void initState() {
     stylusState.addListener(() {
@@ -120,6 +123,9 @@ class EditorState extends State<Editor> {
         squeezeController.showAt(stylusState.currentEvent?.position ?? const Offset(200, 200));
       }
     });
+
+    // Start listening to native Apple Pencil events (barrel roll, squeeze, double-tap)
+    stylusState.listenToNativePencilEvents(_stylusBridge);
 
     // DEVILS BOOK: Sync Effect Engine
     fxEngine.setPreset(loadoutManager.customEffect ?? loadoutManager.currentLoadout.effect);
@@ -717,6 +723,7 @@ class EditorState extends State<Editor> {
     _fadingTimer?.cancel();
     _transformationController.dispose();
     filenameTextEditingController.dispose();
+    stylusState.dispose();
     super.dispose();
   }
 }
