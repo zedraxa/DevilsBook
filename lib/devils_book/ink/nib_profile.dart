@@ -1,5 +1,8 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'dart:math';
-import 'ink_sample.dart';
+import 'package:saber/devils_book/ink/ink_sample.dart';
 
 /// Defines the physical geometry and dynamic behavior of a writer's nib.
 abstract class NibProfile {

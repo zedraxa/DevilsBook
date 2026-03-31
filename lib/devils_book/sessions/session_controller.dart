@@ -1,9 +1,12 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'session_models.dart';
+import 'package:saber/devils_book/sessions/session_models.dart';
 
 class SessionController extends ChangeNotifier {
-  static final SessionController _instance = SessionController._internal();
+  static final _instance = SessionController._internal();
   factory SessionController() => _instance;
   SessionController._internal();
 

@@ -1,16 +1,19 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'package:flutter/material.dart';
-import '../models/loadout.dart';
-import '../registry/devils_catalog.dart';
+import 'package:saber/devils_book/models/loadout.dart';
+import 'package:saber/devils_book/registry/devils_catalog.dart';
 
 class LoadoutSelectorSheet extends StatelessWidget {
   final Loadout currentLoadout;
   final ValueChanged<Loadout> onSelect;
 
   const LoadoutSelectorSheet({
-    Key? key, 
+    super.key,
     required this.currentLoadout, 
     required this.onSelect,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

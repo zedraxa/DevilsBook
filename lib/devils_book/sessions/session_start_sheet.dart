@@ -1,11 +1,14 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'package:flutter/material.dart';
-import 'session_models.dart';
+import 'package:saber/devils_book/sessions/session_models.dart';
 
 /// A bottom sheet for choosing and launching a writing session.
 class SessionStartSheet extends StatefulWidget {
   final ValueChanged<SessionConfig> onStart;
 
-  const SessionStartSheet({Key? key, required this.onStart}) : super(key: key);
+  const SessionStartSheet({super.key, required this.onStart});
 
   @override
   State<SessionStartSheet> createState() => _SessionStartSheetState();
@@ -53,10 +56,10 @@ class _SessionStartSheetState extends State<SessionStartSheet> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(14),
                         color: isSelected
-                            ? type.accentColor.withOpacity(0.15)
+                            ? type.accentColor.withValues(alpha: 0.15)
                             : Colors.transparent,
                         border: Border.all(
-                          color: isSelected ? type.accentColor : Colors.grey.withOpacity(0.2),
+                          color: isSelected ? type.accentColor : Colors.grey.withValues(alpha: 0.2),
                           width: isSelected ? 2 : 1,
                         ),
                       ),
@@ -157,7 +160,7 @@ class _SessionStartSheetState extends State<SessionStartSheet> {
         selected: isActive,
         onSelected: (_) => setState(() => _goalMinutes = minutes),
         visualDensity: VisualDensity.compact,
-        selectedColor: _selected.accentColor.withOpacity(0.3),
+        selectedColor: _selected.accentColor.withValues(alpha: 0.3),
       ),
     );
   }

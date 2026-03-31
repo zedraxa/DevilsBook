@@ -1,10 +1,13 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'package:flutter/foundation.dart';
-import 'ambience_models.dart';
+import 'package:saber/devils_book/ambience/ambience_models.dart';
 
 /// Scaffolding for the audio engine module.
 /// Manages the cross-fading and playback of [AmbiencePreset] soundscapes.
 class AmbientAudioController extends ChangeNotifier {
-  static final AmbientAudioController _instance = AmbientAudioController._internal();
+  static final _instance = AmbientAudioController._internal();
   factory AmbientAudioController() => _instance;
   AmbientAudioController._internal();
 
