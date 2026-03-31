@@ -131,10 +131,10 @@ class EditorState extends State<Editor> {
   void _startIntensityHaptics() {
     SessionController().addListener(() {
       final intensity = SessionController().getSessionIntensity();
-      if (intensity > 0.8) {
-        HapticFeedback.lightImpact();
-      } else if (intensity > 0.95) {
+      if (intensity > 0.95) {
         HapticFeedback.heavyImpact();
+      } else if (intensity > 0.8) {
+        HapticFeedback.lightImpact();
       }
     });
   }

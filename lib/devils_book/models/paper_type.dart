@@ -1,4 +1,4 @@
-/// 🤖 Generated wholely or partially with Claude Code
+/// 🤖 Generated wholly or partially with Claude Code
 library;
 
 import 'package:flutter/material.dart';
@@ -69,10 +69,10 @@ class PaperType {
   /// Serialisation key used in page style JSON.
   static PaperType? fromId(String? id) {
     if (id == null) return null;
-    return PaperCatalog.all.cast<PaperType?>().firstWhere(
-      (p) => p!.id == id,
-      orElse: () => null,
-    );
+    for (final paper in PaperCatalog.all) {
+      if (paper.id == id) return paper;
+    }
+    return null;
   }
 }
 

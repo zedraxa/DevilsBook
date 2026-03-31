@@ -1,4 +1,4 @@
-/// 🤖 Generated wholely or partially with Claude Code
+/// 🤖 Generated wholly or partially with Claude Code
 library;
 
 import 'package:flutter/material.dart';
