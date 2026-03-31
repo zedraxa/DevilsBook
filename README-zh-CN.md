@@ -3,6 +3,7 @@
 [English](README.md) |
 [čeština](README-cs.md) |
 [Deutsch](README-de.md) |
+[Türkçe](README-tr.md) |
 [中文 (简体中文, 中国)](README-zh-CN.md) |
 [中文 (繁體, 台灣)](README-zh-TW.md) |
 [العربية](README-ar.md)
