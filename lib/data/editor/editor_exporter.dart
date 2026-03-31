@@ -1,3 +1,6 @@
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5; crayon pen rasterization
+library;
+
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -18,9 +21,11 @@ abstract class EditorExporter {
   ///
   /// Strokes that can't be drawn as vector graphics include:
   /// - Highlighter strokes, because PDFs don't support transparency
-  /// - Pencil strokes, which need a special shader to look correct
+  /// - Pencil/crayon strokes, which need a special shader to look correct
   static bool shouldRasterizeStroke(Stroke stroke) {
-    return stroke.toolId == .highlighter || stroke.toolId == .pencil;
+    return stroke.toolId == .highlighter ||
+        stroke.toolId == .pencil ||
+        stroke.toolId == .crayonPen;
   }
 
   static Future<pw.Document> generatePdf(

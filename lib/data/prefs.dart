@@ -276,6 +276,24 @@ class Stows {
         Pen.shapePenOptions,
         fromJson: _strokeOptionsFromJson,
         volatile: !_isOnMainIsolate,
+      ),
+      lastFlatNibPenOptions = PlainStow.json(
+        'lastFlatNibPenProperties',
+        Pen.flatNibPenOptions,
+        fromJson: _strokeOptionsFromJson,
+        volatile: !_isOnMainIsolate,
+      ),
+      lastMarkerPenOptions = PlainStow.json(
+        'lastMarkerPenProperties',
+        Pen.markerPenOptions,
+        fromJson: _strokeOptionsFromJson,
+        volatile: !_isOnMainIsolate,
+      ),
+      lastCrayonPenOptions = PlainStow.json(
+        'lastCrayonPenProperties',
+        Pen.crayonPenOptions,
+        fromJson: _strokeOptionsFromJson,
+        volatile: !_isOnMainIsolate,
       );
   final lastFountainPenColor = PlainStow(
         'lastFountainPenColor',
@@ -301,6 +319,21 @@ class Stows {
         'lastShapePenColor',
         Colors.black.toARGB32(),
         volatile: !_isOnMainIsolate,
+      ),
+      lastFlatNibPenColor = PlainStow(
+        'lastFlatNibPenColor',
+        Colors.black.toARGB32(),
+        volatile: !_isOnMainIsolate,
+      ),
+      lastMarkerPenColor = PlainStow(
+        'lastMarkerPenColor',
+        const Color(0xCC1565C0).toARGB32(),
+        volatile: !_isOnMainIsolate,
+      ),
+      lastCrayonPenColor = PlainStow(
+        'lastCrayonPenColor',
+        const Color(0xFFD32F2F).toARGB32(),
+        volatile: !_isOnMainIsolate,
       );
   final lastBackgroundPattern = PlainStow(
     'lastBackgroundPattern',
@@ -308,6 +341,32 @@ class Stows {
     codec: const EnumCodec(CanvasBackgroundPattern.values),
     volatile: !_isOnMainIsolate,
   );
+
+  // --- DEVILS BOOK LOADOUT ---
+  final activeLoadoutId = PlainStow(
+    'activeLoadoutId',
+    'loadout_the_devils_pen',
+    volatile: !_isOnMainIsolate,
+  );
+
+  final activeThemeId = PlainStow(
+    'activeThemeId',
+    'theme_dark_premium',
+    volatile: !_isOnMainIsolate,
+  );
+
+  final activeEffectId = PlainStow(
+    'activeEffectId',
+    '',
+    volatile: !_isOnMainIsolate,
+  );
+
+  final activeRelicId = PlainStow(
+    'activeRelicId',
+    '',
+    volatile: !_isOnMainIsolate,
+  );
+
   static const defaultLineHeight = 40;
   static const defaultLineThickness = 3;
   final lastLineHeight = PlainStow(

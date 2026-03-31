@@ -28,6 +28,7 @@ class CanvasGestureDetector extends StatefulWidget {
     required this.updatePointerData,
     required this.onHovering,
     required this.onHoveringEnd,
+    this.onHoverEvent,
     required this.onStylusButtonChanged,
     required this.undo,
     required this.redo,
@@ -53,6 +54,7 @@ class CanvasGestureDetector extends StatefulWidget {
   updatePointerData;
   final VoidCallback onHovering;
   final VoidCallback onHoveringEnd;
+  final void Function(PointerEvent)? onHoverEvent;
   final ValueChanged<bool> onStylusButtonChanged;
 
   final VoidCallback undo;
@@ -196,6 +198,15 @@ class CanvasGestureDetectorState extends State<CanvasGestureDetector> {
 
     return Matrix4.translation(translation)
       ..scaleByDouble(newScale, newScale, newScale, 1);
+  }
+
+  int get currentPageIndex {
+    final scrollY = widget._transformationController.value.getTranslation().y;
+    return CanvasGestureDetector.getPageIndex(
+      scrollY: -scrollY,
+      pages: widget.pages,
+      screenWidth: MediaQuery.sizeOf(context).width,
+    );
   }
 
   final Map<AxisDirection, Timer> _arrowKeyPanTimers = {};
@@ -454,6 +465,7 @@ class CanvasGestureDetectorState extends State<CanvasGestureDetector> {
       widget.onHoveringEnd();
     } else {
       widget.onHovering();
+      widget.onHoverEvent?.call(event);
       if (stylusButtonWasPressed != (event.buttons == kPrimaryStylusButton)) {
         stylusButtonWasPressed = event.buttons == kPrimaryStylusButton;
         widget.onStylusButtonChanged(stylusButtonWasPressed);

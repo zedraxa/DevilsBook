@@ -1,3 +1,6 @@
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5; added flat-nib stroke deserialization
+library;
+
 import 'dart:math';
 
 import 'package:collection/collection.dart';
@@ -7,6 +10,7 @@ import 'package:logging/logging.dart';
 import 'package:one_dollar_unistroke_recognizer/one_dollar_unistroke_recognizer.dart';
 import 'package:perfect_freehand/perfect_freehand.dart';
 import 'package:saber/components/canvas/_circle_stroke.dart';
+import 'package:saber/components/canvas/_flat_nib_stroke.dart';
 import 'package:saber/components/canvas/_rectangle_stroke.dart';
 import 'package:saber/data/extensions/list_extensions.dart';
 import 'package:saber/data/extensions/point_extensions.dart';
@@ -16,8 +20,6 @@ import 'package:sbn/tool_id.dart';
 class Stroke {
   static final log = Logger('Stroke');
 
-  @visibleForTesting
-  @protected
   final List<PointVector> points = [];
 
   bool get isEmpty => points.isEmpty;
@@ -33,6 +35,16 @@ class Stroke {
   Color color;
   bool pressureEnabled;
   final StrokeOptions options;
+
+  // DEVILS BOOK: Material Properties
+  double shimmerIntensity;
+  Color? shimmerColor;
+  double sheenIntensity;
+  Color? sheenColor;
+  double shadingAmount;
+
+  DateTime createdAt;
+  Duration? expiry;
 
   List<Offset>? _lowQualityPolygon, _highQualityPolygon;
   List<Offset> get lowQualityPolygon =>
@@ -69,7 +81,27 @@ class Stroke {
     required this.pageIndex,
     required this.page,
     required this.toolId,
-  });
+    this.shimmerIntensity = 0.0,
+    this.shimmerColor,
+    this.sheenIntensity = 0.0,
+    this.sheenColor,
+    this.shadingAmount = 0.0,
+    DateTime? createdAt,
+    this.expiry,
+  }) : createdAt = createdAt ?? DateTime.now();
+
+  double getOpacity(DateTime now) {
+    if (expiry == null) return 1.0;
+    final int elapsedMs = now.difference(createdAt).inMilliseconds;
+    final int expiryMs = expiry!.inMilliseconds;
+    if (elapsedMs >= expiryMs) return 0.0;
+    
+    // Smooth fade in the last 20% of life
+    final fadeStartMs = expiryMs * 0.8;
+    if (elapsedMs < fadeStartMs) return 1.0;
+    
+    return 1.0 - ((elapsedMs - fadeStartMs) / (expiryMs - fadeStartMs)).clamp(0.0, 1.0);
+  }
 
   factory Stroke.fromJson(
     Map<String, dynamic> json, {
@@ -141,6 +173,55 @@ class Stroke {
       );
     }
 
+    return _buildStroke(
+      toolId: toolId,
+      color: color,
+      pressureEnabled: pressureEnabled,
+      options: options,
+      pageIndex: pageIndex,
+      page: page,
+      shimmerIntensity: (json['shm'] as num?)?.toDouble() ?? 0.0,
+      shimmerColor: json['shmc'] != null ? Color(json['shmc'] as int) : null,
+      sheenIntensity: (json['shn'] as num?)?.toDouble() ?? 0.0,
+      sheenColor: json['shnc'] != null ? Color(json['shnc'] as int) : null,
+      shadingAmount: (json['shd'] as num?)?.toDouble() ?? 0.0,
+      createdAt: json['cat'] != null ? DateTime.fromMillisecondsSinceEpoch(json['cat'] as int) : null,
+      expiry: json['exp'] != null ? Duration(milliseconds: json['exp'] as int) : null,
+    )..points.addAll(points);
+  }
+
+  /// Creates the appropriate [Stroke] subclass for the given [toolId].
+  static Stroke _buildStroke({
+    required ToolId toolId,
+    required Color color,
+    required bool pressureEnabled,
+    required StrokeOptions options,
+    required int pageIndex,
+    required HasSize page,
+    double shimmerIntensity = 0.0,
+    Color? shimmerColor,
+    double sheenIntensity = 0.0,
+    Color? sheenColor,
+    double shadingAmount = 0.0,
+    DateTime? createdAt,
+    Duration? expiry,
+  }) {
+    if (toolId == ToolId.flatNibPen) {
+      return FlatNibStroke(
+        color: color,
+        pressureEnabled: pressureEnabled,
+        options: options,
+        pageIndex: pageIndex,
+        page: page,
+        shimmerIntensity: shimmerIntensity,
+        shimmerColor: shimmerColor,
+        sheenIntensity: sheenIntensity,
+        sheenColor: sheenColor,
+        shadingAmount: shadingAmount,
+        createdAt: createdAt,
+        expiry: expiry,
+      );
+    }
     return Stroke(
       color: color,
       pressureEnabled: pressureEnabled,
@@ -148,7 +229,14 @@ class Stroke {
       pageIndex: pageIndex,
       page: page,
       toolId: toolId,
-    )..points.addAll(points);
+      shimmerIntensity: shimmerIntensity,
+      shimmerColor: shimmerColor,
+      sheenIntensity: sheenIntensity,
+      sheenColor: sheenColor,
+      shadingAmount: shadingAmount,
+      createdAt: createdAt,
+      expiry: expiry,
+    );
   }
   Map<String, dynamic> toJson() {
     // these json keys should not be the same as the ones in [StrokeOptions.toJson]
@@ -162,6 +250,13 @@ class Stroke {
       'ty': toolId.id,
       'pe': pressureEnabled,
       'c': color.toARGB32(),
+      'shm': shimmerIntensity,
+      'shmc': shimmerColor?.toARGB32(),
+      'shn': sheenIntensity,
+      'shnc': sheenColor?.toARGB32(),
+      'shd': shadingAmount,
+      'cat': createdAt.millisecondsSinceEpoch,
+      'exp': expiry?.inMilliseconds,
     }..addAll(options.toJson());
   }
 
@@ -408,6 +503,13 @@ class Stroke {
     pageIndex: pageIndex,
     page: page,
     toolId: toolId,
+    shimmerIntensity: shimmerIntensity,
+    shimmerColor: shimmerColor,
+    sheenIntensity: sheenIntensity,
+    sheenColor: sheenColor,
+    shadingAmount: shadingAmount,
+    createdAt: createdAt,
+    expiry: expiry,
   )..points.addAll(points);
 }
 

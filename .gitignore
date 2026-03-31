@@ -61,3 +61,10 @@ sentry-wizard
 coverage/
 /test-results.json
 /test-results.xml
+
+# Agent debug artifacts
+analysis_output*.txt
+analysis_stage*.txt
+analyze_output*.txt
+analyzer_output.txt
+devils_book_files.txt

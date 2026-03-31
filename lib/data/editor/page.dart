@@ -1,3 +1,6 @@
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5; added crayon shader support
+library;
+
 import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
@@ -7,11 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:saber/components/canvas/_asset_cache.dart';
 import 'package:saber/components/canvas/_stroke.dart';
+import 'package:saber/components/canvas/crayon_shader.dart';
 import 'package:saber/components/canvas/image/editor_image.dart';
 import 'package:saber/components/canvas/inner_canvas.dart';
 import 'package:saber/components/canvas/pencil_shader.dart';
 import 'package:saber/data/editor/editor_exporter.dart';
 import 'package:saber/data/tools/laser_pointer.dart';
+import 'package:saber/data/editor/page_style.dart';
 import 'package:sbn/has_size.dart';
 
 typedef CanvasKey = GlobalKey<State<InnerCanvas>>;
@@ -44,10 +49,15 @@ class EditorPage extends ChangeNotifier implements HasSize {
   FragmentShader get pencilShader => _pencilShader ??= PencilShader.create();
   FragmentShader? _pencilShader;
 
+  FragmentShader get crayonShader => _crayonShader ??= CrayonShader.create();
+  FragmentShader? _crayonShader;
+
   final List<Stroke> strokes;
   final List<LaserStroke> laserStrokes;
   final List<EditorImage> images;
   final QuillStruct quill;
+
+  PageStyle style;
 
   EditorImage? backgroundImage;
 
@@ -106,6 +116,7 @@ class EditorPage extends ChangeNotifier implements HasSize {
     double? height,
     List<Stroke>? strokes,
     List<EditorImage>? images,
+    required this.style,
     QuillStruct? quill,
     this.backgroundImage,
   }) : assert(
@@ -130,10 +141,12 @@ class EditorPage extends ChangeNotifier implements HasSize {
     required int fileVersion,
     required String sbnPath,
     required AssetCache assetCache,
+    required PageStyle fallbackStyle,
   }) {
     final size = Size(json['w'] ?? defaultWidth, json['h'] ?? defaultHeight);
     return EditorPage(
       size: size,
+      style: PageStyle.fromJson(json, fallback: fallbackStyle),
       strokes: parseStrokesJson(
         json['s'] as List?,
         page: HasSize(size),
@@ -169,9 +182,10 @@ class EditorPage extends ChangeNotifier implements HasSize {
     );
   }
 
-  Map<String, dynamic> toJson(OrderedAssetCache assets) => {
+  Map<String, dynamic> toJson(OrderedAssetCache assets, {required PageStyle notebookDefault}) => {
     'w': size.width,
     'h': size.height,
+    ...style.toJsonDiff(notebookDefault),
     if (strokes.isNotEmpty)
       's': strokes.map((stroke) => stroke.toJson()).toList(),
     if (images.isNotEmpty)
@@ -283,6 +297,7 @@ class EditorPage extends ChangeNotifier implements HasSize {
   void dispose() {
     quill.dispose();
     _pencilShader?.dispose();
+    _crayonShader?.dispose();
     isRendered = false;
     for (final image in images) {
       image.dispose();
@@ -300,6 +315,7 @@ class EditorPage extends ChangeNotifier implements HasSize {
   void disposeClonedData() {
     quill.dispose();
     _pencilShader?.dispose();
+    _crayonShader?.dispose();
     isRendered = false;
     super.dispose();
   }
@@ -308,12 +324,14 @@ class EditorPage extends ChangeNotifier implements HasSize {
     Size? size,
     List<Stroke>? strokes,
     List<EditorImage>? images,
+    PageStyle? style,
     QuillStruct? quill,
     EditorImage? backgroundImage,
   }) => EditorPage(
     size: size ?? this.size,
     strokes: strokes ?? this.strokes,
     images: images ?? this.images,
+    style: style ?? this.style,
     quill: quill ?? this.quill,
     backgroundImage: backgroundImage ?? this.backgroundImage,
   );

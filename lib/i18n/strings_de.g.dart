@@ -1,3 +1,4 @@
+/// 🤖 Generated wholly or partially with GPT-5.4
 ///
 /// Generated file. Do not edit.
 ///
@@ -71,7 +72,7 @@ class _TranslationsHomeDe extends TranslationsHomeEn {
 	@override late final _TranslationsHomeTitlesDe titles = _TranslationsHomeTitlesDe._(_root);
 	@override late final _TranslationsHomeTooltipsDe tooltips = _TranslationsHomeTooltipsDe._(_root);
 	@override late final _TranslationsHomeCreateDe create = _TranslationsHomeCreateDe._(_root);
-	@override String get welcome => 'Willkommen bei Saber';
+	@override String get welcome => 'Willkommen bei Devils Book';
 	@override String get invalidFormat => 'Das ausgewählte Dateiformat wird nicht unterstützt. Bitte wähle eine Datei mit dem Format sbn, sbn2, sba oder pdf.';
 	@override String get noFiles => 'Keine Dateien gefunden';
 	@override String get noPreviewAvailable => 'Keine Vorschau verfügbar';
@@ -118,7 +119,7 @@ class _TranslationsSettingsDe extends TranslationsSettingsEn {
 	];
 	@override late final _TranslationsSettingsResetDe reset = _TranslationsSettingsResetDe._(_root);
 	@override String get resyncEverything => 'Alles neu Synchronisieren';
-	@override String get openDataDir => 'Saber-Ordner öffnen';
+	@override String get openDataDir => 'Devils Book-Ordner öffnen';
 	@override late final _TranslationsSettingsCustomDataDirDe customDataDir = _TranslationsSettingsCustomDataDirDe._(_root);
 	@override String get autosaveDisabled => 'Nie';
 	@override String get shapeRecognitionDisabled => 'Nie';
@@ -190,7 +191,7 @@ class _TranslationsAppInfoDe extends TranslationsAppInfoEn {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String licenseNotice({required Object buildYear}) => 'Saber  Copyright © 2022-${buildYear}  Adil Hanney\nDieses Programm kommt ohne jegliche Gewährleistung. Dies ist freie Software und du bist herzlich eingeladen, diese unter bestimmten Bedingungen weiterzuverteilen.';
+	@override String licenseNotice({required Object buildYear}) => 'Devils Book  Copyright © 2022-${buildYear}  Adil Hanney\nDieses Programm kommt ohne jegliche Gewährleistung. Dies ist freie Software und du bist herzlich eingeladen, diese unter bestimmten Bedingungen weiterzuverteilen.';
 	@override String get debug => 'DEBUG';
 	@override String get sponsorButton => 'Hier tippen, um mich zu unterstützen oder mehr Speicherplatz zu kaufen';
 	@override String get licenseButton => 'Hier tippen, um weitere Lizenzinformationen anzuzeigen';
@@ -392,7 +393,7 @@ class _TranslationsSentryConsentDe extends TranslationsSentryConsentEn {
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Helfen, Saber zu verbessern?';
+	@override String get title => 'Helfen, Devils Book zu verbessern?';
 	@override late final _TranslationsSentryConsentDescriptionDe description = _TranslationsSentryConsentDescriptionDe._(_root);
 	@override late final _TranslationsSentryConsentAnswersDe answers = _TranslationsSentryConsentAnswersDe._(_root);
 }
@@ -424,7 +425,7 @@ class _TranslationsSettingsPrefLabelsDe extends TranslationsSettingsPrefLabelsEn
 	@override String get layoutSize => 'Größe des Layouts';
 	@override String get customAccentColor => 'Benutzerdefinierte Akzentfarbe';
 	@override String get hyperlegibleFont => 'Verbesserte Lesbarkeit der Schrift';
-	@override String get shouldCheckForUpdates => 'Suche nach Updates für Saber';
+	@override String get shouldCheckForUpdates => 'Suche nach Updates für Devils Book';
 	@override String get shouldAlwaysAlertForUpdates => 'Schneller aktualisieren';
 	@override String get allowInsecureConnections => 'Unsichere Verbindung erlauben';
 	@override String get editorToolbarAlignment => 'Position der Toolleiste';
@@ -444,7 +445,7 @@ class _TranslationsSettingsPrefLabelsDe extends TranslationsSettingsPrefLabelsEn
 	@override String get shapeRecognitionDelay => 'Verzögerung der Formerkennung';
 	@override String get autoStraightenLines => 'Linien automatisch begradigen';
 	@override String get simplifiedHomeLayout => 'Vereinfachtes Startbildschirmlayout';
-	@override String get customDataDir => 'Eigener Saber-Ordner';
+	@override String get customDataDir => 'Eigener Devils Book-Ordner';
 	@override String get sentry => 'Fehlerberichterstattung';
 }
 
@@ -456,7 +457,7 @@ class _TranslationsSettingsPrefDescriptionsDe extends TranslationsSettingsPrefDe
 
 	// Translations
 	@override String get hyperlegibleFont => 'Verbessert die Lesbarkeit für Menschen mit geringer Sehkraft';
-	@override String get allowInsecureConnections => 'Saber erlauben, unsichere Zertifikaten zu verwenden (Nicht empfohlen)';
+	@override String get allowInsecureConnections => 'Devils Book erlauben, unsichere Zertifikaten zu verwenden (Nicht empfohlen)';
 	@override String get preferGreyscale => 'Optimierung für E-Ink-Displays';
 	@override String get autoClearWhiteboardOnExit => 'Löscht das Whiteboard beim Beenden der App';
 	@override String get disableEraserAfterUse => 'Nach dem Nutzen des Radierers automatisch zum Stift zurückwechseln';
@@ -568,10 +569,10 @@ class _TranslationsLoginNcLoginStepDe extends TranslationsLoginNcLoginStepEn {
 
 	// Translations
 	@override String get whereToStoreData => 'Wähle, wo du deine Daten speichern willst:';
-	@override String get saberNcServer => 'Sabers Nextcloud-Server';
+	@override String get saberNcServer => 'Nextcloud-Server von Devils Book';
 	@override String get otherNcServer => 'Anderer Nextcloud-Server';
 	@override String get serverUrl => 'Server URL';
-	@override String get loginWithSaber => 'Mit Saber anmelden';
+	@override String get loginWithSaber => 'Mit Devils Book anmelden';
 	@override String get loginWithNextcloud => 'Mit Nextcloud anmelden';
 	@override late final _TranslationsLoginNcLoginStepLoginFlowDe loginFlow = _TranslationsLoginNcLoginStepLoginFlowDe._(_root);
 }
@@ -584,7 +585,7 @@ class _TranslationsLoginEncLoginStepDe extends TranslationsLoginEncLoginStepEn {
 
 	// Translations
 	@override String get enterEncPassword => 'Gib dein Verschlüsselungspasswort an, um deine Daten zu schützen:';
-	@override String get newToSaber => 'Neu bei Saber? Gib einfach ein neues Verschlüsselungspasswort an.';
+	@override String get newToSaber => 'Neu bei Devils Book? Gib einfach ein neues Verschlüsselungspasswort an.';
 	@override String get encPassword => 'Verschlüsselungspasswort';
 	@override String get encFaqTitle => 'Häufig gestellte Fragen';
 	@override String get wrongEncPassword => 'Entschlüsselung mit dem angegebenen Passwort fehlgeschlagen. Bitte versuche es erneut einzugeben.';
@@ -626,7 +627,7 @@ class _TranslationsProfile$faq$0i1$De extends TranslationsProfile$faq$0i1$En {
 
 	// Translations
 	@override String get q => 'Wie ändere ich mein Nextcloud-Passwort?';
-	@override String get a => 'Öffne die Server-Startseite und melde dich an. Unter Einstellungen > Sicherheit > Passwort, kannst du dein Passwort ändern. Nachdem du dein Passwort geändert hast, musst du dich in Saber ab- und wieder anmelden.';
+	@override String get a => 'Öffne die Server-Startseite und melde dich an. Unter Einstellungen > Sicherheit > Passwort, kannst du dein Passwort ändern. Nachdem du dein Passwort geändert hast, musst du dich in Devils Book ab- und wieder anmelden.';
 }
 
 // Path: profile.faq.2
@@ -637,7 +638,7 @@ class _TranslationsProfile$faq$0i2$De extends TranslationsProfile$faq$0i2$En {
 
 	// Translations
 	@override String get q => 'Wie ändere ich mein Verschlüsselungspasswort?';
-	@override String get a => '0. Bitte stelle zuerst sicher, dass alle Daten korrekt synchronisiert wurden, damit du keine Daten verlierst (du kannst den Fortschritt auf dem Startbildschirm prüfen).\n1. Melde dich in Saber ab.\n2. Öffne die Server-Startseite und lösche den „Saber“-Order. Dadurch werden alle Notizen vom Server gelöscht.\n3. Melde dich wieder in Saber an. Du wirst nach einem neuen Verschlüsselungspasswort gefragt.\n4. Vergiss nicht dich auf anderen Geräten in Saber ab- und wieder anzumelden.';
+	@override String get a => '0. Bitte stelle zuerst sicher, dass alle Daten korrekt synchronisiert wurden, damit du keine Daten verlierst (du kannst den Fortschritt auf dem Startbildschirm prüfen).\n1. Melde dich in Devils Book ab.\n2. Öffne die Server-Startseite und lösche den „Devils Book“-Ordner. Dadurch werden alle Notizen vom Server gelöscht.\n3. Melde dich wieder in Devils Book an. Du wirst nach einem neuen Verschlüsselungspasswort gefragt.\n4. Vergiss nicht dich auf anderen Geräten in Devils Book ab- und wieder anzumelden.';
 }
 
 // Path: profile.faq.3
@@ -648,7 +649,7 @@ class _TranslationsProfile$faq$0i3$De extends TranslationsProfile$faq$0i3$En {
 
 	// Translations
 	@override String get q => 'Wie lösche ich meinen Account?';
-	@override String get a => 'Drücke oben den „${_root.profile.quickLinks.deleteAccount}“-Button und melde dich gegebenenfalls an.\nWenn du den offiziellen Saber-Server nutzt, wird dein Account automatisch nach einer Woche gelöscht. Du kannst mich während dieser Woche unter adilhanney@disroot.org kontaktieren um die Löschung rückgängig zu machen.\nWenn du einen anderen Server nutzt, kann es sein, dass du deinen Account nicht löschen kannst: Für mehr Information kannst du in der Datenschutzbestimmung des Servers nachgucken.';
+	@override String get a => 'Drücke oben den „${_root.profile.quickLinks.deleteAccount}“-Button und melde dich gegebenenfalls an.\nWenn du den offiziellen Devils Book-Server nutzt, wird dein Account automatisch nach einer Woche gelöscht. Du kannst mich während dieser Woche unter adilhanney@disroot.org kontaktieren um die Löschung rückgängig zu machen.\nWenn du einen anderen Server nutzt, kann es sein, dass du deinen Account nicht löschen kannst: Für mehr Information kannst du in der Datenschutzbestimmung des Servers nachgucken.';
 }
 
 // Path: editor.toolbar
@@ -801,7 +802,7 @@ class _TranslationsEditorVersionTooNewDe extends TranslationsEditorVersionTooNew
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get title => 'Diese Notiz wurde mit einer neueren Version von Saber bearbeitet';
+	@override String get title => 'Diese Notiz wurde mit einer neueren Version von Devils Book bearbeitet';
 	@override String get subtitle => 'Durch das Bearbeiten dieser Notiz können Daten verloren gehen. Möchtest du sie trotzdem bearbeiten?';
 	@override String get allowEditing => 'Schreibschutz aufheben';
 }
@@ -893,7 +894,7 @@ class _TranslationsLoginNcLoginStepLoginFlowDe extends TranslationsLoginNcLoginS
 	final TranslationsDe _root; // ignore: unused_field
 
 	// Translations
-	@override String get pleaseAuthorize => 'Bitte gib Saber Zugriff auf dein Nextcloud Konto';
+	@override String get pleaseAuthorize => 'Bitte gib Devils Book Zugriff auf dein Nextcloud Konto';
 	@override String get followPrompts => 'Bitte folge den Anweisungen in der Nextcloud-Oberfläche';
 	@override String get browserDidntOpen => 'Die Anmeldeseite hat sich nicht geöffnet? Klicke hier';
 }
@@ -917,7 +918,7 @@ class _TranslationsLoginEncLoginStep$encFaq$0i1$De extends TranslationsLoginEncL
 
 	// Translations
 	@override String get q => 'Ich habe noch kein Verschlüsselungspasswort festgelegt. Wo bekomme ich das her?';
-	@override String get a => 'Wähle ein neues Verschlüsselungspasswort und gib es oben ein.\nSaber wird mit diesem Passwort automatisch deine Schlüssel generieren.';
+	@override String get a => 'Wähle ein neues Verschlüsselungspasswort und gib es oben ein.\nDevils Book wird mit diesem Passwort automatisch deine Schlüssel generieren.';
 }
 
 // Path: login.encLoginStep.encFaq.2

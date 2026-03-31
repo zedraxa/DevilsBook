@@ -1,5 +1,5 @@
 name: saber
-description: A cross-platform libre notes app
+description: A cross-platform dark notes app — the Devil's own grimoire
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -160,6 +160,7 @@ dependencies:
 
   flutter_hooks: ^0.21.3+1
   dynamic_yaru: ^0.1.0
+  audioplayers: ^6.6.0
 
 dev_dependencies:
   flutter_test:
@@ -198,6 +199,7 @@ flutter:
   assets:
     - assets/icon/icon.svg
     - assets/images/
+    - assets/covers/
     - assets/google_fonts/Atkinson_Hyperlegible_Next/OFL.txt
     - assets/google_fonts/Dekko/OFL.txt
     - assets/google_fonts/Fira_Mono/OFL.txt
@@ -262,11 +264,12 @@ flutter:
 
   shaders:
     - shaders/pencil.frag
+    - shaders/crayon.frag
 
 
 # ./scripts/generate_icons.sh
 icons_launcher:
-  image_path: "assets/icon/icon.png"
+  image_path: "assets/icon/devils_book_icon.png"
   platforms:
     android:
       enable: true
@@ -275,7 +278,7 @@ icons_launcher:
       adaptive_monochrome_image: "assets/icon/icon_monochrome.png"
     ios:
       enable: true
-      image_path: "assets/icon/icon_opaque.png"
+      image_path: "assets/icon/devils_book_icon.png"
       dark_path: "assets/icon/icon_ios_dark.png"
       tinted_path: "assets/icon/icon_ios_tintable.png"
     linux:

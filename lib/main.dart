@@ -14,6 +14,7 @@ import 'package:path/path.dart' as p;
 import 'package:path_to_regexp/path_to_regexp.dart';
 import 'package:pdfrx/pdfrx.dart';
 import 'package:printing/printing.dart';
+import 'package:saber/components/canvas/crayon_shader.dart';
 import 'package:saber/components/canvas/pencil_shader.dart';
 import 'package:saber/components/theming/dynamic_material_app.dart';
 import 'package:saber/data/file_manager/file_manager.dart';
@@ -29,6 +30,12 @@ import 'package:saber/pages/editor/editor.dart';
 import 'package:saber/pages/home/home.dart';
 import 'package:saber/pages/logs.dart';
 import 'package:saber/pages/user/login.dart';
+import 'package:saber/devils_book/registry/devils_catalog.dart';
+import 'package:saber/devils_book/packs/pack_registry.dart';
+import 'package:saber/devils_book/packs/builtin/premium_ink_pack.dart';
+import 'package:saber/devils_book/packs/builtin/effect_packs.dart';
+import 'package:saber/devils_book/packs/builtin/premium_effect_pack.dart';
+import 'package:saber/devils_book/packs/builtin/river_themes_pack.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:worker_manager/worker_manager.dart';
 import 'package:workmanager/workmanager.dart';
@@ -83,6 +90,24 @@ Future<void> appRunner(List<String> args) async {
   StrokeOptionsExtension.setDefaults();
   Stows.markAsOnMainIsolate();
 
+  // DEVILS BOOK: Initialize Premium Content Registries
+  final registry = PackRegistry();
+  registry.seedDefaults(
+    coreThemes: DevilsCatalog.themes,
+    coreInks: DevilsCatalog.inks,
+    coreEffects: DevilsCatalog.effects,
+    coreLoadouts: DevilsCatalog.loadouts,
+  );
+
+  // Register Built-in Packs
+  registry.registerPack(PremiumInkPack.create());
+  registry.registerPack(SubtleEffectPack.create());
+  registry.registerPack(InfernalEffectPack.create());
+  registry.registerPack(CyberEffectPack.create());
+  registry.registerPack(SilentEffectPack.create());
+  registry.registerPack(PremiumEffectPack.create());
+  registry.registerPack(RiversOfHadesThemePack.create());
+
   await Future.wait([
     stows.customDataDir.waitUntilRead().then((_) => FileManager.init()),
     if (Platform.isWindows || Platform.isLinux || Platform.isMacOS)
@@ -92,6 +117,7 @@ Future<void> appRunner(List<String> args) async {
     stows.url.waitUntilRead(),
     stows.allowInsecureConnections.waitUntilRead(),
     PencilShader.init(),
+    CrayonShader.init(),
     Printing.info().then((info) {
       Editor.canRasterPdf = info.canRaster;
     }),
@@ -331,7 +357,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return DynamicMaterialApp(title: 'Saber', router: App._router);
+    return DynamicMaterialApp(title: 'Devils Book', router: App._router);
   }
 
   @override
