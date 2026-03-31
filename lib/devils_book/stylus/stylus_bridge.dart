@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5 ✨
+library;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'stylus_capabilities.dart';
@@ -8,17 +11,23 @@ class StylusBridge {
   static const MethodChannel _channel = MethodChannel('devilsbook.stylus/premium');
 
   /// Fetches the hardware capabilities from the host OS.
-  /// STUB: To be fully implemented with native iOS/Android code in a later stage.
+  ///
+  /// Barrel roll is natively available via [PointerEvent.rotation] on iOS/macOS
+  /// (Apple Pencil Pro, iPadOS 16+), so no native channel call is needed for it.
+  /// Squeeze still requires a future native channel implementation.
   Future<StylusCapabilities> getCapabilities() async {
     try {
-      // The native side must return a dictionary of boolean flags.
-      // e.g. return await _channel.invokeMethod('getCapabilities');
-      // For now, we return a safe mock assumption.
-      return const StylusCapabilities(
+      final isApplePlatform = defaultTargetPlatform == TargetPlatform.iOS ||
+          defaultTargetPlatform == TargetPlatform.macOS;
+
+      return StylusCapabilities(
         supportsPressure: true,
         supportsTilt: true,
-        supportsBarrelRoll: false, // Wait on native bridge validation
-        supportsSqueeze: false,    // Wait on native bridge validation
+        // Flutter exposes Apple Pencil Pro barrel roll via PointerEvent.rotation
+        // on iOS/macOS natively — no native channel needed.
+        supportsBarrelRoll: isApplePlatform,
+        // Squeeze still requires the native premium channel (future work).
+        supportsSqueeze: false,
         supportsHover: true,
       );
     } catch (e) {

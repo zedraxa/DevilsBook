@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5 ✨
+library;
+
 import 'dart:ui';
 import 'package:saber/components/canvas/_stroke.dart';
 import 'package:sbn/tool_id.dart';
@@ -48,9 +51,12 @@ class DevilsStroke {
       page: page,
     );
     
-    for (final s in samples) {
-      // Map high-res 6-DOF metadata down into standard pressure stream for legacy compat.
-      final pressure = profile.computeThickness(s, baseThickness: 1.0);
+    for (int i = 0; i < samples.length; i++) {
+      final s = samples[i];
+      final prevSample = i > 0 ? samples[i - 1] : null;
+      // Pass the previous sample so velocity-aware nib profiles (e.g. calligraphic)
+      // can compute authentic stroke-direction vs nib-angle thickness variation.
+      final pressure = profile.computeThickness(s, baseThickness: 1.0, prevSample: prevSample);
       stroke.addPoint(Offset(s.x, s.y), pressure);
     }
     

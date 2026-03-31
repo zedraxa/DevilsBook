@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5 ✨
+library;
+
 import 'package:flutter/gestures.dart';
 
 /// A premium abstraction over Flutter's native PointerEvent.
@@ -36,14 +39,20 @@ class DevilsStylusEvent {
   });
 
   /// Constructs a base event from a native Flutter PointerEvent.
-  /// Certain premium features (squeeze, barrel roll) may remain null 
-  /// until injected/augmented by the [StylusBridge].
+  ///
+  /// For stylus devices, Flutter natively exposes barrel roll via [PointerEvent.rotation]
+  /// (e.g. Apple Pencil Pro on iOS ≥ 16). Squeeze remains null until injected
+  /// by the [StylusBridge] native channel.
   factory DevilsStylusEvent.fromPointerEvent(PointerEvent event) {
     return DevilsStylusEvent(
       position: event.localPosition,
       pressure: event.pressure,
-      altitude: event.tilt, // Flutter provides this via tilt
+      altitude: event.tilt,
       azimuth: event.orientation,
+      // Flutter provides barrel roll for stylus devices (e.g. Apple Pencil Pro)
+      // via PointerEvent.rotation. Non-stylus events always return 0.0, so we
+      // store null for those to distinguish "not supported" from "at neutral angle".
+      barrelRoll: event.kind == PointerDeviceKind.stylus ? event.rotation : null,
       isHovering: event is PointerHoverEvent,
     );
   }

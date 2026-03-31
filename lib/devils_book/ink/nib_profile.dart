@@ -1,11 +1,18 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5 ✨
+library;
+
 import 'dart:math';
 import 'ink_sample.dart';
 
 /// Defines the physical geometry and dynamic behavior of a writer's nib.
 abstract class NibProfile {
   /// Computes the thickness of the line at a given [sample].
-  double computeThickness(InkSample sample, {required double baseThickness});
-  
+  ///
+  /// The optional [prevSample] allows velocity-aware profiles (e.g. calligraphic nibs)
+  /// to compare the stroke direction against the nib orientation for authentic
+  /// thick/thin contrasts. When null, implementations fall back to a pressure-only model.
+  double computeThickness(InkSample sample, {required double baseThickness, InkSample? prevSample});
+
   /// Computes the angular deformation (calligraphic angle) mapping to the 
   /// organic rotation of the stroke joint.
   double computeAngle(InkSample sample);
@@ -15,7 +22,7 @@ abstract class NibProfile {
 /// ignoring specific hardware orientation.
 class BallpointNibProfile extends NibProfile {
   @override
-  double computeThickness(InkSample sample, {required double baseThickness}) {
+  double computeThickness(InkSample sample, {required double baseThickness, InkSample? prevSample}) {
     // Pure linear scaling based on pressure
     return baseThickness * max(0.1, sample.pressure);
   }
@@ -28,16 +35,27 @@ class BallpointNibProfile extends NibProfile {
 /// and barrel roll of the stylus to create organic thin/thick contrasts dynamically.
 class CalligraphicNibProfile extends NibProfile {
   @override
-  double computeThickness(InkSample sample, {required double baseThickness}) {
-    // When drawing parallel to the wide side of the nib, thickness is minimal.
-    // Thus, thickness is modulated by `sin(altitude)` to shrink when tipped low.
+  double computeThickness(InkSample sample, {required double baseThickness, InkSample? prevSample}) {
+    // A nib laid flatter (lower altitude) produces thinner strokes.
     final altitudeFactor = sin(sample.altitude.clamp(0.2, pi / 2));
-    
-    // In advanced implementations, we compare the velocity vector of the stroke 
-    // against `sample.effectiveRotation` to drastically thin the stroke if moving 
-    // "against the grain" of the nib.
-    // For now, altitude and pressure strictly rule the core thickness baseline.
-    return baseThickness * sample.pressure * altitudeFactor; 
+
+    // When we have a previous sample, compute the stroke direction and compare
+    // it against the physical nib orientation (effectiveRotation = azimuth + barrelRoll).
+    // A stroke perpendicular to the nib wide-edge is thick; parallel is thin.
+    double strokeAngleFactor = 1.0;
+    if (prevSample != null) {
+      final dx = sample.x - prevSample.x;
+      final dy = sample.y - prevSample.y;
+      if (dx.abs() + dy.abs() > 0.5) {
+        final strokeDirection = atan2(dy, dx);
+        final angleDiff = strokeDirection - sample.effectiveRotation;
+        // |sin| of the angle difference: 1.0 when perpendicular, 0 when parallel.
+        // Clamped to [0.2, 1.0] so parallel strokes still have some minimum width.
+        strokeAngleFactor = sin(angleDiff).abs().clamp(0.2, 1.0);
+      }
+    }
+
+    return baseThickness * sample.pressure * altitudeFactor * strokeAngleFactor;
   }
 
   @override
