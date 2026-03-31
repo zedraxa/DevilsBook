@@ -1,3 +1,4 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4 ✨
 import 'dart:async';
 import 'dart:math';
 
@@ -457,10 +458,12 @@ class EditorState extends State<Editor> {
 
   @override
   Widget build(BuildContext context) {
-    final isToolbarVertical = stows.editorToolbarAlignment.value.index % 2 == 0;
-    final Widget bodyContent = isToolbarVertical 
-      ? Row(children: [toolbar(), Expanded(child: canvas())])
-      : Column(children: [Expanded(child: canvas()), toolbar()]);
+    final Widget bodyContent = switch (stows.editorToolbarAlignment.value) {
+      AxisDirection.down => Column(children: [Expanded(child: canvas()), toolbar()]),
+      AxisDirection.up => Column(children: [toolbar(), Expanded(child: canvas())]),
+      AxisDirection.left => Row(children: [toolbar(), Expanded(child: canvas())]),
+      AxisDirection.right => Row(children: [Expanded(child: canvas()), toolbar()]),
+    };
 
     return ValueListenableBuilder(
       valueListenable: savingState,
