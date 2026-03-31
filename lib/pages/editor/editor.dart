@@ -41,6 +41,7 @@ import 'package:saber/devils_book/models/theme_preset.dart';
 import 'package:saber/devils_book/components/effect_selector_sheet.dart';
 import 'package:saber/devils_book/components/notebook_template_selector_sheet.dart';
 import 'package:saber/devils_book/components/theme_selector_sheet.dart';
+import 'package:saber/devils_book/components/paper_selector_sheet.dart';
 import 'package:saber/devils_book/export/export_options_sheet.dart';
 import 'package:saber/devils_book/sessions/session_start_sheet.dart';
 import 'package:saber/components/toolbar/pen_modal.dart';
@@ -407,6 +408,32 @@ class EditorState extends State<Editor> {
     autosaveAfterDelay();
   }
 
+  /// Opens the paper selector sheet and applies the chosen paper type
+  /// to the current page.
+  void _openPaperSelector() {
+    final pageIdx = currentPageIndex;
+    if (pageIdx < 0 || pageIdx >= coreInfo.pages.length) return;
+    final page = coreInfo.pages[pageIdx];
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (c) => PaperSelectorSheet(
+        currentPaper: page.style.paperType,
+        onSelect: (paper) {
+          setState(() {
+            page.style = page.style.copyWith(
+              paperType: paper,
+              backgroundColor: paper.tint,
+            );
+            page.redrawStrokes();
+          });
+          autosaveAfterDelay();
+        },
+      ),
+    );
+  }
+
   Future<int> _pickPhotos() async {
     if (coreInfo.readOnly) return 0;
     return 0;
@@ -457,25 +484,7 @@ class EditorState extends State<Editor> {
                       },
                       onSelectEffect: () => showModalBottomSheet(context: context, backgroundColor: Colors.transparent, builder: (c) => EffectSelectorSheet(currentEffect: fxEngine.activePreset!, onSelect: (effect) => loadoutManager.setCustomEffect(effect))),
                       onSelectTheme: () => showModalBottomSheet(context: context, backgroundColor: Colors.transparent, builder: (c) => ThemeSelectorSheet(currentTheme: loadoutManager.customTheme ?? loadoutManager.currentLoadout.theme, onSelect: (theme) => loadoutManager.setCustomTheme(theme))),
-                      onSelectTemplate: () => showModalBottomSheet(
-                        context: context,
-                        backgroundColor: Colors.transparent,
-                        builder: (c) => NotebookTemplateSelectorSheet(
-                          onSelect: (template) {
-                            setState(() {
-                              for (final p in coreInfo.pages) {
-                                p.style = p.style.copyWith(
-                                  backgroundColor: template.defaultPage.backgroundColor,
-                                  lineColor: template.defaultPage.lineColor,
-                                  pattern: template.defaultPage.pattern,
-                                );
-                                p.redrawStrokes();
-                              }
-                            });
-                            autosaveAfterDelay();
-                          },
-                        ),
-                      ),
+                      onSelectTemplate: _openPaperSelector,
                       onLongPressPen: () => showModalBottomSheet(
                         context: context,
                         backgroundColor: Colors.transparent,
@@ -531,7 +540,7 @@ class EditorState extends State<Editor> {
       shape: widget.isWhiteboard ? null : const Border(bottom: BorderSide(color: ritualGold, width: 1.0)),
       title: widget.isWhiteboard 
         ? Text(filenameTextEditingController.text.toUpperCase(), 
-            style: TextStyle(color: ritualGold.withOpacity(0.4), fontSize: 13, fontWeight: FontWeight.w300, letterSpacing: 8.0))
+            style: TextStyle(color: ritualGold.withValues(alpha: 0.4), fontSize: 13, fontWeight: FontWeight.w300, letterSpacing: 8.0))
         : Row(children: [
             const Icon(Icons.auto_awesome_sharp, color: ritualGold, size: 18),
             const SizedBox(width: 12),
@@ -542,7 +551,7 @@ class EditorState extends State<Editor> {
                 decoration: InputDecoration(
                   border: InputBorder.none, 
                   hintText: 'UNNAMED RITUAL', 
-                  hintStyle: TextStyle(color: ritualGold.withOpacity(0.2))
+                  hintStyle: TextStyle(color: ritualGold.withValues(alpha: 0.2))
                 )
               )
             ),
@@ -558,6 +567,11 @@ class EditorState extends State<Editor> {
             tooltip: 'BANISH RITUAL', 
             onPressed: banishRitual
           ),
+        IconButton(
+          icon: const Icon(Icons.article_outlined, color: ritualGold),
+          tooltip: 'Change Paper',
+          onPressed: _openPaperSelector,
+        ),
         IconButton(
           icon: Icon(widget.isWhiteboard ? Icons.blur_on : Icons.rocket_launch_outlined, color: ritualGold), 
           onPressed: () => squeezeController.toggleDevTrigger(MediaQuery.sizeOf(context))
@@ -590,6 +604,18 @@ class EditorState extends State<Editor> {
           child: ListView(
             padding: EdgeInsets.zero,
             children: [
+              ListTile(
+                leading: const Icon(Icons.article_outlined, color: ritualGold), 
+                title: const Text('CHANGE PAPER', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 13, letterSpacing: 1.0)), 
+                subtitle: Text(
+                  coreInfo.pages.isNotEmpty && currentPageIndex < coreInfo.pages.length
+                    ? (coreInfo.pages[currentPageIndex].style.paperType?.name ?? 'Default')
+                    : 'Default',
+                  style: TextStyle(color: Colors.white.withValues(alpha: 0.3), fontSize: 11),
+                ),
+                onTap: () { Navigator.pop(context); _openPaperSelector(); },
+              ),
+              const Divider(color: Colors.white10, indent: 16, endIndent: 16),
               ListTile(
                 leading: const Icon(Icons.history_edu, color: ritualGold), 
                 title: const Text('RITUAL SESSIONS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 13, letterSpacing: 1.0)), 

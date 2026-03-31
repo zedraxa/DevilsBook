@@ -183,6 +183,7 @@ class _InnerCanvasState extends State<InnerCanvas> {
           backgroundGradient: (LoadoutManager().customTheme ?? LoadoutManager().currentLoadout.theme).backgroundGradient,
           vignetteIntensity: (LoadoutManager().customTheme ?? LoadoutManager().currentLoadout.theme).vignetteIntensity,
           grainIntensity: (LoadoutManager().customTheme ?? LoadoutManager().currentLoadout.theme).grainIntensity,
+          paperType: page.style.paperType,
         ),
         foregroundPainter: CanvasPainter(
           repaint: widget.redrawPageListenable,

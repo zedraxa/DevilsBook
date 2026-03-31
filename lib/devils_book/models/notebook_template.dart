@@ -1,4 +1,8 @@
+/// 🤖 Generated wholly or partially with Claude Code
+library;
+
 import 'package:flutter/material.dart';
+import 'package:saber/devils_book/models/paper_type.dart';
 import 'package:sbn/canvas_background_pattern.dart';
 
 /// Visual identity of a notebook's cover.
@@ -30,6 +34,10 @@ class PageTemplate {
   final String? texturePath;
   final String? description;
 
+  /// The paper surface type. Controls visual effects like gloss,
+  /// grain, and ink absorption rendering.
+  final PaperType? paperType;
+
   PageTemplate({
     required this.id,
     required this.name,
@@ -38,6 +46,7 @@ class PageTemplate {
     this.lineColor = const Color(0x33888888),
     this.texturePath,
     this.description,
+    this.paperType,
   });
 }
 
