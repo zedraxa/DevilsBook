@@ -1,3 +1,6 @@
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5; pen modes expansion
+library;
+
 import 'package:flutter/foundation.dart';
 import 'package:logging/logging.dart';
 import 'package:stow_codecs/stow_codecs.dart';
@@ -9,6 +12,9 @@ enum ToolId {
   highlighter('Highlighter'),
   fountainPen('fountainPen'),
   ballpointPen('ballpointPen'),
+  flatNibPen('flatNibPen'),
+  markerPen('markerPen'),
+  crayonPen('crayonPen'),
   pencil('Pencil'),
   shapePen('ShapePen'),
   eraser('Eraser'),

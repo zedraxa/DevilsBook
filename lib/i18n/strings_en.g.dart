@@ -1047,6 +1047,15 @@ class TranslationsEditorPensEn {
 
 	/// en: 'Laser pointer'
 	String get laserPointer => 'Laser pointer';
+
+	/// en: 'Flat-nib pen'
+	String get flatNibPen => 'Flat-nib pen';
+
+	/// en: 'Marker'
+	String get markerPen => 'Marker';
+
+	/// en: 'Crayon'
+	String get crayonPen => 'Crayon';
 }
 
 // Path: editor.penOptions

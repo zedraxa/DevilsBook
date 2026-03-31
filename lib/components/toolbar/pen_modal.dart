@@ -1,3 +1,6 @@
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5; added flat-nib, marker, and crayon pen buttons
+library;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,7 +8,10 @@ import 'package:saber/components/toolbar/size_picker.dart';
 import 'package:saber/data/extensions/axis_extensions.dart';
 import 'package:saber/data/prefs.dart';
 import 'package:saber/data/tools/_tool.dart';
+import 'package:saber/data/tools/flat_nib_pen.dart';
 import 'package:saber/data/tools/highlighter.dart';
+import 'package:saber/data/tools/marker_pen.dart';
+import 'package:saber/data/tools/crayon_pen.dart';
 import 'package:saber/data/tools/pen.dart';
 import 'package:saber/data/tools/pencil.dart';
 import 'package:saber/data/tools/shape_pen.dart';
@@ -125,6 +131,78 @@ class _PenModalState extends State<PenModal> {
             ),
             tooltip: t.editor.pens.shapePen,
             icon: const FaIcon(ShapePen.shapePenIcon, size: 20),
+          ),
+          const SizedBox.square(dimension: 8),
+          IconButton(
+            onPressed: () => setState(() {
+              widget.setTool(FlatNibPen());
+            }),
+            style: TextButton.styleFrom(
+              foregroundColor: Pen.currentPen.icon == Pen.flatNibPenIcon
+                  ? ritualScarlet
+                  : ritualGold.withOpacity(0.6),
+              backgroundColor: Pen.currentPen.icon == Pen.flatNibPenIcon
+                  ? ritualScarlet.withOpacity(0.1)
+                  : Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+                side: BorderSide(
+                  color: Pen.currentPen.icon == Pen.flatNibPenIcon
+                      ? ritualScarlet.withOpacity(0.3)
+                      : Colors.transparent,
+                ),
+              ),
+            ),
+            tooltip: t.editor.pens.flatNibPen,
+            icon: FaIcon(Pen.flatNibPenIcon, size: 20),
+          ),
+          const SizedBox.square(dimension: 8),
+          IconButton(
+            onPressed: () => setState(() {
+              widget.setTool(MarkerPen());
+            }),
+            style: TextButton.styleFrom(
+              foregroundColor: Pen.currentPen.icon == Pen.markerPenIcon
+                  ? ritualScarlet
+                  : ritualGold.withOpacity(0.6),
+              backgroundColor: Pen.currentPen.icon == Pen.markerPenIcon
+                  ? ritualScarlet.withOpacity(0.1)
+                  : Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+                side: BorderSide(
+                  color: Pen.currentPen.icon == Pen.markerPenIcon
+                      ? ritualScarlet.withOpacity(0.3)
+                      : Colors.transparent,
+                ),
+              ),
+            ),
+            tooltip: t.editor.pens.markerPen,
+            icon: FaIcon(Pen.markerPenIcon, size: 20),
+          ),
+          const SizedBox.square(dimension: 8),
+          IconButton(
+            onPressed: () => setState(() {
+              widget.setTool(CrayonPen());
+            }),
+            style: TextButton.styleFrom(
+              foregroundColor: Pen.currentPen.icon == Pen.crayonPenIcon
+                  ? ritualScarlet
+                  : ritualGold.withOpacity(0.6),
+              backgroundColor: Pen.currentPen.icon == Pen.crayonPenIcon
+                  ? ritualScarlet.withOpacity(0.1)
+                  : Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+                side: BorderSide(
+                  color: Pen.currentPen.icon == Pen.crayonPenIcon
+                      ? ritualScarlet.withOpacity(0.3)
+                      : Colors.transparent,
+                ),
+              ),
+            ),
+            tooltip: t.editor.pens.crayonPen,
+            icon: FaIcon(Pen.crayonPenIcon, size: 20),
           ),
         ],
       ],

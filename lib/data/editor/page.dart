@@ -1,3 +1,6 @@
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5; added crayon shader support
+library;
+
 import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
@@ -7,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:saber/components/canvas/_asset_cache.dart';
 import 'package:saber/components/canvas/_stroke.dart';
+import 'package:saber/components/canvas/crayon_shader.dart';
 import 'package:saber/components/canvas/image/editor_image.dart';
 import 'package:saber/components/canvas/inner_canvas.dart';
 import 'package:saber/components/canvas/pencil_shader.dart';
@@ -44,6 +48,9 @@ class EditorPage extends ChangeNotifier implements HasSize {
 
   FragmentShader get pencilShader => _pencilShader ??= PencilShader.create();
   FragmentShader? _pencilShader;
+
+  FragmentShader get crayonShader => _crayonShader ??= CrayonShader.create();
+  FragmentShader? _crayonShader;
 
   final List<Stroke> strokes;
   final List<LaserStroke> laserStrokes;
@@ -290,6 +297,7 @@ class EditorPage extends ChangeNotifier implements HasSize {
   void dispose() {
     quill.dispose();
     _pencilShader?.dispose();
+    _crayonShader?.dispose();
     isRendered = false;
     for (final image in images) {
       image.dispose();
@@ -307,6 +315,7 @@ class EditorPage extends ChangeNotifier implements HasSize {
   void disposeClonedData() {
     quill.dispose();
     _pencilShader?.dispose();
+    _crayonShader?.dispose();
     isRendered = false;
     super.dispose();
   }

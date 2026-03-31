@@ -1,3 +1,6 @@
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5; added flat-nib stroke deserialization
+library;
+
 import 'dart:math';
 
 import 'package:collection/collection.dart';
@@ -7,6 +10,7 @@ import 'package:logging/logging.dart';
 import 'package:one_dollar_unistroke_recognizer/one_dollar_unistroke_recognizer.dart';
 import 'package:perfect_freehand/perfect_freehand.dart';
 import 'package:saber/components/canvas/_circle_stroke.dart';
+import 'package:saber/components/canvas/_flat_nib_stroke.dart';
 import 'package:saber/components/canvas/_rectangle_stroke.dart';
 import 'package:saber/data/extensions/list_extensions.dart';
 import 'package:saber/data/extensions/point_extensions.dart';
@@ -169,13 +173,13 @@ class Stroke {
       );
     }
 
-    return Stroke(
+    return _buildStroke(
+      toolId: toolId,
       color: color,
       pressureEnabled: pressureEnabled,
       options: options,
       pageIndex: pageIndex,
       page: page,
-      toolId: toolId,
       shimmerIntensity: (json['shm'] as num?)?.toDouble() ?? 0.0,
       shimmerColor: json['shmc'] != null ? Color(json['shmc'] as int) : null,
       sheenIntensity: (json['shn'] as num?)?.toDouble() ?? 0.0,
@@ -184,6 +188,55 @@ class Stroke {
       createdAt: json['cat'] != null ? DateTime.fromMillisecondsSinceEpoch(json['cat'] as int) : null,
       expiry: json['exp'] != null ? Duration(milliseconds: json['exp'] as int) : null,
     )..points.addAll(points);
+  }
+
+  /// Creates the appropriate [Stroke] subclass for the given [toolId].
+  static Stroke _buildStroke({
+    required ToolId toolId,
+    required Color color,
+    required bool pressureEnabled,
+    required StrokeOptions options,
+    required int pageIndex,
+    required HasSize page,
+    double shimmerIntensity = 0.0,
+    Color? shimmerColor,
+    double sheenIntensity = 0.0,
+    Color? sheenColor,
+    double shadingAmount = 0.0,
+    DateTime? createdAt,
+    Duration? expiry,
+  }) {
+    if (toolId == ToolId.flatNibPen) {
+      return FlatNibStroke(
+        color: color,
+        pressureEnabled: pressureEnabled,
+        options: options,
+        pageIndex: pageIndex,
+        page: page,
+        shimmerIntensity: shimmerIntensity,
+        shimmerColor: shimmerColor,
+        sheenIntensity: sheenIntensity,
+        sheenColor: sheenColor,
+        shadingAmount: shadingAmount,
+        createdAt: createdAt,
+        expiry: expiry,
+      );
+    }
+    return Stroke(
+      color: color,
+      pressureEnabled: pressureEnabled,
+      options: options,
+      pageIndex: pageIndex,
+      page: page,
+      toolId: toolId,
+      shimmerIntensity: shimmerIntensity,
+      shimmerColor: shimmerColor,
+      sheenIntensity: sheenIntensity,
+      sheenColor: sheenColor,
+      shadingAmount: shadingAmount,
+      createdAt: createdAt,
+      expiry: expiry,
+    );
   }
   Map<String, dynamic> toJson() {
     // these json keys should not be the same as the ones in [StrokeOptions.toJson]
