@@ -61,3 +61,9 @@ sentry-wizard
 coverage/
 /test-results.json
 /test-results.xml
+
+# Analysis outputs
+analysis_output*.txt
+analyze_output*.txt
+analysis_stage*.txt
+devils_book_files.txt
