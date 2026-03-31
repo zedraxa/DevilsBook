@@ -1,8 +1,9 @@
-/// 🤖 Generated wholly or partially with Claude Code
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; Claude Sonnet 4.6 ✨
 library;
 
 import 'package:flutter/material.dart';
 import 'package:saber/devils_book/models/paper_type.dart';
+import 'package:sbn/canvas_background_pattern.dart';
 
 /// Bottom sheet that lets the user pick a paper type for the current page.
 ///
@@ -10,12 +11,16 @@ import 'package:saber/devils_book/models/paper_type.dart';
 /// shown in horizontal carousels inside a scrollable sheet.
 class PaperSelectorSheet extends StatelessWidget {
   final PaperType? currentPaper;
+  final CanvasBackgroundPattern? currentPattern;
   final ValueChanged<PaperType> onSelect;
+  final ValueChanged<CanvasBackgroundPattern>? onPatternSelect;
 
   const PaperSelectorSheet({
     super.key,
     this.currentPaper,
+    this.currentPattern,
     required this.onSelect,
+    this.onPatternSelect,
   });
 
   static const _families = <String, List<PaperType>>{
@@ -75,13 +80,110 @@ class PaperSelectorSheet extends StatelessWidget {
           const SizedBox(height: 16),
           Expanded(
             child: ListView(
-              children: _families.entries.map((entry) {
-                return _buildFamily(context, entry.key, entry.value);
-              }).toList(),
+              children: [
+                if (onPatternSelect != null) ...[
+                  _buildPatternSection(context),
+                  const SizedBox(height: 12),
+                  const Divider(color: Colors.white10),
+                  const SizedBox(height: 8),
+                ],
+                ..._families.entries.map((entry) {
+                  return _buildFamily(context, entry.key, entry.value);
+                }),
+              ],
             ),
           ),
         ],
       ),
+    );
+  }
+
+  static const _patternLabels = <CanvasBackgroundPattern, (String, IconData)>{
+    CanvasBackgroundPattern.none: ('None', Icons.crop_square),
+    CanvasBackgroundPattern.lined: ('Lined', Icons.horizontal_rule),
+    CanvasBackgroundPattern.grid: ('Grid', Icons.grid_on),
+    CanvasBackgroundPattern.dots: ('Dots', Icons.more_horiz),
+    CanvasBackgroundPattern.collegeLtr: ('College', Icons.view_headline),
+    CanvasBackgroundPattern.collegeRtl: ('College RTL', Icons.view_headline),
+    CanvasBackgroundPattern.staffs: ('Music', Icons.music_note),
+    CanvasBackgroundPattern.cornell: ('Cornell', Icons.view_quilt),
+  };
+
+  Widget _buildPatternSection(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 8, bottom: 6),
+          child: Text(
+            'BACKGROUND PATTERN',
+            style: TextStyle(
+              fontSize: 11,
+              fontWeight: FontWeight.w600,
+              color: Colors.grey[500],
+              letterSpacing: 1.5,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 80,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: _patternLabels.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 10),
+            itemBuilder: (context, index) {
+              final entry = _patternLabels.entries.elementAt(index);
+              final pattern = entry.key;
+              final (label, icon) = entry.value;
+              final isSelected = currentPattern == pattern;
+              return GestureDetector(
+                onTap: () => onPatternSelect?.call(pattern),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  width: 72,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: isSelected
+                        ? const Color(0xFFD4AF37).withValues(alpha: 0.15)
+                        : const Color(0xFF1A1A1A),
+                    border: Border.all(
+                      color: isSelected
+                          ? const Color(0xFFD4AF37)
+                          : Colors.white.withValues(alpha: 0.1),
+                      width: isSelected ? 2.0 : 1.0,
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        icon,
+                        color: isSelected
+                            ? const Color(0xFFD4AF37)
+                            : Colors.white54,
+                        size: 24,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        label,
+                        style: TextStyle(
+                          fontSize: 9,
+                          fontWeight: FontWeight.w500,
+                          color: isSelected
+                              ? const Color(0xFFD4AF37)
+                              : Colors.white54,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -144,7 +246,8 @@ class _PaperCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = ThemeData.estimateBrightnessForColor(paper.tint) == Brightness.dark;
+    final isDark =
+        ThemeData.estimateBrightnessForColor(paper.tint) == Brightness.dark;
     final labelColor = isDark ? Colors.white70 : Colors.black87;
     final borderColor = isSelected
         ? const Color(0xFFD4AF37)
@@ -157,10 +260,7 @@ class _PaperCard extends StatelessWidget {
         width: 90,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: borderColor,
-            width: isSelected ? 2.0 : 1.0,
-          ),
+          border: Border.all(color: borderColor, width: isSelected ? 2.0 : 1.0),
           boxShadow: isSelected
               ? [
                   BoxShadow(
@@ -179,8 +279,9 @@ class _PaperCard extends StatelessWidget {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   color: paper.tint,
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(11)),
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(11),
+                  ),
                 ),
                 child: Center(
                   child: Icon(
@@ -214,8 +315,9 @@ class _PaperCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
               decoration: BoxDecoration(
                 color: const Color(0xFF1A1A1A),
-                borderRadius:
-                    const BorderRadius.vertical(bottom: Radius.circular(11)),
+                borderRadius: const BorderRadius.vertical(
+                  bottom: Radius.circular(11),
+                ),
               ),
               child: Text(
                 paper.name,
