@@ -78,6 +78,7 @@ sentry:
 settings:
   prefCategories:
     general: General
+    themes: Themes
     writing: Writing
     editor: Editor
     performance: Performance

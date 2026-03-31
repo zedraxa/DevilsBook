@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; add-themes-settings
+library;
+
 import 'dart:io';
 
 import 'package:collapsible/collapsible.dart';
@@ -216,6 +219,47 @@ class _SettingsPageState extends State<SettingsPage> {
                   ],
                 ),
                 SettingsSelection(
+                  title: t.settings.prefLabels.layoutSize,
+                  subtitle: switch (stows.layoutSize.value) {
+                    .auto => t.settings.layoutSizes.auto,
+                    .phone => t.settings.layoutSizes.phone,
+                    .tablet => t.settings.layoutSizes.tablet,
+                  },
+                  afterChange: (_) => setState(() {}),
+                  iconBuilder: (i) => switch (LayoutSize.values[i]) {
+                    .auto => Icons.aspect_ratio,
+                    .phone => Icons.smartphone,
+                    .tablet => Icons.tablet,
+                  },
+                  pref: _SettingsStows.layoutSize,
+                  optionsWidth: 60,
+                  options: [
+                    ToggleButtonsOption(
+                      LayoutSize.auto.index,
+                      Icon(
+                        Icons.aspect_ratio,
+                        semanticLabel: t.settings.layoutSizes.auto,
+                      ),
+                    ),
+                    ToggleButtonsOption(
+                      LayoutSize.phone.index,
+                      Icon(
+                        Icons.smartphone,
+                        semanticLabel: t.settings.layoutSizes.phone,
+                      ),
+                    ),
+                    ToggleButtonsOption(
+                      LayoutSize.tablet.index,
+                      Icon(
+                        Icons.tablet,
+                        semanticLabel: t.settings.layoutSizes.tablet,
+                      ),
+                    ),
+                  ],
+                ),
+
+                SettingsSubtitle(subtitle: t.settings.prefCategories.themes),
+                SettingsSelection(
                   title: t.settings.prefLabels.appTheme,
                   iconBuilder: (i) {
                     if (i == ThemeMode.system.index)
@@ -282,45 +326,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       const UniIcon(
                         FontAwesomeIcons.ubuntu,
                         semanticLabel: 'Yaru',
-                      ),
-                    ),
-                  ],
-                ),
-                SettingsSelection(
-                  title: t.settings.prefLabels.layoutSize,
-                  subtitle: switch (stows.layoutSize.value) {
-                    .auto => t.settings.layoutSizes.auto,
-                    .phone => t.settings.layoutSizes.phone,
-                    .tablet => t.settings.layoutSizes.tablet,
-                  },
-                  afterChange: (_) => setState(() {}),
-                  iconBuilder: (i) => switch (LayoutSize.values[i]) {
-                    .auto => Icons.aspect_ratio,
-                    .phone => Icons.smartphone,
-                    .tablet => Icons.tablet,
-                  },
-                  pref: _SettingsStows.layoutSize,
-                  optionsWidth: 60,
-                  options: [
-                    ToggleButtonsOption(
-                      LayoutSize.auto.index,
-                      Icon(
-                        Icons.aspect_ratio,
-                        semanticLabel: t.settings.layoutSizes.auto,
-                      ),
-                    ),
-                    ToggleButtonsOption(
-                      LayoutSize.phone.index,
-                      Icon(
-                        Icons.smartphone,
-                        semanticLabel: t.settings.layoutSizes.phone,
-                      ),
-                    ),
-                    ToggleButtonsOption(
-                      LayoutSize.tablet.index,
-                      Icon(
-                        Icons.tablet,
-                        semanticLabel: t.settings.layoutSizes.tablet,
                       ),
                     ),
                   ],

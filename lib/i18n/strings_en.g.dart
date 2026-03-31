@@ -1,3 +1,4 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; add-themes-settings
 ///
 /// Generated file. Do not edit.
 ///
@@ -554,6 +555,9 @@ class TranslationsSettingsPrefCategoriesEn {
 
 	/// en: 'General'
 	String get general => 'General';
+
+	/// en: 'Themes'
+	String get themes => 'Themes';
 
 	/// en: 'Writing'
 	String get writing => 'Writing';
