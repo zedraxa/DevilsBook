@@ -1,10 +1,13 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/material.dart';
-import 'zoom_window_controller.dart';
+import 'package:saber/devils_book/zoom_window/zoom_window_controller.dart';
 
 class ZoomWindowTarget extends StatelessWidget {
   final ZoomWindowController controller;
 
-  const ZoomWindowTarget({Key? key, required this.controller}) : super(key: key);
+  const ZoomWindowTarget({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class ZoomWindowTarget extends StatelessWidget {
             ignoring: true, // Let strokes pass through to canvas
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.blueAccent.withOpacity(0.1),
+                color: Colors.blueAccent.withValues(alpha: 0.1),
                 border: Border.all(color: Colors.blueAccent, width: 2),
                 borderRadius: BorderRadius.circular(4),
               ),

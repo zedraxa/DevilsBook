@@ -1,5 +1,8 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'dart:typed_data';
-import '../pack_manifest.dart';
+import 'package:saber/devils_book/packs/pack_manifest.dart';
 
 /// Represents a packaged community extension file (e.g., a `.dbp` Devils Book Pack).
 /// In reality, this would be a zip archive containing a `manifest.json` and asset folders.

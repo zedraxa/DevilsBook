@@ -1,8 +1,9 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
 /// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
 library;
 
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:saber/devils_book/archive/archive_models.dart';
 
 /// Manages the archive layer: shelves, tome metadata, bookmarks.

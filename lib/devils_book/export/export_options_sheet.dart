@@ -1,3 +1,4 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
 /// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
 library;
 
@@ -15,10 +16,10 @@ class ExportOptionsSheet extends StatefulWidget {
 }
 
 class _ExportOptionsSheetState extends State<ExportOptionsSheet> {
-  ExportVariant _selectedVariant = ExportVariant.clean;
-  ExportFormat _selectedFormat = ExportFormat.pdf;
-  bool _includeBackground = true;
-  bool _includeGrid = true;
+  var _selectedVariant = ExportVariant.clean;
+  var _selectedFormat = ExportFormat.pdf;
+  var _includeBackground = true;
+  final _includeGrid = true;
 
   @override
   Widget build(BuildContext context) {

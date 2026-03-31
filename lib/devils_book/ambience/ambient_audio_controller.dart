@@ -1,3 +1,4 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
 /// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
 library;
 
@@ -12,8 +13,8 @@ class AmbientAudioController extends ChangeNotifier {
   AmbientAudioController._internal();
 
   AmbiencePreset? _activeAmbience;
-  double _masterVolume = 1.0;
-  bool _isMuted = false;
+  var _masterVolume = 1.0;
+  var _isMuted = false;
 
   AmbiencePreset? get activeAmbience => _activeAmbience;
   double get masterVolume => _masterVolume;

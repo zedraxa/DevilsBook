@@ -1,4 +1,7 @@
-import '../models/relic_element.dart';
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
+import 'package:saber/devils_book/models/relic_element.dart';
 
 class RelicCollection {
   final String id;
@@ -13,7 +16,7 @@ class RelicCollection {
 }
 
 class RelicCatalog {
-  static final RelicElement defaultSeal = RelicElement(
+  static final defaultSeal = RelicElement(
     id: 'seal_of_lucifer',
     name: 'Seal of Lucifer',
     type: RelicType.seal,
@@ -22,7 +25,7 @@ class RelicCatalog {
     description: 'The master seal of the underworld.',
   );
   
-  static final RelicElement standardSignature = RelicElement(
+  static final standardSignature = RelicElement(
     id: 'sig_placeholder',
     name: 'Signee Placeholder',
     type: RelicType.signature,
@@ -31,7 +34,7 @@ class RelicCatalog {
     description: 'A placeholder for your infernal mark.',
   );
 
-  static final RelicCollection essentialRunes = RelicCollection(
+  static final essentialRunes = RelicCollection(
     id: 'essential_runes',
     name: 'Essential Runes & Signatures',
     elements: [defaultSeal, standardSignature],

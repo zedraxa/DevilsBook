@@ -1,5 +1,8 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/material.dart';
-import 'zoom_window_controller.dart';
+import 'package:saber/devils_book/zoom_window/zoom_window_controller.dart';
 
 class ZoomWindowStrip extends StatelessWidget {
   final ZoomWindowController controller;
@@ -7,11 +10,11 @@ class ZoomWindowStrip extends StatelessWidget {
   final Function(Offset) onStripDragUpdate; 
 
   const ZoomWindowStrip({
-    Key? key,
+    super.key,
     required this.controller,
     required this.canvasSubtree,
     required this.onStripDragUpdate,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +38,7 @@ class ZoomWindowStrip extends StatelessWidget {
                 top: BorderSide(color: Theme.of(context).dividerColor, width: 2),
               ),
               boxShadow: [
-                BoxShadow(color: Colors.black.withOpacity(0.5), blurRadius: 10, offset: const Offset(0, -2))
+                BoxShadow(color: Colors.black.withValues(alpha: 0.5), blurRadius: 10, offset: const Offset(0, -2))
               ],
             ),
             child: Stack(

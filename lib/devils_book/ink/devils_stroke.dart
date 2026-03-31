@@ -1,13 +1,14 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
 /// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
 library;
 
 import 'dart:ui';
-import 'package:saber/components/canvas/_stroke.dart';
-import 'package:sbn/tool_id.dart';
-import 'package:sbn/has_size.dart';
 import 'package:perfect_freehand/perfect_freehand.dart';
+import 'package:saber/components/canvas/_stroke.dart';
 import 'package:saber/devils_book/ink/ink_sample.dart';
 import 'package:saber/devils_book/ink/nib_profile.dart';
+import 'package:sbn/has_size.dart';
+import 'package:sbn/tool_id.dart';
 
 /// A memory-resident wrapper that holds full 6-DOF high-frequency stylus data.
 /// It seamlessly compiles down to a universally compatible standard Saber [Stroke]

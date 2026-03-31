@@ -1,14 +1,17 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:saber/devils_book/models/effect_preset.dart';
-import 'package:saber/devils_book/models/writing_mode.dart';
 import 'package:saber/devils_book/models/loadout_manager.dart';
-import 'package:saber/devils_book/sessions/session_controller.dart';
 import 'package:saber/devils_book/models/relic_element.dart';
+import 'package:saber/devils_book/models/writing_mode.dart';
+import 'package:saber/devils_book/sessions/session_controller.dart';
 
 class ComboState {
-  int hitCount = 0;
-  DateTime lastHit = DateTime.now();
+  var hitCount = 0;
+  var lastHit = DateTime.now();
 
   double get comboMultiplier {
     return 1.0 + (hitCount.clamp(0, 50) / 100.0);
@@ -60,11 +63,11 @@ class EmberParticle {
 class LiveEffectEngine extends ChangeNotifier {
   final List<EmberParticle> particles = [];
   final List<EmberParticle> impactFlashes = [];
-  final ComboState combo = ComboState();
-  Offset screenShakeOffset = Offset.zero;
-  double auraIntensity = 0.0;
+  final combo = ComboState();
+  var screenShakeOffset = Offset.zero;
+  var auraIntensity = 0.0;
   EffectPreset? activePreset;
-  bool isEnabled = true;
+  var isEnabled = true;
   DateTime? _lastTrailSpawn;
 
   void setPreset(EffectPreset preset) {

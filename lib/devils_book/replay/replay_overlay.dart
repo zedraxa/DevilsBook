@@ -1,6 +1,8 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/material.dart';
-import 'playback_controller.dart';
-import 'replay_models.dart';
+import 'package:saber/devils_book/replay/playback_controller.dart';
 
 /// A modal overlay providing playback controls for a ReplayTimeline.
 /// This would typically wrap a read-only Canvas instance driven by the controller's `visibleState`.
@@ -9,10 +11,10 @@ class ReplayOverlay extends StatefulWidget {
   final VoidCallback onClose;
 
   const ReplayOverlay({
-    Key? key,
+    super.key,
     required this.controller,
     required this.onClose,
-  }) : super(key: key);
+  });
 
   @override
   State<ReplayOverlay> createState() => _ReplayOverlayState();
@@ -60,10 +62,10 @@ class _ReplayOverlayState extends State<ReplayOverlay> with SingleTickerProvider
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
         decoration: BoxDecoration(
-          color: Theme.of(context).cardColor.withOpacity(0.9),
+          color: Theme.of(context).cardColor.withValues(alpha: 0.9),
           borderRadius: BorderRadius.circular(24),
           boxShadow: [
-            BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 20, offset: const Offset(0, 10))
+            BoxShadow(color: Colors.black.withValues(alpha: 0.2), blurRadius: 20, offset: const Offset(0, 10))
           ],
         ),
         child: Column(
@@ -103,7 +105,7 @@ class _ReplayOverlayState extends State<ReplayOverlay> with SingleTickerProvider
                       overlayShape: const RoundSliderOverlayShape(overlayRadius: 14),
                       activeTrackColor: Colors.amber,
                       thumbColor: Colors.amber,
-                      inactiveTrackColor: Colors.grey.withOpacity(0.3),
+                      inactiveTrackColor: Colors.grey.withValues(alpha: 0.3),
                     ),
                     child: Slider(
                       value: _controller.progressFraction,

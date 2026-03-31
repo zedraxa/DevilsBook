@@ -1,9 +1,12 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/material.dart';
+import 'package:saber/devils_book/models/theme_preset.dart';
+import 'package:saber/devils_book/packs/content_pack.dart';
+import 'package:saber/devils_book/packs/pack_category.dart';
+import 'package:saber/devils_book/packs/pack_manifest.dart';
 import 'package:sbn/canvas_background_pattern.dart';
-import '../../models/theme_preset.dart';
-import '../pack_manifest.dart';
-import '../pack_category.dart';
-import '../content_pack.dart';
 
 /// Dark & Premium themes for serious, focused writing.
 class DarkPremiumThemePack {

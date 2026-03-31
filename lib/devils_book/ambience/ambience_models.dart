@@ -1,7 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
 /// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
 library;
-
-import 'package:flutter/material.dart';
 
 /// Categories of environmental audio.
 enum AmbienceCategory {
