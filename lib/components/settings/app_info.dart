@@ -1,3 +1,6 @@
+/// 🤖 Generated wholly or partially with Claude Code; Anthropic Claude Sonnet 4.5
+library;
+
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -16,13 +19,13 @@ class AppInfo extends StatelessWidget {
     'https://github.com/sponsors/adil192',
   );
   static final Uri privacyPolicyUrl = Uri.parse(
-    'https://saber.adil.hanney.org/privacy-policy/',
+    'https://github.com/zedraxa/DevilsBook/blob/main/privacy_policy.md',
   );
   static final Uri licenseUrl = Uri.parse(
-    'https://github.com/saber-notes/saber/blob/main/LICENSE.md',
+    'https://github.com/zedraxa/DevilsBook/blob/main/LICENSE.md',
   );
   static final Uri releasesUrl = Uri.parse(
-    'https://github.com/saber-notes/saber/releases',
+    'https://github.com/zedraxa/DevilsBook/releases',
   );
 
   static String get info => [
