@@ -1,11 +1,11 @@
-/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot ✨
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot; Claude Sonnet 4 ✨
 ///
 /// iOS plugin that bridges Apple Pencil advanced interactions
 /// (double-tap, squeeze, barrel roll) to Flutter via an EventChannel.
 ///
 /// - Double-tap: available on Apple Pencil 2nd gen + Pro (iOS 12.1+)
 /// - Squeeze: available on Apple Pencil Pro (iOS 17.5+)
-/// - Barrel roll: available on Apple Pencil Pro (iOS 16.0+)
+/// - Barrel roll: gesture recognizer added iOS 16.0+, rollAngle iOS 17.5+
 
 import Flutter
 import UIKit
@@ -143,12 +143,16 @@ class DevilsBarrelRollGestureRecognizer: UIGestureRecognizer {
 
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
     super.touchesBegan(touches, with: event)
-    reportRoll(from: touches)
+    if #available(iOS 16.0, *) {
+      reportRoll(from: touches)
+    }
   }
 
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
     super.touchesMoved(touches, with: event)
-    reportRoll(from: touches)
+    if #available(iOS 16.0, *) {
+      reportRoll(from: touches)
+    }
   }
 
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
@@ -173,6 +177,9 @@ class DevilsBarrelRollGestureRecognizer: UIGestureRecognizer {
   @available(iOS 16.0, *)
   private func reportRoll(from touches: Set<UITouch>) {
     guard let touch = touches.first, touch.type == .pencil else { return }
-    onRollChanged(Double(touch.rollAngle))
+    if #available(iOS 17.5, *) {
+      onRollChanged(Double(touch.rollAngle))
+    }
+    // On iOS 16.0–17.4, rollAngle is unavailable; silently skip.
   }
 }
