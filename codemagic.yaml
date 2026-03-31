@@ -31,9 +31,17 @@ workflows:
           flutter pub get
       - name: "Synchronize versioning and build numbers"
         script: |
-          # Automatically increment build number using Codemagic's internal counter
-          BUILD_NUMBER=$(($PROJECT_BUILD_NUMBER + 100000))
-          sed -i '' "s/version: .*/version: $(grep 'version: ' pubspec.yaml | cut -d ' ' -f 2 | cut -d '+' -f 1)+$BUILD_NUMBER/" pubspec.yaml
+          # Reads the base build number from pubspec.yaml (e.g. 132000 from "version: 1.32.0+132000")
+          # and adds Codemagic's PROJECT_BUILD_NUMBER to guarantee the result always
+          # exceeds the previously uploaded version on App Store Connect.
+          BASE_BUILD=$(grep 'version: ' pubspec.yaml | cut -d '+' -f 2)
+          if ! [[ "$BASE_BUILD" =~ ^[0-9]+$ ]]; then
+            echo "Error: Could not extract a numeric build number from pubspec.yaml (got '$BASE_BUILD')"
+            exit 1
+          fi
+          BUILD_NUMBER=$(($BASE_BUILD + $PROJECT_BUILD_NUMBER))
+          VERSION_NAME=$(grep 'version: ' pubspec.yaml | cut -d ' ' -f 2 | cut -d '+' -f 1)
+          sed -i '' "s/version: .*/version: ${VERSION_NAME}+${BUILD_NUMBER}/" pubspec.yaml
           echo "Building version $(grep 'version: ' pubspec.yaml | cut -d ' ' -f 2)"
       - name: "iOS Forge: Build IPA"
         script: |

@@ -39,9 +39,9 @@ Add the following variables:
 ## 3. Versioning Strategy
 The [codemagic.yaml](file:///media/yusuf/Data/DevilsBook/saber/codemagic.yaml) is configured to:
 1.  Read the **Version Name** (e.g., `1.32.0`) from [pubspec.yaml](file:///media/yusuf/Data/DevilsBook/saber/pubspec.yaml).
-2.  Override the **Build Number** (e.g., `+132000`) with a combination of `PROJECT_BUILD_NUMBER + 100000`.
+2.  Read the **Base Build Number** (e.g., `132000`) from pubspec.yaml, and add `PROJECT_BUILD_NUMBER` to it.
 
-This ensures that every cloud build has a unique, incrementing identifier required by TestFlight, even if you never touch the local version string.
+This ensures that every cloud build has a unique, incrementing identifier that always exceeds the base version in pubspec.yaml, as required by TestFlight.
 
 ---
 
