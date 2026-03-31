@@ -1,4 +1,4 @@
-/// 🤖 Generated wholely or partially with Claude Sonnet 4 ✨
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; Claude Sonnet 4.6 ✨
 import 'dart:async';
 import 'dart:math';
 
@@ -284,12 +284,25 @@ class EditorState extends State<Editor> {
     final activeExpiry = sessionExpiry ?? modeExpiry ?? relicExpiry;
     
     if (currentTool is Pen) {
+      final ink = loadoutManager.activeInk;
       (currentTool as Pen).onDragStart(
         position, 
         page, 
         dragPageIndex!, 
         currentPressure,
+        sheenIntensity: ink.sheenIntensity,
+        sheenColor: ink.effectiveEdgeColor,
+        shimmerIntensity: ink.shimmerIntensity,
+        shimmerColor: ink.shimmerColor,
+        shadingAmount: ink.shadingAmount,
         expiry: activeExpiry,
+      );
+
+      // DEVILS BOOK: Ignite live particle effects on pen-down
+      fxEngine.spawnIgnition(
+        position,
+        pressure: currentPressure ?? 1.0,
+        mode: writingModeState.currentMode,
       );
     }
     previousPosition = position;
@@ -301,7 +314,14 @@ class EditorState extends State<Editor> {
     final position = page.renderBox!.globalToLocal(details.focalPoint);
     if (currentTool is Pen) { 
       (currentTool as Pen).onDragUpdate(position, currentPressure); 
-      page.redrawStrokes(); 
+      page.redrawStrokes();
+
+      // DEVILS BOOK: Spawn trail particles during pen movement
+      fxEngine.spawnTrail(
+        position,
+        pressure: currentPressure ?? 1.0,
+        mode: writingModeState.currentMode,
+      );
     } else if (currentTool is Eraser) {
       final overlapping = (currentTool as Eraser).checkForOverlappingStrokes(position, page.strokes);
       if (overlapping.isNotEmpty) {
