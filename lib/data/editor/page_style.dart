@@ -1,4 +1,4 @@
-/// 🤖 Generated wholly or partially with Claude Code
+/// 🤖 Generated wholly or partially with Claude Code; Claude Sonnet 4.5
 library;
 
 import 'package:flutter/material.dart';
@@ -32,16 +32,16 @@ class PageStyle {
     Color? color;
     if (json['b'] != null) {
       final b = json['b'];
-      color = b is int ? Color(b) : Color((b as num).toInt());
+      color = Color(b as int);
     }
     Color? lineColor;
     if (json['lc'] != null) {
       final lc = json['lc'];
-      lineColor = lc is int ? Color(lc) : Color((lc as num).toInt());
+      lineColor = Color(lc as int);
     }
 
     return PageStyle(
-      pattern: CanvasBackgroundPattern.fromName(json['p'] as String?) ?? fallback.pattern,
+      pattern: CanvasBackgroundPattern.fromName(json['p'] as String?),
       backgroundColor: color ?? fallback.backgroundColor,
       lineColor: lineColor ?? fallback.lineColor,
       lineHeight: json['l'] as int? ?? fallback.lineHeight,

@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/material.dart';
 
 /// Named session archetypes.
@@ -123,8 +126,8 @@ class ActiveSession {
   final SessionConfig config;
   final DateTime startTime;
 
-  int strokeCount = 0;
-  int pagesSeen = 0;
+  var strokeCount = 0;
+  var pagesSeen = 0;
 
   ActiveSession({required this.config, DateTime? startTime})
       : startTime = startTime ?? DateTime.now();

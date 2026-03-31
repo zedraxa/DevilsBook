@@ -1,9 +1,12 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'package:flutter/material.dart';
-import '../sessions/session_controller.dart';
-import '../sessions/session_models.dart';
+import 'package:saber/devils_book/sessions/session_controller.dart';
+import 'package:saber/devils_book/sessions/session_models.dart';
 
 class SessionOverlay extends StatelessWidget {
-  const SessionOverlay({Key? key}) : super(key: key);
+  const SessionOverlay({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +32,7 @@ class SessionOverlay extends StatelessWidget {
                   gradient: RadialGradient(
                     colors: [
                       Colors.transparent,
-                      const Color(0xFF050505).withValues(alpha: 0.5 + (intensity * 0.45)), // Increases with intensity
+                      const Color(0xFF050505).withValues(alpha: 0.5 + (intensity * 0.45)),
                     ],
                     stops: [0.6 - (intensity * 0.2), 1.0], // Vignette shrinks inwards with intensity
                   ),

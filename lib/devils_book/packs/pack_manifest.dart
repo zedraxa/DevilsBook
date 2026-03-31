@@ -1,4 +1,7 @@
-import 'pack_category.dart';
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
+import 'package:saber/devils_book/packs/pack_category.dart';
 
 /// Metadata describing a single content pack.
 /// A pack is a self-contained bundle of optional content

@@ -1,10 +1,10 @@
-/// 🤖 Generated wholly or partially with Claude Code
+/// 🤖 Generated wholly or partially with Claude Code; Claude Sonnet 4.5
 library;
 
 import 'package:flutter/material.dart';
-import '../models/notebook_template.dart';
-import '../packs/builtin/notebook_packs.dart';
-import '../packs/builtin/mystic_notebooks.dart';
+import 'package:saber/devils_book/models/notebook_template.dart';
+import 'package:saber/devils_book/packs/builtin/notebook_packs.dart';
+import 'package:saber/devils_book/packs/builtin/mystic_notebooks.dart';
 
 /// A bottom sheet presenting notebook templates grouped by pack family.
 class NotebookTemplateSelectorSheet extends StatelessWidget {
@@ -68,7 +68,7 @@ class NotebookTemplateSelectorSheet extends StatelessWidget {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: templates.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 14),
+            separatorBuilder: (_, _) => const SizedBox(width: 14),
             itemBuilder: (context, index) {
               final tmpl = templates[index];
               return GestureDetector(

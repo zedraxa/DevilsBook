@@ -1,11 +1,15 @@
-import 'package:flutter/material.dart';
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'package:flutter/foundation.dart';
-import 'archive_models.dart';
+import 'package:flutter/material.dart';
+import 'package:saber/devils_book/archive/archive_models.dart';
 
 /// Manages the archive layer: shelves, tome metadata, bookmarks.
 /// Wraps around Saber's file system without replacing it.
 class ArchiveManager extends ChangeNotifier {
-  static final ArchiveManager _instance = ArchiveManager._internal();
+  static final _instance = ArchiveManager._internal();
   factory ArchiveManager() => _instance;
   ArchiveManager._internal();
 

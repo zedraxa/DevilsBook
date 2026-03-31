@@ -1,12 +1,12 @@
-/// 🤖 Generated wholly or partially with Claude Code
+/// 🤖 Generated wholly or partially with Claude Code; Claude Sonnet 4; GitHub Copilot
 library;
 
 import 'package:flutter/material.dart';
-import 'package:sbn/canvas_background_pattern.dart';
+import 'package:saber/devils_book/models/notebook_template.dart';
 import 'package:saber/devils_book/models/paper_type.dart';
-import '../../models/notebook_template.dart';
-import '../pack_manifest.dart';
-import '../pack_category.dart';
+import 'package:saber/devils_book/packs/pack_category.dart';
+import 'package:saber/devils_book/packs/pack_manifest.dart';
+import 'package:sbn/canvas_background_pattern.dart';
 
 /// Premium Mystic and Celestial notebook families.
 class MysticNotebookPack {

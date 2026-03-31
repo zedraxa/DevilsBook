@@ -1,5 +1,8 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'package:flutter/material.dart';
-import '../models/theme_preset.dart';
+import 'package:saber/devils_book/models/theme_preset.dart';
 
 class RitualBackground extends StatelessWidget {
   final ThemePreset theme;

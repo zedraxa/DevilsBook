@@ -1,10 +1,13 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'package:flutter/material.dart';
-import '../models/relic_element.dart';
-import '../registry/devils_catalog.dart';
+import 'package:saber/devils_book/models/relic_element.dart';
+import 'package:saber/devils_book/registry/devils_catalog.dart';
 
 /// A bottom sheet presenting seals/elements grouped by category with a Hades-inspired aesthetic.
 class RelicSelectorSheet extends StatefulWidget {
-  const RelicSelectorSheet({Key? key}) : super(key: key);
+  const RelicSelectorSheet({super.key});
 
   @override
   State<RelicSelectorSheet> createState() => _RelicSelectorSheetState();
@@ -88,7 +91,7 @@ class _RelicSelectorSheetState extends State<RelicSelectorSheet> {
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
                 itemCount: favorites.length,
-                separatorBuilder: (_, __) => const SizedBox(width: 12),
+                separatorBuilder: (_, _) => const SizedBox(width: 12),
                 itemBuilder: (_, i) => _relicTile(favorites[i], compact: true),
               ),
             ),

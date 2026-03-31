@@ -1,8 +1,11 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/material.dart';
-import '../../models/ink_preset.dart';
-import '../pack_manifest.dart';
-import '../pack_category.dart';
-import '../content_pack.dart';
+import 'package:saber/devils_book/models/ink_preset.dart';
+import 'package:saber/devils_book/packs/content_pack.dart';
+import 'package:saber/devils_book/packs/pack_category.dart';
+import 'package:saber/devils_book/packs/pack_manifest.dart';
 
 /// Classic writing inks — serious, reliable, professional.
 class ClassicInkPack {

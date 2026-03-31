@@ -1,13 +1,16 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/material.dart';
 
 class ZoomWindowController extends ChangeNotifier {
-  bool isVisible = false;
+  var isVisible = false;
   
   // The normalized logical rectangle on the active page
-  Rect targetRect = const Rect.fromLTWH(50, 50, 350, 100);
+  var targetRect = const Rect.fromLTWH(50, 50, 350, 100);
   
   // The magnification scale factor
-  double zoomScale = 2.5;
+  var zoomScale = 2.5;
 
   void toggleVisibility() {
     isVisible = !isVisible;

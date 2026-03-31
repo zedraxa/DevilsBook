@@ -1,6 +1,9 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'package:flutter/material.dart';
-import '../models/ink_preset.dart';
-import '../packs/pack_registry.dart';
+import 'package:saber/devils_book/models/ink_preset.dart';
+import 'package:saber/devils_book/packs/pack_registry.dart';
 
 /// A bottom sheet presenting inks grouped by their pack family.
 class InkSelectorSheet extends StatelessWidget {
@@ -8,10 +11,10 @@ class InkSelectorSheet extends StatelessWidget {
   final ValueChanged<InkPreset> onSelect;
 
   const InkSelectorSheet({
-    Key? key,
+    super.key,
     required this.currentInk,
     required this.onSelect,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

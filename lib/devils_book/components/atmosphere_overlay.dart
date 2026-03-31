@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';

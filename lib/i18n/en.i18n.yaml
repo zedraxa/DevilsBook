@@ -271,6 +271,9 @@ editor:
     pencil: Pencil
     shapePen: Shape pen
     laserPointer: Laser pointer
+    flatNibPen: Flat-nib pen
+    markerPen: Marker
+    crayonPen: Crayon
   penOptions:
     size: Size
   colors:

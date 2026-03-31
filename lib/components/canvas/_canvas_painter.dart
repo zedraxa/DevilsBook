@@ -1,3 +1,6 @@
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5; added rendering for flat-nib, marker, and crayon pens
+library;
+
 import 'dart:math';
 import 'dart:ui' as ui;
 
@@ -164,6 +167,25 @@ class CanvasPainter extends CustomPainter {
         }
       }
 
+      if (stroke.toolId == ToolId.crayonPen) {
+        if (_shouldUseCrayonShader(stroke.options.size)) {
+          paint.color = Colors.white;
+          paint.shader = page.crayonShader
+            ..setFloat(0, color.r)
+            ..setFloat(1, color.g)
+            ..setFloat(2, color.b);
+          paint.maskFilter = _getCrayonMaskFilter(stroke.options.size);
+        } else {
+          final background = invert ? Colors.black : Colors.white;
+          paint.color = Color.lerp(background, color, 0.65)!;
+        }
+      }
+
+      // Marker: semi-transparent with blunt edges
+      if (stroke.toolId == ToolId.markerPen) {
+        paint.color = color.withValues(alpha: color.a * 0.75);
+      }
+
       // DEVILS BOOK: Material Pass - Shading
       if (stroke.shadingAmount > 0) {
         paint.color = color.withValues(
@@ -279,6 +301,20 @@ class CanvasPainter extends CustomPainter {
         ..setFloat(1, color.g)
         ..setFloat(2, color.b);
       paint.maskFilter = _getPencilMaskFilter(currentStroke!.options.size);
+    } else if (currentStroke!.toolId == ToolId.crayonPen) {
+      if (_shouldUseCrayonShader(currentStroke!.options.size)) {
+        paint.color = Colors.white;
+        paint.shader = page.crayonShader
+          ..setFloat(0, color.r)
+          ..setFloat(1, color.g)
+          ..setFloat(2, color.b);
+        paint.maskFilter = _getCrayonMaskFilter(currentStroke!.options.size);
+      } else {
+        final background = invert ? Colors.black : Colors.white;
+        paint.color = Color.lerp(background, color, 0.65)!;
+      }
+    } else if (currentStroke!.toolId == ToolId.markerPen) {
+      paint.color = color.withValues(alpha: color.a * 0.75);
     }
 
     // Current stroke always uses high quality
@@ -399,6 +435,11 @@ class CanvasPainter extends CustomPainter {
       MaskFilter.blur(BlurStyle.normal, min(size * 0.2, 3));
   bool shouldUsePencilShader(double strokeSize) =>
       currentScale >= _zoomThreshold && (strokeSize * currentScale) >= 3;
+
+  static MaskFilter _getCrayonMaskFilter(double size) =>
+      MaskFilter.blur(BlurStyle.normal, min(size * 0.35, 5));
+  bool _shouldUseCrayonShader(double strokeSize) =>
+      currentScale >= _zoomThreshold && (strokeSize * currentScale) >= 4;
 
   static const _zoomThreshold = 0.9;
   Path _selectPath(Stroke stroke) => switch (currentScale) {

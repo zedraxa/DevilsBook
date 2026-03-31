@@ -1,9 +1,12 @@
-import '../models/theme_preset.dart';
-import '../models/ink_preset.dart';
-import '../models/effect_preset.dart';
-import '../models/loadout.dart';
-import '../models/relic_element.dart';
-import 'pack_manifest.dart';
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
+import 'package:saber/devils_book/models/effect_preset.dart';
+import 'package:saber/devils_book/models/ink_preset.dart';
+import 'package:saber/devils_book/models/loadout.dart';
+import 'package:saber/devils_book/models/relic_element.dart';
+import 'package:saber/devils_book/models/theme_preset.dart';
+import 'package:saber/devils_book/packs/pack_manifest.dart';
 
 /// The concrete payload a content pack contributes.
 /// Each field is optional; a pack only populates the categories it ships.
