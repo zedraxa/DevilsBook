@@ -23,6 +23,9 @@ class PackImporter extends ChangeNotifier {
   }
 
   /// Attempts to install a pack from an archive file.
+  ///
+  /// Returns false because pack registration is not yet implemented.
+  /// Validation passes but actual extraction and registration are pending.
   Future<bool> importPack(CommunityPackArchive archive) async {
     _log('Starting import of ${archive.manifest.id}');
 
@@ -44,17 +47,11 @@ class PackImporter extends ChangeNotifier {
       return false;
     }
 
-    // 3. Sandboxed JSON Extraction & Registration
-    // STUB: Here we would parse 'themes.json', 'inks.json' from [archive], 
-    // deserialize into models, and push wrapped versions into the `PackRegistry`.
-    
-    // Example:
-    // final themesJson = await archive.extractJsonObjects('themes.json');
-    // final themes = parseThemes(themesJson, archive.manifest.id);
-    // PackRegistry().registerCustomPack(archive.manifest, themes: themes, inks: inks, effects: effects, relics: relics);
-
-    _log('Successfully imported ${archive.manifest.name}');
-    return true;
+    // 3. Sandboxed JSON Extraction & Registration — NOT YET IMPLEMENTED
+    // When ready, parse 'themes.json', 'inks.json' from [archive],
+    // deserialize into models, and push wrapped versions into the PackRegistry.
+    _log('Pack validation passed but registration is not yet implemented');
+    return false;
   }
 
   /// Scans a local device directory (e.g., `Documents/DevilsBook/Packs`) 

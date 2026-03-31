@@ -57,7 +57,7 @@ jobs:
         run: |
           keychain initialize
 
-          app-store-connect fetch-signing-files com.adilhanney.saber \
+          app-store-connect fetch-signing-files devilsbook \
             --platform IOS \
             --type IOS_APP_STORE \
             --certificate-key=@env:APP_STORE_CERTIFICATE_KEY \
@@ -89,7 +89,7 @@ jobs:
         run: |
           brew install grep
           buildName=$(ggrep -oP "(?<=buildName = ').*(?=')" lib/data/version.dart)
-          export ipaPath="Saber_v${buildName}.ipa"
+          export ipaPath="DevilsBook_v${buildName}.ipa"
           mv $(find $(pwd) -name "*.ipa") $ipaPath
           echo "ipaPath=$ipaPath" >> $GITHUB_OUTPUT
 
@@ -108,7 +108,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v7
         with:
-          name: Saber-iOS-Archive
+          name: DevilsBook-iOS-Archive
           path: ${{ steps.move.outputs.ipaPath }}
 
       - name: Upload to GitHub release

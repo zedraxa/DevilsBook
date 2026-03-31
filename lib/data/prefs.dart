@@ -361,6 +361,12 @@ class Stows {
     volatile: !_isOnMainIsolate,
   );
 
+  final activeInkId = PlainStow(
+    'activeInkId',
+    '',
+    volatile: !_isOnMainIsolate,
+  );
+
   final activeRelicId = PlainStow(
     'activeRelicId',
     '',
