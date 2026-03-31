@@ -1,28 +1,34 @@
 # 🤖 Generated wholely or partially with Claude Sonnet 4 ✨
 #
-# Codemagic CI/CD configuration for iOS release builds.
-# See https://docs.codemagic.io/yaml-basic-structure/yaml-getting-started/
+# Codemagic CI/CD — iOS release build configuration.
+# https://docs.codemagic.io/yaml-basic-structure/yaml-getting-started/
 #
-# Required environment variable groups (configure in Codemagic UI):
-#   appstore_credentials:
-#     - APP_STORE_CONNECT_ISSUER_ID
-#     - APP_STORE_CONNECT_KEY_IDENTIFIER
-#     - APP_STORE_CONNECT_PRIVATE_KEY  (App Store Connect API key .p8 contents)
-#     - APP_STORE_CERTIFICATE_KEY      (RSA private key for code signing cert)
-#   sentry:
-#     - SENTRY_AUTH_TOKEN
-#
-# To safely modify this configuration in the future:
-# 1. Mirror any build-step changes from .github/workflows/ios.yml
-# 2. Keep the pre/post patch scripts in sync with the GitHub Actions workflow
-# 3. Verify bundle ID and team ID match ios/Runner.xcodeproj/project.pbxproj
-# 4. Test with a manual Codemagic build before merging
+# ┌──────────────────────────────────────────────────────────────────┐
+# │  CODEMAGIC WEB UI KURULUM ADIMLARI                              │
+# │                                                                  │
+# │  1. https://codemagic.io adresinden giriş yapın                  │
+# │  2. "Add application" ile bu GitHub reposunu bağlayın            │
+# │  3. Settings > Team integrations > App Store Connect:            │
+# │     - Integration adı: "Saber App Store Connect"                 │
+# │     - Issuer ID, Key ID ve .p8 API key dosyasını girin           │
+# │  4. Settings > Environment variables > Grup oluşturun:           │
+# │     Grup: "appstore_credentials"                                 │
+# │       APP_STORE_CONNECT_ISSUER_ID     (Issuer ID)                │
+# │       APP_STORE_CONNECT_KEY_IDENTIFIER (Key ID)                  │
+# │       APP_STORE_CONNECT_PRIVATE_KEY   (.p8 key dosyası içeriği)  │
+# │       APP_STORE_CERTIFICATE_KEY       (RSA private key)          │
+# │     Grup: "sentry" (opsiyonel)                                   │
+# │       SENTRY_AUTH_TOKEN                                          │
+# │  5. "Start new build" ile manuel build başlatabilirsiniz         │
+# │  6. Tag push (v*) ile otomatik build tetiklenir                  │
+# └──────────────────────────────────────────────────────────────────┘
 
 workflows:
   ios-release:
     name: iOS Release Build
     instance_type: mac_mini_m2
     max_build_duration: 60
+    cancel_previous_builds: true
     integrations:
       app_store_connect: Saber App Store Connect
     environment:
@@ -41,9 +47,15 @@ workflows:
     triggering:
       events:
         - tag
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
       tag_patterns:
         - pattern: "v*"
           include: true
+      cancel_previous_builds: true
     scripts:
       - name: Initialize Flutter from submodule
         script: |
