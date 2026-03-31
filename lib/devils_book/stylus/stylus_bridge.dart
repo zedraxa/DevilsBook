@@ -1,5 +1,4 @@
-/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
-/// 🤖 Generated wholely or partially with Claude Sonnet 4 ✨
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot; Claude Sonnet 4 ✨
 library;
 
 import 'dart:async';

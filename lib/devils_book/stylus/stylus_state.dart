@@ -1,5 +1,4 @@
-/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
-/// 🤖 Generated wholely or partially with Claude Sonnet 4 ✨
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot; Claude Sonnet 4 ✨
 library;
 
 import 'dart:async';
@@ -39,10 +38,11 @@ class StylusState extends ChangeNotifier {
   /// Starts listening to the native Apple Pencil event stream via [StylusBridge].
   void listenToNativePencilEvents(StylusBridge bridge) {
     _nativeSubscription?.cancel();
-    _nativeSubscription = bridge.events.listen(_onNativePencilEvent);
+    _nativeSubscription = bridge.events.listen(onNativePencilEvent);
   }
 
-  void _onNativePencilEvent(PencilEvent event) {
+  @visibleForTesting
+  void onNativePencilEvent(PencilEvent event) {
     switch (event.type) {
       case PencilEventType.barrelRoll:
         latestBarrelRoll = event.barrelRollAngle;
