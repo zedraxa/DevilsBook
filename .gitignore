@@ -64,7 +64,7 @@ coverage/
 
 # Agent debug artifacts
 analysis_output*.txt
-analyze_output.txt
+analyze_output*.txt
 analyzer_output.txt
 analysis_stage*.txt
 devils_book_files.txt

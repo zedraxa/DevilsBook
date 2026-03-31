@@ -1,13 +1,16 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'package:flutter/material.dart';
-import '../models/notebook_template.dart';
-import '../packs/builtin/notebook_packs.dart';
-import '../packs/builtin/mystic_notebooks.dart';
+import 'package:saber/devils_book/models/notebook_template.dart';
+import 'package:saber/devils_book/packs/builtin/notebook_packs.dart';
+import 'package:saber/devils_book/packs/builtin/mystic_notebooks.dart';
 
 /// A bottom sheet presenting notebook templates grouped by pack family.
 class NotebookTemplateSelectorSheet extends StatelessWidget {
   final ValueChanged<NotebookTemplate> onSelect;
 
-  const NotebookTemplateSelectorSheet({Key? key, required this.onSelect}) : super(key: key);
+  const NotebookTemplateSelectorSheet({super.key, required this.onSelect});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +68,7 @@ class NotebookTemplateSelectorSheet extends StatelessWidget {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: templates.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 14),
+            separatorBuilder: (_, _) => const SizedBox(width: 14),
             itemBuilder: (context, index) {
               final tmpl = templates[index];
               return GestureDetector(
@@ -77,7 +80,7 @@ class NotebookTemplateSelectorSheet extends StatelessWidget {
                   width: 110,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: tmpl.cover.accentColor.withOpacity(0.4)),
+                    border: Border.all(color: tmpl.cover.accentColor.withValues(alpha: 0.4)),
                   ),
                   child: Column(
                     children: [
@@ -127,7 +130,7 @@ class NotebookTemplateSelectorSheet extends StatelessWidget {
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
                         decoration: BoxDecoration(
-                          color: tmpl.cover.primaryColor.withOpacity(0.8),
+                          color: tmpl.cover.primaryColor.withValues(alpha: 0.8),
                           borderRadius: const BorderRadius.vertical(bottom: Radius.circular(11)),
                         ),
                         child: Text(

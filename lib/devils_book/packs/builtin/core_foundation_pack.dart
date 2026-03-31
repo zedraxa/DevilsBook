@@ -1,13 +1,16 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/material.dart';
+import 'package:saber/devils_book/models/effect_preset.dart';
+import 'package:saber/devils_book/models/ink_preset.dart';
+import 'package:saber/devils_book/models/loadout.dart';
+import 'package:saber/devils_book/models/theme_preset.dart';
+import 'package:saber/devils_book/models/writing_mode.dart';
+import 'package:saber/devils_book/packs/content_pack.dart';
+import 'package:saber/devils_book/packs/pack_category.dart';
+import 'package:saber/devils_book/packs/pack_manifest.dart';
 import 'package:sbn/canvas_background_pattern.dart';
-import '../../models/theme_preset.dart';
-import '../../models/ink_preset.dart';
-import '../../models/effect_preset.dart';
-import '../../models/writing_mode.dart';
-import '../../models/loadout.dart';
-import '../pack_manifest.dart';
-import '../pack_category.dart';
-import '../content_pack.dart';
 
 /// The first built-in content pack shipping with Devils Book.
 /// Contains the core identity presets that define the product out of the box.

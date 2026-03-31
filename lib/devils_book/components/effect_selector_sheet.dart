@@ -1,4 +1,4 @@
-/// 🤖 Generated wholly or partially with Claude Sonnet 4.5
+/// 🤖 Generated wholly or partially with Claude Sonnet 4.5; Claude Sonnet 4.6
 library;
 
 import 'package:flutter/material.dart';

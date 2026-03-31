@@ -1,15 +1,17 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/foundation.dart';
-import '../pack_registry.dart';
-import 'pack_validator.dart';
+import 'package:saber/devils_book/packs/community/pack_validator.dart';
 
 /// Handles the ingestion, validation, and installation of external Community Packs.
 /// Scaffolding for a local folder-watching or file-picker-driven architecture.
 class PackImporter extends ChangeNotifier {
-  static final PackImporter _instance = PackImporter._internal();
+  static final _instance = PackImporter._internal();
   factory PackImporter() => _instance;
   PackImporter._internal();
 
-  final PackManifestValidator _validator = PackManifestValidator();
+  final _validator = PackManifestValidator();
   final List<String> _importLog = [];
 
   List<String> get importLog => List.unmodifiable(_importLog);

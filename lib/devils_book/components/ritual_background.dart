@@ -1,5 +1,8 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'package:flutter/material.dart';
-import '../models/theme_preset.dart';
+import 'package:saber/devils_book/models/theme_preset.dart';
 
 class RitualBackground extends StatelessWidget {
   final ThemePreset theme;
@@ -37,7 +40,7 @@ class RitualBackground extends StatelessWidget {
                     child: Image.asset(
                       theme.texturePath!,
                       repeat: ImageRepeat.repeat,
-                      color: Colors.white.withOpacity(0.5 + (intensity * 0.5)),
+                      color: Colors.white.withValues(alpha: 0.5 + (intensity * 0.5)),
                       colorBlendMode: theme.textureBlendMode,
                     ),
                   )
@@ -51,9 +54,9 @@ class RitualBackground extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: RadialGradient(
                   colors: [
-                    Colors.black.withOpacity(0.0),
-                    Colors.black.withOpacity(theme.vignetteIntensity * 0.5),
-                    Colors.black.withOpacity(theme.vignetteIntensity),
+                    Colors.black.withValues(alpha: 0.0),
+                    Colors.black.withValues(alpha: theme.vignetteIntensity * 0.5),
+                    Colors.black.withValues(alpha: theme.vignetteIntensity),
                   ],
                   stops: const [0.4, 0.7, 1.0],
                   center: Alignment.center,

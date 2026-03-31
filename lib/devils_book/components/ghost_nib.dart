@@ -1,9 +1,13 @@
-import 'package:flutter/material.dart';
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'dart:math';
+
+import 'package:flutter/material.dart';
+import 'package:saber/devils_book/models/loadout_manager.dart';
+import 'package:saber/devils_book/models/writing_mode.dart';
 import 'package:saber/devils_book/sessions/session_controller.dart';
 import 'package:saber/devils_book/stylus/stylus_state.dart';
-import 'package:saber/devils_book/models/writing_mode.dart';
-import 'package:saber/devils_book/models/loadout_manager.dart';
 
 class GhostNib extends StatelessWidget {
   final StylusState stylusState;
@@ -11,11 +15,11 @@ class GhostNib extends StatelessWidget {
   final double baseThickness;
 
   const GhostNib({
-    Key? key,
+    super.key,
     required this.stylusState,
     required this.writingModeState,
     this.baseThickness = 4.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +47,8 @@ class GhostNib extends StatelessWidget {
         final intensity = sessionController.getSessionIntensity();
         
         // Dynamic color based on effect
-        final baseColor = effect.ignitionColor.withOpacity(0.4 + (0.4 * intensity));
-        final glowColor = effect.ignitionColor.withOpacity(0.3 * intensity);
+        final baseColor = effect.ignitionColor.withValues(alpha: 0.4 + (0.4 * intensity));
+        final glowColor = effect.ignitionColor.withValues(alpha: 0.3 * intensity);
 
         return Positioned(
           left: position.dx - (width / 2) - (10 * intensity),

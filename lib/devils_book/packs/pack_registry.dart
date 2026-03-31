@@ -1,11 +1,13 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/foundation.dart';
-import '../models/theme_preset.dart';
-import '../models/ink_preset.dart';
-import '../models/effect_preset.dart';
-import '../models/loadout.dart';
-import '../models/relic_element.dart';
-import 'content_pack.dart';
-import 'pack_manifest.dart';
+import 'package:saber/devils_book/models/effect_preset.dart';
+import 'package:saber/devils_book/models/ink_preset.dart';
+import 'package:saber/devils_book/models/loadout.dart';
+import 'package:saber/devils_book/models/relic_element.dart';
+import 'package:saber/devils_book/models/theme_preset.dart';
+import 'package:saber/devils_book/packs/content_pack.dart';
 
 /// Central orchestrator that discovers, loads, and merges content packs
 /// into the live application catalog.
@@ -14,7 +16,7 @@ import 'pack_manifest.dart';
 /// queries. DevilsCatalog's static maps seed the registry on first boot;
 /// packs then layer additional content on top.
 class PackRegistry extends ChangeNotifier {
-  static final PackRegistry _instance = PackRegistry._internal();
+  static final _instance = PackRegistry._internal();
   factory PackRegistry() => _instance;
   PackRegistry._internal();
 

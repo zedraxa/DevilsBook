@@ -1,16 +1,19 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4; GitHub Copilot
+library;
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'replay_models.dart';
+import 'package:saber/devils_book/replay/replay_models.dart';
 
 /// Controls the real-time or accelerated playback of a ReplayTimeline.
 class PlaybackController extends ChangeNotifier {
   final ReplayTimeline timeline;
 
   Ticker? _ticker;
-  Duration _elapsed = Duration.zero;
+  var _elapsed = Duration.zero;
 
-  bool _isPlaying = false;
-  double _playbackSpeed = 1.0;
+  var _isPlaying = false;
+  var _playbackSpeed = 1.0;
 
   bool get isPlaying => _isPlaying;
   int get currentMs => _elapsed.inMilliseconds;

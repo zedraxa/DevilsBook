@@ -1,6 +1,9 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; code quality improvements
+library;
+
 import 'package:flutter/material.dart';
-import '../models/ink_preset.dart';
-import '../packs/pack_registry.dart';
+import 'package:saber/devils_book/models/ink_preset.dart';
+import 'package:saber/devils_book/packs/pack_registry.dart';
 
 /// A bottom sheet presenting inks grouped by their pack family.
 class InkSelectorSheet extends StatelessWidget {
@@ -8,10 +11,10 @@ class InkSelectorSheet extends StatelessWidget {
   final ValueChanged<InkPreset> onSelect;
 
   const InkSelectorSheet({
-    Key? key,
+    super.key,
     required this.currentInk,
     required this.onSelect,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -86,11 +89,11 @@ class InkSelectorSheet extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? ink.baseColor.withOpacity(0.15)
+                      ? ink.baseColor.withValues(alpha: 0.15)
                       : Colors.transparent,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
-                    color: isSelected ? ink.baseColor : Colors.grey.withOpacity(0.2),
+                    color: isSelected ? ink.baseColor : Colors.grey.withValues(alpha: 0.2),
                     width: isSelected ? 2 : 1,
                   ),
                 ),
@@ -107,7 +110,7 @@ class InkSelectorSheet extends StatelessWidget {
                           stops: const [0.0, 0.5, 1.0],
                         ),
                         boxShadow: isSelected
-                            ? [BoxShadow(color: ink.baseColor.withOpacity(0.4), blurRadius: 6)]
+                            ? [BoxShadow(color: ink.baseColor.withValues(alpha: 0.4), blurRadius: 6)]
                             : null,
                       ),
                     ),
