@@ -7,6 +7,7 @@ import 'package:saber/data/tools/pen.dart';
 import 'package:saber/devils_book/ambience/ambience_registry.dart';
 import 'package:saber/devils_book/ambience/ambient_audio_controller.dart';
 import 'package:saber/devils_book/models/effect_preset.dart';
+import 'package:saber/devils_book/models/ink_preset.dart';
 import 'package:saber/devils_book/models/loadout.dart';
 import 'package:saber/devils_book/models/relic_element.dart';
 import 'package:saber/devils_book/models/theme_preset.dart';
@@ -22,14 +23,19 @@ class LoadoutManager extends ChangeNotifier {
   late Loadout _currentLoadout;
   EffectPreset? _customEffect;
   ThemePreset? _customTheme;
+  InkPreset? _customInk;
   RelicElement? _customRelic;
   var _isSessionOverride = false;
 
   Loadout get currentLoadout => _currentLoadout;
   EffectPreset? get customEffect => _customEffect;
   ThemePreset? get customTheme => _customTheme;
+  InkPreset? get customInk => _customInk;
   RelicElement? get customRelic => _customRelic;
   bool get isSessionOverride => _isSessionOverride;
+
+  /// The effective ink, considering custom overrides.
+  InkPreset get activeInk => _customInk ?? _currentLoadout.ink;
 
   void _loadFromPrefs() {
     final id = stows.activeLoadoutId.value;
@@ -43,6 +49,11 @@ class LoadoutManager extends ChangeNotifier {
     final themeId = stows.activeThemeId.value;
     if (themeId.isNotEmpty) {
       _customTheme = DevilsCatalog.themes[themeId];
+    }
+
+    final inkId = stows.activeInkId.value;
+    if (inkId.isNotEmpty) {
+      _customInk = DevilsCatalog.inks[inkId];
     }
 
     final relicId = stows.activeRelicId.value;
@@ -71,11 +82,13 @@ class LoadoutManager extends ChangeNotifier {
       _currentLoadout = loadout;
       _customEffect = null; 
       _customTheme = null;
+      _customInk = null;
       _customRelic = null;
       if (persist) {
         stows.activeLoadoutId.value = loadout.id;
         stows.activeEffectId.value = ''; 
         stows.activeThemeId.value = '';
+        stows.activeInkId.value = '';
         stows.activeRelicId.value = '';
         _isSessionOverride = false;
       } else {
@@ -107,6 +120,16 @@ class LoadoutManager extends ChangeNotifier {
     }
   }
 
+  void setCustomInk(InkPreset ink, {bool persist = true}) {
+    if (_customInk?.id != ink.id) {
+      _customInk = ink;
+      if (persist) {
+        stows.activeInkId.value = ink.id;
+      }
+      notifyListeners();
+    }
+  }
+
   void setCustomRelic(RelicElement relic, {bool persist = true}) {
     if (_customRelic?.id != relic.id) {
       _customRelic = relic;
@@ -119,7 +142,8 @@ class LoadoutManager extends ChangeNotifier {
 
   /// Applies the current loadout's ink and size directly to the provided [pen].
   void applyToPen(Pen pen) {
-    pen.color = currentLoadout.ink.baseColor;
-    pen.options = pen.options.copyWith(size: currentLoadout.ink.defaultThickness);
+    final ink = activeInk;
+    pen.color = ink.baseColor;
+    pen.options = pen.options.copyWith(size: ink.defaultThickness);
   }
 }

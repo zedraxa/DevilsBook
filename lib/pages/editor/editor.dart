@@ -200,7 +200,7 @@ class EditorState extends State<Editor> {
     }
     
     if (currentTool is Pen) {
-      (currentTool as Pen).color = activeLoadout.ink.baseColor;
+      loadoutManager.applyToPen(currentTool as Pen);
     }
     
     filenameTextEditingController.text = 'VOICE OF THE VOID';
@@ -213,6 +213,11 @@ class EditorState extends State<Editor> {
     
     final effect = loadoutManager.customEffect ?? loadoutManager.currentLoadout.effect;
     fxEngine.setPreset(effect);
+
+    if (currentTool is Pen) {
+      loadoutManager.applyToPen(currentTool as Pen);
+    }
+
     setState(() {});
   }
 
@@ -379,9 +384,14 @@ class EditorState extends State<Editor> {
   Future<void> saveToFile() async {
     if (coreInfo.readOnly || savingState.value == SavingState.saving) return;
     savingState.value = SavingState.saving;
-    await _renameFileNow();
-    savingState.value = SavingState.saved;
-    history.markLastChangeAsSaved();
+    try {
+      await _renameFileNow();
+      savingState.value = SavingState.saved;
+      history.markLastChangeAsSaved();
+    } catch (e) {
+      savingState.value = SavingState.waitingToSave;
+      log.severe('Failed to save file', e);
+    }
   }
 
   final filenameTextEditingController = TextEditingController();
@@ -477,12 +487,12 @@ class EditorState extends State<Editor> {
                       currentModeName: writingModeState.currentMode.name,
                       onCycleMode: () => writingModeState.cycleMode(),
                       onSelectPen: () => setState(() => stows.lastTool.value = ToolId.fountainPen),
-                      onSelectInk: () => showModalBottomSheet(context: context, backgroundColor: Colors.transparent, builder: (c) => InkSelectorSheet(currentInk: loadout.ink, onSelect: (ink) { setState(() { if (currentTool is Pen) (currentTool as Pen).color = ink.baseColor; }); })),
+                      onSelectInk: () => showModalBottomSheet(context: context, backgroundColor: Colors.transparent, builder: (c) => InkSelectorSheet(currentInk: loadoutManager.activeInk, onSelect: (ink) { loadoutManager.setCustomInk(ink); setState(() { if (currentTool is Pen) loadoutManager.applyToPen(currentTool as Pen); }); })),
                       onSelectRelic: () async {
                         final relic = await showModalBottomSheet<RelicElement>(context: context, backgroundColor: Colors.transparent, builder: (c) => const RelicSelectorSheet());
                         if (relic != null) loadoutManager.setCustomRelic(relic);
                       },
-                      onSelectEffect: () => showModalBottomSheet(context: context, backgroundColor: Colors.transparent, builder: (c) => EffectSelectorSheet(currentEffect: fxEngine.activePreset!, onSelect: (effect) => loadoutManager.setCustomEffect(effect))),
+                      onSelectEffect: () => showModalBottomSheet(context: context, backgroundColor: Colors.transparent, builder: (c) => EffectSelectorSheet(currentEffect: fxEngine.activePreset ?? loadoutManager.currentLoadout.effect, onSelect: (effect) => loadoutManager.setCustomEffect(effect))),
                       onSelectTheme: () => showModalBottomSheet(context: context, backgroundColor: Colors.transparent, builder: (c) => ThemeSelectorSheet(currentTheme: loadoutManager.customTheme ?? loadoutManager.currentLoadout.theme, onSelect: (theme) => loadoutManager.setCustomTheme(theme))),
                       onSelectTemplate: _openPaperSelector,
                       onLongPressPen: () => showModalBottomSheet(
