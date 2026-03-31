@@ -1,4 +1,4 @@
-/// 🤖 Generated wholly or partially with Claude Sonnet 4; GitHub Copilot; Claude Sonnet 4.6
+/// 🤖 Generated wholly or partially with Claude Sonnet 4; GitHub Copilot; Claude Sonnet 4.6; Claude Code (claude-sonnet-4-5-20250929)
 library;
 
 import 'package:flutter/material.dart';
@@ -287,6 +287,86 @@ class DevilsCatalog {
     textureOpacity: 0.2,
     textureBlendMode: BlendMode.softLight,
     packId: 'pack_themes_circles_of_hell',
+  );
+
+  // NEW THEMES - User Requested
+  static final themeCrimsonRed = ThemePreset(
+    id: 'theme_crimson_red',
+    name: 'Crimson Red',
+    backgroundColor: const Color(0xFF8B0000),
+    secondaryColor: const Color(0xFFDC143C),
+    pattern: CanvasBackgroundPattern.none,
+    lineColor: const Color(0x33FFFFFF),
+    accentGlow: const Color(0xFFFF0000),
+    surfaceColor: const Color(0xFFA00000),
+    vignetteIntensity: 0.4,
+    grainIntensity: 0.08,
+    backgroundGradient: [const Color(0xFFB22222), const Color(0xFF8B0000)],
+    customAuraColor: const Color(0xFFDC143C),
+    packId: 'pack_notebooks_mystic',
+  );
+
+  static final themeOldDesk = ThemePreset(
+    id: 'theme_old_desk',
+    name: 'Old Desk',
+    backgroundColor: const Color(0xFFDEB887),
+    secondaryColor: const Color(0xFFD2B48C),
+    pattern: CanvasBackgroundPattern.lined,
+    lineColor: const Color(0x558B4513),
+    accentGlow: const Color(0xFF8B4513),
+    surfaceColor: const Color(0xFFCD853F),
+    vignetteIntensity: 0.3,
+    grainIntensity: 0.25,
+    backgroundGradient: [const Color(0xFFF5DEB3), const Color(0xFFDEB887)],
+    packId: 'pack_notebooks_mystic',
+  );
+
+  static final themePoison = ThemePreset(
+    id: 'theme_poison',
+    name: 'Poison',
+    backgroundColor: const Color(0xFF0A1A0A),
+    secondaryColor: const Color(0xFF1A3A1A),
+    pattern: CanvasBackgroundPattern.dots,
+    lineColor: const Color(0x4400FF00),
+    accentGlow: const Color(0xFF00FF00),
+    surfaceColor: const Color(0xFF0D2A0D),
+    vignetteIntensity: 0.65,
+    grainIntensity: 0.1,
+    backgroundGradient: [const Color(0xFF0F2F0F), const Color(0xFF050F05)],
+    customAuraColor: const Color(0xFF39FF14),
+    packId: 'pack_notebooks_mystic',
+  );
+
+  static final themePurpleKill = ThemePreset(
+    id: 'theme_purple_kill',
+    name: 'Purple Kill',
+    backgroundColor: const Color(0xFF1A0A1A),
+    secondaryColor: const Color(0xFF2A0A2A),
+    pattern: CanvasBackgroundPattern.grid,
+    lineColor: const Color(0x44AA00FF),
+    accentGlow: const Color(0xFF9400D3),
+    surfaceColor: const Color(0xFF1F0F1F),
+    vignetteIntensity: 0.7,
+    grainIntensity: 0.12,
+    backgroundGradient: [const Color(0xFF2A0A2A), const Color(0xFF0A000A)],
+    customAuraColor: const Color(0xFF8A2BE2),
+    packId: 'pack_notebooks_mystic',
+  );
+
+  static final themeHolyWhite = ThemePreset(
+    id: 'theme_holy_white',
+    name: 'Holy White',
+    backgroundColor: const Color(0xFFFFFFF0),
+    secondaryColor: const Color(0xFFFFFAFA),
+    pattern: CanvasBackgroundPattern.none,
+    lineColor: const Color(0x22D4AF37),
+    accentGlow: const Color(0xFFFFD700),
+    surfaceColor: const Color(0xFFFFFAF0),
+    vignetteIntensity: 0.15,
+    grainIntensity: 0.02,
+    backgroundGradient: [const Color(0xFFFFFFFF), const Color(0xFFFFFFF0)],
+    customAuraColor: const Color(0xFFFFFFFF),
+    packId: 'pack_notebooks_mystic',
   );
 
   // INKS
@@ -733,6 +813,11 @@ class DevilsCatalog {
     themeAncientVellum.id: themeAncientVellum,
     themeObsidianDeep.id: themeObsidianDeep,
     themeGitTerminal.id: themeGitTerminal,
+    themeCrimsonRed.id: themeCrimsonRed,
+    themeOldDesk.id: themeOldDesk,
+    themePoison.id: themePoison,
+    themePurpleKill.id: themePurpleKill,
+    themeHolyWhite.id: themeHolyWhite,
   };
 
   static final inks = {
