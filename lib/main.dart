@@ -1,3 +1,4 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; Ynotes rebrand ✨
 import 'dart:async';
 import 'dart:io';
 
@@ -357,7 +358,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return DynamicMaterialApp(title: 'Devils Book', router: App._router);
+    return DynamicMaterialApp(title: 'Ynotes', router: App._router);
   }
 
   @override
