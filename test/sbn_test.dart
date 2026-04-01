@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; GitHub Copilot ✨
+library;
+
 import 'dart:async';
 import 'dart:io';
 
