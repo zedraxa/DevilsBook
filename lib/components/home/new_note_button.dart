@@ -6,6 +6,8 @@ import 'package:saber/components/navbar/horizontal_navbar.dart';
 import 'package:saber/components/theming/saber_theme.dart';
 import 'package:saber/data/file_manager/file_manager.dart';
 import 'package:saber/data/routes.dart';
+import 'package:saber/devils_book/components/notebook_template_selector_sheet.dart';
+import 'package:saber/devils_book/models/notebook_template.dart';
 import 'package:saber/i18n/strings.g.dart';
 import 'package:saber/pages/editor/editor.dart';
 
@@ -21,6 +23,24 @@ class NewNoteButton extends StatefulWidget {
 
 class _NewNoteButtonState extends State<NewNoteButton> {
   final ValueNotifier<bool> isDialOpen = ValueNotifier(false);
+
+  void _openTemplateSelector(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (c) => NotebookTemplateSelectorSheet(
+        onSelect: (NotebookTemplate template) async {
+          Navigator.pop(c);
+          final newFilePath = await FileManager.newFilePath(
+            '${widget.path ?? ''}/',
+          );
+          if (!context.mounted) return;
+          context.push(RoutePaths.editFilePath(newFilePath));
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +63,10 @@ class _NewNoteButtonState extends State<NewNoteButton> {
           decoration: BoxDecoration(
             color: const Color(0xFF0A0A0A), // Obsidian
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: const Color(0xFFD4AF37), width: 2.0), // Gold
+            border: Border.all(
+              color: const Color(0xFFD4AF37),
+              width: 2.0,
+            ), // Gold
             boxShadow: [
               BoxShadow(
                 color: const Color(0xFFFF2200).withOpacity(0.3), // Scarlet Glow
@@ -55,7 +78,11 @@ class _NewNoteButtonState extends State<NewNoteButton> {
           child: IconButton(
             onPressed: toggleChildren,
             tooltip: 'COMMENCE RITUAL',
-            icon: const Icon(Icons.auto_awesome_outlined, color: Color(0xFFD4AF37), size: 32),
+            icon: const Icon(
+              Icons.auto_awesome_outlined,
+              color: Color(0xFFD4AF37),
+              size: 32,
+            ),
           ),
         );
       },
@@ -65,8 +92,19 @@ class _NewNoteButtonState extends State<NewNoteButton> {
           backgroundColor: const Color(0xFF1A1A1A),
           labelWidget: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(color: const Color(0xFF0A0A0A), border: Border.all(color: const Color(0xFFD4AF37))),
-            child: const Text('OPEN NEW VOLUME', style: TextStyle(color: Color(0xFFD4AF37), fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.0)),
+            decoration: BoxDecoration(
+              color: const Color(0xFF0A0A0A),
+              border: Border.all(color: const Color(0xFFD4AF37)),
+            ),
+            child: const Text(
+              'OPEN NEW VOLUME',
+              style: TextStyle(
+                color: Color(0xFFD4AF37),
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.0,
+              ),
+            ),
           ),
           onTap: () async {
             if (widget.path == null) {
@@ -81,12 +119,47 @@ class _NewNoteButtonState extends State<NewNoteButton> {
           },
         ),
         SpeedDialChild(
-          child: const Icon(Icons.auto_stories_outlined, color: Color(0xFFD4AF37)),
+          child: const Icon(Icons.style_outlined, color: Color(0xFFD4AF37)),
           backgroundColor: const Color(0xFF1A1A1A),
           labelWidget: Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            decoration: BoxDecoration(color: const Color(0xFF0A0A0A), border: Border.all(color: const Color(0xFFD4AF37))),
-            child: const Text('INCORPORATE KNOWLEDGE', style: TextStyle(color: Color(0xFFD4AF37), fontSize: 10, fontWeight: FontWeight.bold, letterSpacing: 1.0)),
+            decoration: BoxDecoration(
+              color: const Color(0xFF0A0A0A),
+              border: Border.all(color: const Color(0xFFD4AF37)),
+            ),
+            child: const Text(
+              'CHOOSE COVER',
+              style: TextStyle(
+                color: Color(0xFFD4AF37),
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.0,
+              ),
+            ),
+          ),
+          onTap: () => _openTemplateSelector(context),
+        ),
+        SpeedDialChild(
+          child: const Icon(
+            Icons.auto_stories_outlined,
+            color: Color(0xFFD4AF37),
+          ),
+          backgroundColor: const Color(0xFF1A1A1A),
+          labelWidget: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            decoration: BoxDecoration(
+              color: const Color(0xFF0A0A0A),
+              border: Border.all(color: const Color(0xFFD4AF37)),
+            ),
+            child: const Text(
+              'INCORPORATE KNOWLEDGE',
+              style: TextStyle(
+                color: Color(0xFFD4AF37),
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.0,
+              ),
+            ),
           ),
           onTap: () async {
             final result = await FilePicker.platform.pickFiles(
