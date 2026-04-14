@@ -1,0 +1,147 @@
+# 🤖 Generated wholely or partially with Claude Sonnet 4 ✨
+#
+# Codemagic CI/CD — iOS release build configuration.
+# https://docs.codemagic.io/yaml-basic-structure/yaml-getting-started/
+#
+# ┌──────────────────────────────────────────────────────────────────┐
+# │  CODEMAGIC WEB UI KURULUM ADIMLARI                              │
+# │                                                                  │
+# │  1. https://codemagic.io adresinden giriş yapın                  │
+# │  2. "Add application" ile bu GitHub reposunu bağlayın            │
+# │  3. Settings > Team integrations > App Store Connect:            │
+# │     - Integration adı: "Saber App Store Connect"                 │
+# │     - Issuer ID, Key ID ve .p8 API key dosyasını girin           │
+# │  4. Settings > Environment variables > Grup oluşturun:           │
+# │     Grup: "appstore_credentials"                                 │
+# │       APP_STORE_CONNECT_ISSUER_ID     (Issuer ID)                │
+# │       APP_STORE_CONNECT_KEY_IDENTIFIER (Key ID)                  │
+# │       APP_STORE_CONNECT_PRIVATE_KEY   (.p8 key dosyası içeriği)  │
+# │       APP_STORE_CERTIFICATE_KEY       (RSA private key)          │
+# │     Grup: "sentry" (opsiyonel)                                   │
+# │       SENTRY_AUTH_TOKEN                                          │
+# │  5. "Start new build" ile manuel build başlatabilirsiniz         │
+# │  6. Tag push (v*) ile otomatik build tetiklenir                  │
+# └──────────────────────────────────────────────────────────────────┘
+
+workflows:
+  ios-release:
+    name: iOS Release Build
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    cancel_previous_builds: true
+    integrations:
+      app_store_connect: Saber App Store Connect
+    environment:
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: devilsbook
+      groups:
+        - appstore_credentials
+        - sentry
+      vars:
+        BUNDLE_ID: devilsbook
+        XCODE_WORKSPACE: ios/Runner.xcworkspace
+        XCODE_SCHEME: Runner
+      xcode: latest
+      cocoapods: default
+    triggering:
+      events:
+        - tag
+        - push
+      branch_patterns:
+        - pattern: c
+          include: true
+          source: true
+      tag_patterns:
+        - pattern: "v*"
+          include: true
+      cancel_previous_builds: true
+    scripts:
+      - name: Initialize Flutter from submodule
+        script: |
+          git submodule update --init --recursive
+          FLUTTER_ROOT="$CM_BUILD_DIR/submodules/flutter"
+          echo "FLUTTER_ROOT=$FLUTTER_ROOT" >> $CM_ENV
+          echo "PATH=$FLUTTER_ROOT/bin:$PATH" >> $CM_ENV
+
+      - name: Verify Flutter installation
+        script: |
+          flutter --version
+          flutter doctor -v
+
+      - name: Set up code signing
+        script: |
+          keychain initialize
+
+          app-store-connect fetch-signing-files "$BUNDLE_ID" \
+            --platform IOS \
+            --type IOS_APP_STORE \
+            --create
+
+          keychain add-certificates
+
+          xcode-project use-profiles --project ios/*.xcodeproj
+
+      - name: Run pre-build patches
+        script: |
+          chmod +x ./patches/pre/*.sh
+          ./patches/pre/remove_dev_dependencies.sh
+          ./patches/pre/remove_linux_dependencies.sh
+
+      - name: Install dependencies
+        script: |
+          flutter pub get
+
+      - name: Run post-build patches
+        script: |
+          chmod +x ./patches/post/*.sh
+          ./patches/post/patch_rust_versions.sh
+          ./patches/post/remove_wasm_libs.sh
+
+      - name: Install CocoaPods
+        script: |
+          cd ios && pod install
+
+      - name: Build iOS IPA
+        script: |
+          flutter build ipa \
+            --release \
+            --dart-define=FLAVOR="App Store" \
+            --dart-define=APP_STORE="App Store" \
+            --dart-define=UPDATE_CHECK="false" \
+            --export-options-plist=/Users/builder/export_options.plist
+
+      - name: Rename IPA artifact
+        script: |
+          BUILD_NAME=$(sed -n "s/.*buildName = '\(.*\)'.*/\1/p" lib/data/version.dart)
+          export IPA_PATH="Saber_v${BUILD_NAME}.ipa"
+          mv $(find $(pwd) -name "*.ipa") "$IPA_PATH"
+          echo "IPA_PATH=$IPA_PATH" >> $CM_ENV
+
+      - name: Upload debug symbols to Sentry
+        script: |
+          if [ -n "$SENTRY_AUTH_TOKEN" ]; then
+            brew install getsentry/tools/sentry-cli
+            export SENTRY_ORG=saber-yf
+            export SENTRY_PROJECT=saber
+            sentry-cli debug-files upload --include-sources build/ios/
+          else
+            echo "Skipping Sentry upload: SENTRY_AUTH_TOKEN not set"
+          fi
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - build/ios/**/*.dSYM
+
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+        submit_to_app_store: false
+      email:
+        recipients:
+          - adilhanney@gmail.com
+        notify:
+          success: true
+          failure: true
