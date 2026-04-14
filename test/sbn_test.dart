@@ -19,6 +19,7 @@ import 'package:saber/data/file_manager/file_manager.dart';
 import 'package:saber/data/flavor_config.dart';
 import 'package:saber/data/tools/laser_pointer.dart';
 import 'package:saber/data/tools/stroke_properties.dart';
+import 'package:saber/devils_book/models/writing_mode.dart';
 import 'package:saber/i18n/strings.g.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -358,6 +359,10 @@ Widget _buildCanvas({
                 setAsBackground: null,
                 currentTool: LaserPointer.currentLaserPointer,
                 currentScale: currentScale,
+                // Use WritingMode.clean for golden tests to disable all effects
+                // (particles, textures, animations) and ensure stable rendering.
+                // WritingMode.ritual enables effects that change pixel output.
+                writingMode: WritingMode.clean,
               ),
             ),
           ),

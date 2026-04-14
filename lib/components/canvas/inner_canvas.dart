@@ -1,3 +1,6 @@
+/// 🤖 Generated wholely or partially with Claude Sonnet 4.5; GitHub Copilot ✨
+library;
+
 import 'package:defer_pointer/defer_pointer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
@@ -10,6 +13,7 @@ import 'package:saber/components/canvas/image/editor_image.dart';
 import 'package:saber/data/editor/editor_core_info.dart';
 import 'package:saber/data/prefs.dart';
 import 'package:saber/data/tools/select.dart';
+import 'package:saber/devils_book/models/writing_mode.dart';
 import 'package:saber/i18n/strings.g.dart';
 import 'package:sbn/canvas_background_pattern.dart';
 import 'package:sbn/quill_styles.dart';
@@ -31,6 +35,7 @@ class InnerCanvas extends StatefulWidget {
     this.onRenderObjectChange,
     required this.currentToolIsSelect,
     required this.currentScale,
+    this.writingMode = WritingMode.clean,
   });
 
   final int pageIndex;
@@ -49,6 +54,12 @@ class InnerCanvas extends StatefulWidget {
   final bool currentToolIsSelect;
 
   final double currentScale;
+
+  /// The writing mode to use for rendering effects.
+  ///
+  /// Defaults to [WritingMode.clean] which disables all effects, ensuring
+  /// stable and deterministic rendering output (suitable for tests).
+  final WritingMode writingMode;
 
   static const defaultBackgroundColor = Color(0xFFFCFCFC);
 
